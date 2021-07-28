@@ -1,0 +1,26 @@
+name: groveman
+
+packages:
+  - packages/**
+
+scripts:
+  format:package:
+    description: "Run `dart format` in a specific package."
+    run: melos exec -- dart format .
+    select-package:
+      scope: "groveman*"
+
+  analyze:package:
+    description: "Run `dart analyze` in a specific package."
+    run: melos exec -- dart analyze .
+    select-package:
+      scope: "groveman*"
+
+  pane:package:
+    description: "Pub score for a specific package."
+    run: melos exec -c 1 -- pana . --no-warning
+    select-package:
+      scope: "groveman*"
+
+dev_dependencies:
+  lint: ^1.5.3
