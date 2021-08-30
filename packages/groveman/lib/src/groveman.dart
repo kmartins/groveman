@@ -49,7 +49,7 @@ class _Groveman {
   void debug(
     String message, {
     String? tag,
-    Map<String, Object>? json,
+    Map<String, dynamic>? json,
     Object? error,
     StackTrace? stackTrace,
   }) =>
@@ -58,7 +58,7 @@ class _Groveman {
   void info(
     String message, {
     String? tag,
-    Map<String, Object>? json,
+    Map<String, dynamic>? json,
     Object? error,
     StackTrace? stackTrace,
   }) =>
@@ -67,7 +67,7 @@ class _Groveman {
   void warning(
     String message, {
     String? tag,
-    Map<String, Object>? json,
+    Map<String, dynamic>? json,
     Object? error,
     StackTrace? stackTrace,
   }) =>
@@ -76,7 +76,7 @@ class _Groveman {
   void error(
     String message, {
     String? tag,
-    Map<String, Object>? json,
+    Map<String, dynamic>? json,
     Object? error,
     StackTrace? stackTrace,
   }) =>
@@ -85,7 +85,7 @@ class _Groveman {
   void fatal(
     String message, {
     String? tag,
-    Map<String, Object>? json,
+    Map<String, dynamic>? json,
     Object? error,
     StackTrace? stackTrace,
   }) =>
@@ -95,7 +95,7 @@ class _Groveman {
     LogLevel logLevel,
     String? tag,
     String message,
-    Map<String, Object>? json,
+    Map<String, dynamic>? json,
     Object? error,
     StackTrace? stackTrace,
   ) {

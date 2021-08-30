@@ -7,7 +7,7 @@ class LogRecord {
   final LogLevel level;
   final String message;
   final String tag;
-  final Map<String, Object>? json;
+  final Map<String, dynamic>? json;
   final Object? error;
   final StackTrace? stackTrace;
 

@@ -129,7 +129,7 @@ class DebugTree extends Tree {
     AnsiColor color,
     String message,
     String tag,
-    Map<String, Object>? json,
+    Map<String, dynamic>? json,
     String? error,
     String? stackTrace,
   ) {

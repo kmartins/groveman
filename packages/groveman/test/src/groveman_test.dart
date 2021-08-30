@@ -21,7 +21,7 @@ class AssertTree extends Tree {
   String? message;
   String? tag;
   LogLevel? level;
-  Map<String, Object>? json;
+  Map<String, dynamic>? json;
   Object? error;
   StackTrace? stackTrace;
 
