@@ -1,5 +1,6 @@
 # Groveman
 
+<a href="https://pub.dev/packages/groveman"><img src="https://img.shields.io/pub/v/groveman.svg" alt="Pub"></a>
 [![License: MIT][license_badge]][license_link]
 [![groveman](https://github.com/kmartins/groveman/actions/workflows/groveman.yaml/badge.svg)](https://github.com/kmartins/groveman/actions/workflows/groveman.yaml)
 [![codecov](https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?token=9OHL7Q2V5A)](https://codecov.io/gh/kmartins/groveman)
@@ -35,7 +36,7 @@ Add it in your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  groveman:
+  groveman: any
 ```
 
 Import it where you want to use it e.g, in your main file.
@@ -100,7 +101,7 @@ Error
 StackTrace
 ```
 
-![output](assets/output.png)
+![output](https://raw.githubusercontent.com/kmartins/groveman/master/assets/output.png)
 
 The json will be showed formatted.
 
