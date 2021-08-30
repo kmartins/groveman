@@ -1,3 +1,9 @@
+## 1.0.1
+
+ - **FIX**: use dynamic in json instead of object (#3).
+ - **BUILD**: update packages (#2).
+ - **DOCS**: update README.md (#1).
+
 # 1.0.0
 
 Initial Version of the library.
