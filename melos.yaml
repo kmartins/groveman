@@ -23,4 +23,4 @@ scripts:
       scope: "groveman*"
 
 dev_dependencies:
-  lint: ^1.5.3
+  lint: ^1.6.0
