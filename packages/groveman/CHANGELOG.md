@@ -1,3 +1,7 @@
+## 1.0.2
+
+ - **FIX**: export Log Level and Log Record (#5).
+
 ## 1.0.1
 
  - **FIX**: use dynamic in json instead of object (#3).
