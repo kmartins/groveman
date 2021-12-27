@@ -21,6 +21,3 @@ scripts:
     run: melos exec -c 1 -- pana . --no-warning
     select-package:
       scope: "groveman*"
-
-dev_dependencies:
-  lint: ^1.6.0
