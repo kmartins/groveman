@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:groveman/groveman.dart';
-import 'package:groveman/src/log_level.dart';
-import 'package:groveman/src/log_record.dart';
 import 'package:groveman/src/util/stack_trace_util.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -32,7 +30,9 @@ void main() {
         'then the result is an assert error', () {
       expect(() => DebugTree(methodCount: 0), throwsA(isA<AssertionError>()));
       expect(
-          () => DebugTree(errorMethodCount: 0), throwsA(isA<AssertionError>()));
+        () => DebugTree(errorMethodCount: 0),
+        throwsA(isA<AssertionError>()),
+      );
     });
 
     test(
@@ -66,8 +66,10 @@ void main() {
       final debugTree = DebugTree(showTag: false, showColor: true);
       const logRecord =
           LogRecord(level: LogLevel.error, message: message, tag: tag);
-      expect(debugTree.formattedLogMessage(logRecord),
-          '\x1B[38;5;${196}m$message');
+      expect(
+        debugTree.formattedLogMessage(logRecord),
+        '\x1B[38;5;${196}m$message',
+      );
     });
 
     test(
@@ -106,8 +108,10 @@ void main() {
         tag: tag,
         stackTrace: stackTrace,
       );
-      expect(debugTree.formattedLogMessage(logRecord),
-          '[$tag]: $message\n$stackTraceMessage');
+      expect(
+        debugTree.formattedLogMessage(logRecord),
+        '[$tag]: $message\n$stackTraceMessage',
+      );
     });
 
     test(
@@ -130,8 +134,11 @@ void main() {
         error: error,
         stackTrace: stackTrace,
       );
-      expect(debugTree.formattedLogMessage(logRecord),
-          '[$tag]: $message\n${encoder.convert(json)}\n$error\n$stackTraceMessage');
+      expect(
+        debugTree.formattedLogMessage(logRecord),
+        '[$tag]: $message\n${encoder.convert(json)}'
+        '\n$error\n$stackTraceMessage',
+      );
     });
 
     test(
@@ -154,14 +161,17 @@ void main() {
         error: error,
         stackTrace: stackTrace,
       );
-      expect(debugTree.formattedLogMessage(logRecord),
-          '[$tag]: $message\n${encoder.convert(json)}\n$error\n$stackTraceMessage');
+      expect(
+        debugTree.formattedLogMessage(logRecord),
+        '[$tag]: $message\n${encoder.convert(json)}'
+        '\n$error\n$stackTraceMessage',
+      );
     });
 
     test(
         'given that the log is a debug and '
-        'has tag, message and the method count is bigger than stack trace lines '
-        'when the log message is formatted, '
+        'has tag, message and the method count is  '
+        'bigger than stack trace lines when the log message is formatted, '
         'then the result is [tag]: message json error stackTrace(entire)', () {
       final debugTree = DebugTree(methodCount: 100);
       final stackTrace = StackTrace.current;
@@ -174,8 +184,10 @@ void main() {
         tag: tag,
         stackTrace: stackTrace,
       );
-      expect(debugTree.formattedLogMessage(logRecord),
-          '[$tag]: $message\n$stackTraceMessage');
+      expect(
+        debugTree.formattedLogMessage(logRecord),
+        '[$tag]: $message\n$stackTraceMessage',
+      );
     });
 
     test(
@@ -190,9 +202,10 @@ void main() {
       when(() => mockDebugTree.log(logRecord)).thenReturn(null);
       Groveman.debug(message, tag: tag);
       final captured = verify(() => mockDebugTree.log(captureAny())).captured;
-      expect(captured.last.message, message);
-      expect(captured.last.level, LogLevel.debug);
-      expect(captured.last.tag, tag);
+      final logRecordCaptured = captured.last as LogRecord;
+      expect(logRecordCaptured.message, message);
+      expect(logRecordCaptured.level, LogLevel.debug);
+      expect(logRecordCaptured.tag, tag);
     });
   });
 }

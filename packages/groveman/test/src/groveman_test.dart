@@ -1,6 +1,4 @@
 import 'package:groveman/groveman.dart';
-import 'package:groveman/src/log_level.dart';
-import 'package:groveman/src/log_record.dart';
 import 'package:test/test.dart';
 
 void callDebug() {
@@ -269,7 +267,11 @@ void main() {
       Groveman.captureErrorInCurrentIsolate();
 
       Groveman.handleIsolateError(
-          LogLevel.fatal, 'Isolate', 'Uncaught exception', error);
+        LogLevel.fatal,
+        'Isolate',
+        'Uncaught exception',
+        error,
+      );
       expect(assertTree.level, LogLevel.fatal);
       expect(assertTree.tag, 'Isolate');
       expect(assertTree.message, 'Uncaught exception');

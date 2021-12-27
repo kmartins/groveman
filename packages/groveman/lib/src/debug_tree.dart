@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
-import 'groveman.dart';
-import 'log_level.dart';
-import 'log_record.dart';
-import 'util/ansi_color.dart';
-import 'util/stack_trace_util.dart';
+import 'package:groveman/src/groveman.dart';
+import 'package:groveman/src/log_level.dart';
+import 'package:groveman/src/log_record.dart';
+import 'package:groveman/src/util/ansi_color.dart';
+import 'package:groveman/src/util/stack_trace_util.dart';
 
 class DebugTree extends Tree {
   final bool showEmoji;
