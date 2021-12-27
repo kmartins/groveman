@@ -1,0 +1,26 @@
+name: groveman_crashlytics_example
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  firebase_analytics: ^9.0.4
+  firebase_core: ^1.10.6
+  flutter:
+    sdk: flutter
+  groveman: ^1.0.2
+  groveman_crashlytics:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^1.8.1
+
+flutter:
+  uses-material-design: true
