@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:isolate';
 
+import 'package:groveman/src/log_level.dart';
+import 'package:groveman/src/log_record.dart';
+import 'package:groveman/src/util/stack_trace_util.dart';
 import 'package:meta/meta.dart';
-
-import 'log_level.dart';
-import 'log_record.dart';
-import 'util/stack_trace_util.dart';
 
 // ignore: non_constant_identifier_names
 final Groveman = _Groveman();
@@ -23,9 +22,11 @@ class _Groveman {
     String tag = 'isolate',
     String message = 'Uncaught exception',
   }) {
-    Isolate.current.addErrorListener(RawReceivePort(
-      (pair) => handleIsolateError(logLevel, tag, message, error),
-    ).sendPort);
+    Isolate.current.addErrorListener(
+      RawReceivePort(
+        (pair) => handleIsolateError(logLevel, tag, message, error),
+      ).sendPort,
+    );
   }
 
   R? captureErrorInZone<R>(

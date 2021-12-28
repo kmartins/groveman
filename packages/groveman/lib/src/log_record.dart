@@ -1,6 +1,5 @@
+import 'package:groveman/src/log_level.dart';
 import 'package:meta/meta.dart';
-
-import 'log_level.dart';
 
 @immutable
 class LogRecord {
