@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:groveman/groveman.dart';
-import 'package:groveman/src/util/stack_trace_util.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
