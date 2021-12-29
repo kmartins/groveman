@@ -100,7 +100,7 @@ void main() {
       const logRecord = LogRecord(level: LogLevel.debug, message: message);
       expect(
         debugTree.formattedLogMessage(logRecord),
-        '[debug_tree_test-103]: $message',
+        contains('debug_tree_test'),
       );
     });
 
