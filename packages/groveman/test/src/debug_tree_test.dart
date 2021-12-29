@@ -93,6 +93,19 @@ void main() {
     });
 
     test(
+        'given that the log has message and without tag, '
+        'when the log message is formatted, '
+        'then the result is the tag with name file '
+        'and line number of the first item stack ', () {
+      final debugTree = DebugTree();
+      const logRecord = LogRecord(level: LogLevel.debug, message: message);
+      expect(
+        debugTree.formattedLogMessage(logRecord),
+        '[debug_tree_test-103]: $message',
+      );
+    });
+
+    test(
         'given that the log is a debug and '
         'has tag, message, stack trace the method count is 1 '
         'when the log message is formatted, '

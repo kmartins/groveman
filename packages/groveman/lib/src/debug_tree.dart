@@ -13,6 +13,7 @@ class DebugTree extends Tree {
   final bool showTag;
   final int methodCount;
   final int errorMethodCount;
+  final _stackTraceTag = StackTraceUtil();
 
   final _defaultAnsiColor = AnsiColor();
   final _defaultPrefix = '🤔';
@@ -66,11 +67,12 @@ class DebugTree extends Tree {
     final level = logRecord.level;
     final stackTraceMessage = _getStackTraceMessage(stackTrace, level);
     final ansiColor = _getAnsiColor(level);
+    final currentTag = logRecord.tag ?? _stackTraceTag.getTag();
 
     return _formatPrint(
       ansiColor,
       logRecord.message,
-      logRecord.tag,
+      currentTag,
       logRecord.json,
       logRecord.error?.toString(),
       stackTraceMessage,
