@@ -1,6 +1,6 @@
 name: groveman
 description: Logging for Dart/Flutter applications, with the same concepts for tree and planting logging tree as Timber on Android
-version: 1.0.2
+version: 1.1.0
 homepage: https://github.com/kmartins/groveman
 
 environment:

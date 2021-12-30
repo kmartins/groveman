@@ -1,3 +1,8 @@
+## 1.1.0
+
+ - **FEAT**: remove the default tag and sets only in the DebugTree (#12).
+ - **DOCS**: fix image to the pub.dev (#13).
+
 ## 1.0.2
 
  - **FIX**: export Log Level and Log Record (#5).
