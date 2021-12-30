@@ -100,7 +100,7 @@ Error
 StackTrace
 ```
 
-![output](../../assets/output.png)
+![output](https://raw.githubusercontent.com/kmartins/groveman/master/assets/output.png)
 
 The json will be showed formatted.
 
