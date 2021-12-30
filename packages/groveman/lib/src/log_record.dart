@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 class LogRecord {
   final LogLevel level;
   final String message;
-  final String tag;
+  final String? tag;
   final Map<String, dynamic>? json;
   final Object? error;
   final StackTrace? stackTrace;
@@ -13,7 +13,7 @@ class LogRecord {
   const LogRecord({
     required this.level,
     required this.message,
-    required this.tag,
+    this.tag,
     this.json,
     this.error,
     this.stackTrace,

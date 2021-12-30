@@ -3,7 +3,6 @@ import 'dart:isolate';
 
 import 'package:groveman/src/log_level.dart';
 import 'package:groveman/src/log_record.dart';
-import 'package:groveman/src/util/stack_trace_util.dart';
 import 'package:meta/meta.dart';
 
 // ignore: non_constant_identifier_names
@@ -11,7 +10,6 @@ final Groveman = _Groveman();
 
 class _Groveman {
   final Map<String, Tree> _trees = {};
-  final _stackTraceTag = StackTraceUtil();
 
   void plantTree(Tree tree) {
     _trees[tree.toString()] = tree;
@@ -100,13 +98,12 @@ class _Groveman {
     Object? error,
     StackTrace? stackTrace,
   ) {
-    final currentTag = tag ?? _stackTraceTag.getTag();
     for (final tree in _trees.values) {
       tree.log(
         LogRecord(
           level: logLevel,
           message: message,
-          tag: currentTag,
+          tag: tag,
           json: json,
           error: error,
           stackTrace: stackTrace,

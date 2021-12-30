@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:groveman/groveman.dart';
-import 'package:groveman/src/util/stack_trace_util.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
@@ -90,6 +89,19 @@ void main() {
       const logRecord =
           LogRecord(level: LogLevel.debug, message: message, tag: tag);
       expect(debugTree.formattedLogMessage(logRecord), '[$tag]: $message');
+    });
+
+    test(
+        'given that the log has message and without tag, '
+        'when the log message is formatted, '
+        'then the result is the tag with name file '
+        'and line number of the first item stack ', () {
+      final debugTree = DebugTree();
+      const logRecord = LogRecord(level: LogLevel.debug, message: message);
+      expect(
+        debugTree.formattedLogMessage(logRecord),
+        contains('debug_tree_test'),
+      );
     });
 
     test(

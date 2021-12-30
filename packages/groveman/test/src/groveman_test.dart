@@ -69,7 +69,7 @@ void main() {
       Groveman.plantTree(assertTree);
 
       callDebug();
-      expect(assertTree.tag, 'groveman_test-6');
+      expect(assertTree.tag, isNull);
 
       Groveman.debug(
         message,
@@ -94,7 +94,7 @@ void main() {
       Groveman.plantTree(assertTree);
 
       callInfo();
-      expect(assertTree.tag, 'groveman_test-10');
+      expect(assertTree.tag, isNull);
 
       Groveman.info(
         message,
@@ -119,7 +119,7 @@ void main() {
       Groveman.plantTree(assertTree);
 
       callWarning();
-      expect(assertTree.tag, 'groveman_test-12');
+      expect(assertTree.tag, isNull);
 
       Groveman.warning(
         message,
@@ -144,7 +144,7 @@ void main() {
       Groveman.plantTree(assertTree);
 
       callError();
-      expect(assertTree.tag, 'groveman_test-14');
+      expect(assertTree.tag, isNull);
 
       Groveman.error(
         message,
@@ -169,7 +169,7 @@ void main() {
       Groveman.plantTree(assertTree);
 
       callFatal();
-      expect(assertTree.tag, 'groveman_test-16');
+      expect(assertTree.tag, isNull);
 
       Groveman.fatal(
         message,
