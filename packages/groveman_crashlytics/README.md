@@ -1,7 +1,7 @@
 # Groveman Crashlytics
 
 [![License: MIT][license_badge]][license_link]
-[![groveman](https://github.com/kmartins/groveman/actions/workflows/groveman.yaml/badge.svg)](https://github.com/kmartins/groveman/actions/workflows/groveman.yaml)
+[![groveman_crashlytics][workflow_badge]][workflow_link]
 [![codecov](https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?token=9OHL7Q2V5A)](https://codecov.io/gh/kmartins/groveman)
 
 
@@ -41,14 +41,17 @@ import 'package:groveman_crashlytics/groveman_crashlytics.dart';
 Initialize crashlytics tree on start of your application.
 
 ```dart
-void main(){
-  if (kReleaseMode) {
-    Groveman.plantTree(CrashlyticsTree());
-  } else {
-    Groveman.plantTree(DebugTree());
-  }
-  Groveman.captureErrorInCurrentIsolate();
-  Groveman.captureErrorInZone(() => runApp(MyApp()));
+void main() {  
+  Groveman.plantTree(DebugTree());
+  Groveman.captureErrorInZone(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    if (kReleaseMode) {
+      Groveman.plantTree(CrashlyticsTree());
+    }
+    Groveman.captureErrorInCurrentIsolate();
+    runApp(const MyApp());
+  });
 }
 ```
 
@@ -79,6 +82,8 @@ Copyright © 2021 [Kauê Martins](github)
 
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
+[workflow_badge]: https://github.com/kmartins/groveman/actions/workflows/groveman_crashlytics.yaml/badge.svg
+[workflow_link]: https://github.com/kmartins/groveman/actions/workflows/groveman_crashlytics.yaml
 [groveman]: https://pub.dev/packages/groveman
 [firebase_crahslytics]: https://firebase.google.com/products/crashlytics
 [firebase_analytics_doc]: https://firebase.flutter.dev/docs/analytics/overview/
