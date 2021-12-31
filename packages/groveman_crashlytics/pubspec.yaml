@@ -3,6 +3,8 @@ description: Groveman tree that sends your logs to Firebase Crashlytics.
 version: 1.0.0
 homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_crashlytics
+issue_tracker: https://github.com/kmartins/groveman/issues
+documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_crashlytics
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
