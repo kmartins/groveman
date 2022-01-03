@@ -13,7 +13,7 @@ It sends your logs to the [Firebase Crashlytics][firebase_crahslytics].
 
 First, configure the **Firebase Crashlytics**, for it, see the [documentation][firebase_crahslytics_doc].
 
-**Configure [Firebase Analytics][firebase_analytics_doc] if you want to send fatal log levels.**
+**Configure [Firebase Analytics][firebase_analytics_doc] if you want to send fatal log levels - [issue][firebase_analytics_issue].**
 
 _By default, if use Groveman.captureErrorInCurrentIsolate, its log level is `fatal`, this is configurable._
 
@@ -87,6 +87,7 @@ Copyright © 2021 [Kauê Martins](github)
 [groveman]: https://pub.dev/packages/groveman
 [firebase_crahslytics]: https://firebase.google.com/products/crashlytics
 [firebase_analytics_doc]: https://firebase.flutter.dev/docs/analytics/overview/
+[firebase_analytics_issue]: https://github.com/FirebaseExtended/flutterfire/issues/7714
 [firebase_crahslytics_doc]: https://firebase.flutter.dev/docs/crashlytics/overview
 [record_error]: https://firebase.flutter.dev/docs/crashlytics/usage#fatal-crash
 [log]: https://firebase.flutter.dev/docs/crashlytics/usage#add-custom-log-messages
