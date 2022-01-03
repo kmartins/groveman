@@ -13,3 +13,4 @@ types:
   - release
 scopes:
   - groveman
+  - groveman_crashlytics
