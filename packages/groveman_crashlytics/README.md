@@ -1,9 +1,9 @@
 # Groveman Crashlytics
 
+[![pub][groveman_crashlytics_badge]][groveman_crashlytics_link]
 [![License: MIT][license_badge]][license_link]
 [![groveman_crashlytics][workflow_badge]][workflow_link]
-[![codecov](https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?token=9OHL7Q2V5A)](https://codecov.io/gh/kmartins/groveman)
-
+[![codecov][codecov_badge]][codecov_link]
 
 Tree for the [groveman][groveman].
 
@@ -62,7 +62,7 @@ By default, the log levels `info`, `warning`, `error`, and `fatal` are sent to C
 Groveman.error(message, error: exception);
 ```
 
-If the log contains an `error` then it is sent using [crashlytics.recordError][record_error] (`fatal` is **true** only if the log level is also), otherwise, using [crashlytics.log][log].
+If the `LogRecord.message` contains an `error`, it will be sent using [crashlytics.recordError][record_error] where `LogRecord.error` is passed as **error**, `LogRecord.stackTrace` is passed as **stackTrace**, `LogRecord.message` is passed as **reason** and **fatal** is `true` if the `LogRecord.level` is also fatal, otherwise, is used [crashlytics.log][log], passing the `LogRecord.message` as **message**.
 
 To custom, pass the levels that desire to send when creating the `Crashlytics Tree`.
 
@@ -78,10 +78,15 @@ Groveman.plantTree(
 
 ## 📝 License
 
-Copyright © 2021 [Kauê Martins](github)
+Copyright © 2022 [Kauê Martins](github) </br>
+This project is [MIT](license_link) licensed
 
+[groveman_crashlytics_badge]: https://img.shields.io/pub/v/groveman_crashlytics.svg
+[groveman_crashlytics_link]: https://pub.dev/packages/groveman_crashlytics
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
+[codecov_badge]: https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?token=9OHL7Q2V5A
+[codecov_link]: https://codecov.io/gh/kmartins/groveman
 [workflow_badge]: https://github.com/kmartins/groveman/actions/workflows/groveman_crashlytics.yaml/badge.svg
 [workflow_link]: https://github.com/kmartins/groveman/actions/workflows/groveman_crashlytics.yaml
 [groveman]: https://pub.dev/packages/groveman
