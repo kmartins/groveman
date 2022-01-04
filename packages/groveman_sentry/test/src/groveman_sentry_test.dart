@@ -10,25 +10,54 @@ Matcher isBreadcrumbCalled({
   required String message,
   Map<String, dynamic>? data,
 }) =>
-    isA<Breadcrumb>()
-      ..having((crumb) => crumb.level, 'level', level)
-      ..having((crumb) => crumb.message, 'message', message)
-      ..having((crumb) => crumb.level, 'data', data);
+    const TypeMatcher<Breadcrumb>()
+        .having((crumb) => crumb.level?.name, 'level', level.name)
+        .having((crumb) => crumb.message, 'message', message)
+        .having((crumb) => crumb.data, 'data', data);
 
-Matcher isCapturedExceptionCalled({
-  required Object error,
+Matcher isSentryEventCalled({
+  required SentryLevel level,
+  required String message,
+  Map<String, dynamic>? json,
+  Object? error,
+  Map<String, String>? tags,
+}) =>
+    isA<SentryEvent>()
+        .having((event) => event.level?.name, 'level', level.name)
+        .having((event) => event.message?.formatted, 'message', message)
+        .having((event) => event.extra, 'extra', json)
+        .having((event) => event.throwable, 'throwable', error)
+        .having((event) => event.tags, 'tags', tags)
+        .having((event) => event.logger, 'logger', 'groveman');
+
+Matcher isCapturedEventCalled({
+  required SentryLevel level,
+  required String message,
+  Map<String, dynamic>? json,
+  Object? error,
+  Map<String, String>? tags,
   StackTrace? stackTrace,
 }) =>
-    isA<CaptureExceptionCall>()
-      ..having((captured) => captured.throwable, 'throwable', error)
-      ..having((captured) => captured.stackTrace, 'stackTrace', stackTrace);
+    isA<EventCall>()
+        .having(
+          (event) => event.sentryEvent,
+          'stackTrace',
+          isSentryEventCalled(
+            level: level,
+            message: message,
+            json: json,
+            error: error,
+            tags: tags,
+          ),
+        )
+        .having((event) => event.stackTrace, 'stackTrace', stackTrace);
 
 void main() {
   final mockHub = MockHub();
 
   tearDown(() {
     mockHub.addBreadcrumbCalls.clear();
-    mockHub.captureExceptionCalls.clear();
+    mockHub.eventCalls.clear();
   });
 
   group('SentryTree', () {
@@ -103,10 +132,9 @@ void main() {
 
       test(
           'given the default log level, '
-          'when the log has an error, without '
-          'stack trace and is a default level, '
-          'then the log is sent to using captureException '
-          'only with the error', () {
+          'when the log has an error, a default level, '
+          'a message and without stack trace, '
+          'then the log is sent to using captureEvent', () {
         const message = 'message';
         const exception = 'exception';
 
@@ -115,20 +143,103 @@ void main() {
         Groveman.error(message, error: exception);
         Groveman.fatal(message, error: exception);
 
-        expect(mockHub.captureExceptionCalls.length, 4);
-        expect(mockHub.captureExceptionCalls, <Matcher>[
-          isCapturedExceptionCalled(error: exception),
-          isCapturedExceptionCalled(error: exception),
-          isCapturedExceptionCalled(error: exception),
-          isCapturedExceptionCalled(error: exception),
+        expect(mockHub.eventCalls.length, 4);
+        expect(mockHub.eventCalls, <Matcher>[
+          isCapturedEventCalled(
+            level: SentryLevel.info,
+            message: message,
+            error: exception,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.warning,
+            message: message,
+            error: exception,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.error,
+            message: message,
+            error: exception,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.fatal,
+            message: message,
+            error: exception,
+          ),
         ]);
       });
 
       test(
           'given the default log level, '
-          'when the log has an error, tack trace and is a default level, '
-          'then the log is sent to using captureException '
-          'only with the error', () {
+          'when the log has an error, default level, '
+          'message, tag, json and without stack trace, '
+          'then the log is sent to using captureEvent', () {
+        const message = 'message';
+        const exception = 'exception';
+        const json = {'message': 'json', 'value': 100};
+
+        Groveman.info(
+          message,
+          tag: LogLevel.info.name,
+          error: exception,
+          json: json,
+        );
+        Groveman.warning(
+          message,
+          tag: LogLevel.warning.name,
+          error: exception,
+          json: json,
+        );
+        Groveman.error(
+          message,
+          tag: LogLevel.error.name,
+          error: exception,
+          json: json,
+        );
+        Groveman.fatal(
+          message,
+          tag: LogLevel.fatal.name,
+          error: exception,
+          json: json,
+        );
+
+        expect(mockHub.eventCalls.length, 4);
+        expect(mockHub.eventCalls, <Matcher>[
+          isCapturedEventCalled(
+            level: SentryLevel.info,
+            message: message,
+            error: exception,
+            tags: {'groveman_tag': LogLevel.info.name},
+            json: json,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.warning,
+            message: message,
+            error: exception,
+            tags: {'groveman_tag': LogLevel.warning.name},
+            json: json,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.error,
+            message: message,
+            error: exception,
+            tags: {'groveman_tag': LogLevel.error.name},
+            json: json,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.fatal,
+            message: message,
+            error: exception,
+            tags: {'groveman_tag': LogLevel.fatal.name},
+            json: json,
+          ),
+        ]);
+      });
+
+      test(
+          'given the default log level, '
+          'when the log has an error, a default level, '
+          'a message and stack trace, '
+          'then the log is sent to using captureEvent', () {
         const message = 'message';
         const exception = 'exception';
         final stackTrace = StackTrace.fromString(message);
@@ -138,12 +249,32 @@ void main() {
         Groveman.error(message, error: exception, stackTrace: stackTrace);
         Groveman.fatal(message, error: exception, stackTrace: stackTrace);
 
-        expect(mockHub.captureExceptionCalls.length, 4);
-        expect(mockHub.captureExceptionCalls, <Matcher>[
-          isCapturedExceptionCalled(error: exception, stackTrace: stackTrace),
-          isCapturedExceptionCalled(error: exception, stackTrace: stackTrace),
-          isCapturedExceptionCalled(error: exception, stackTrace: stackTrace),
-          isCapturedExceptionCalled(error: exception, stackTrace: stackTrace),
+        expect(mockHub.eventCalls.length, 4);
+        expect(mockHub.eventCalls, <Matcher>[
+          isCapturedEventCalled(
+            level: SentryLevel.info,
+            message: message,
+            error: exception,
+            stackTrace: stackTrace,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.warning,
+            message: message,
+            error: exception,
+            stackTrace: stackTrace,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.error,
+            message: message,
+            error: exception,
+            stackTrace: stackTrace,
+          ),
+          isCapturedEventCalled(
+            level: SentryLevel.fatal,
+            message: message,
+            error: exception,
+            stackTrace: stackTrace,
+          ),
         ]);
       });
 

@@ -23,9 +23,9 @@ class SentryTree extends Tree {
   // ignore: avoid_setters_without_getters
   set hub(Hub mockHub) => _hub = mockHub;
 
-  /// The default log levels  are [LogLevel.info], [LogLevel.warning],
+  /// The default log levels are [LogLevel.info], [LogLevel.warning],
   /// [LogLevel.error], and [LogLevel.fatal] if there is a [error]
-  /// then it's sent using `captureException`, otherwise, with `addBreadcrumb`.
+  /// then it's sent using `captureEvent`, otherwise, with `addBreadcrumb`.
   SentryTree({List<LogLevel>? logLevels})
       : _logLevels = logLevels ??
             [
@@ -42,8 +42,8 @@ class SentryTree extends Tree {
 
     if (_logLevels.contains(logLevel)) {
       if (logRecord.error != null) {
-        _hub.captureException(
-          logRecord.error,
+        _hub.captureEvent(
+          logRecord.toEvent,
           stackTrace: logRecord.stackTrace,
         );
       } else {

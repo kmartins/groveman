@@ -66,7 +66,22 @@ By default, the log levels `info`, `warning`, `error`, and `fatal` are sent to S
 Groveman.error(message, error: exception);
 ```
 
-If the `LogRecord.error` is not null, it will be sent using [captureException][capture_exception] where `LogRecord.error` is passed as **throwable**, `LogRecord.stackTrace` is passed as **stackTrace**, otherwise, is used [addBreadcrumb][add_breadcrumb], passing the `LogRecord.level` as **SentryLevel**, `LogRecord.message` as **message** and `LogRecord.json` as **data**.
+If the `LogRecord.error` is not null, it will be sent using `captureEvent`, otherwise, is used [addBreadcrumb][add_breadcrumb].
+
+`LogRecord` converted in **SentryEvent**:
+- `LogRecord.level` -> **SentryLevel**
+- `LogRecord.message` -> **SentryMessage(message)**
+- `LogRecord.json` -> **extra**
+- `LogRecord.error` -> **throwable**
+- `LogRecord.tag` -> **tags**
+
+`groveman` is sent as **logger** in `SentryEvent`. </br>
+The `LogRecord.stackTrace` is only sent in `captureEvent`.
+
+`LogRecord` converted in **Breadcrumb**:
+- `LogRecord.level` -> **SentryLevel**
+- `LogRecord.message` -> **message**
+- `LogRecord.json` -> **data**
 
 To custom, pass the levels that desire to send when creating the `SentryTree`.
 
@@ -97,6 +112,5 @@ This project is [MIT](license_link) licensed
 [sentry]: https://sentry.io
 [sentry_dart]: https://pub.dev/packages/sentry
 [sentry_flutter]: https://pub.dev/packages/sentry_flutter
-[capture_exception]: https://docs.sentry.io/platforms/flutter/usage/
 [add_breadcrumb]: https://docs.sentry.io/platforms/flutter/enriching-events/breadcrumbs/
 [github]: https://github.com/kmartins

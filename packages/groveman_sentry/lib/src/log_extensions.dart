@@ -23,11 +23,22 @@ extension LogLevelExtension on LogLevel {
 /// Useful methods to use [LogRecord] with the [Sentry]
 extension LogRecordExtension on LogRecord {
   /// Converts from [LogRecord] to [Breadcrumb].
-  Breadcrumb get toBreadcrumb {
-    return Breadcrumb(
+  Breadcrumb get toBreadcrumb => Breadcrumb(
+        level: level.toSentryLevel,
+        message: message,
+        data: json,
+      );
+
+  /// Converts from [LogRecord] to [SentryEvent].
+  SentryEvent get toEvent {
+    final sentryTag = tag;
+    return SentryEvent(
       level: level.toSentryLevel,
-      message: message,
-      data: json,
+      message: SentryMessage(message),
+      extra: json,
+      throwable: error,
+      tags: sentryTag != null ? {'groveman_tag': sentryTag} : null,
+      logger: 'groveman',
     );
   }
 }

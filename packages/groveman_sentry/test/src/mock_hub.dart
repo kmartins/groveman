@@ -1,10 +1,8 @@
 import 'package:sentry/sentry.dart';
 
 class MockHub implements Hub {
-  List<CaptureExceptionCall> captureExceptionCalls = [];
   List<AddBreadcrumbCall> addBreadcrumbCalls = [];
-  List<SentryClient?> bindClientCalls = [];
-  int closeCalls = 0;
+  List<EventCall> eventCalls = [];
 
   @override
   void addBreadcrumb(Breadcrumb crumb, {dynamic hint}) {
@@ -41,7 +39,15 @@ class MockHub implements Hub {
     dynamic hint,
     ScopeCallback? withScope,
   }) {
-    throw UnimplementedError();
+    eventCalls.add(
+      EventCall(
+        event,
+        stackTrace: stackTrace,
+        hint: hint,
+        withScope: withScope,
+      ),
+    );
+    return Future.value(SentryId.newId());
   }
 
   @override
@@ -51,9 +57,7 @@ class MockHub implements Hub {
     dynamic hint,
     ScopeCallback? withScope,
   }) {
-    captureExceptionCalls
-        .add(CaptureExceptionCall(throwable, stackTrace, hint));
-    return Future.value(SentryId.newId());
+    throw UnimplementedError();
   }
 
   @override
@@ -111,21 +115,22 @@ class MockHub implements Hub {
   }
 }
 
-class CaptureExceptionCall {
-  final dynamic throwable;
-  final dynamic stackTrace;
-  final dynamic hint;
-
-  CaptureExceptionCall(
-    this.throwable,
-    this.stackTrace,
-    this.hint,
-  );
-}
-
 class AddBreadcrumbCall {
   final Breadcrumb crumb;
   final dynamic hint;
 
   AddBreadcrumbCall(this.crumb, this.hint);
+}
+
+class EventCall {
+  final SentryEvent sentryEvent;
+  final dynamic stackTrace;
+  final dynamic hint;
+  final ScopeCallback? withScope;
+  EventCall(
+    this.sentryEvent, {
+    this.stackTrace,
+    this.hint,
+    this.withScope,
+  });
 }
