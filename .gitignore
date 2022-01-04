@@ -6,3 +6,5 @@
 
 # Flutter/Dart/Pub related
 .dart_tool/
+
+.vscode/
