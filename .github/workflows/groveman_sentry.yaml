@@ -1,0 +1,71 @@
+name: Groveman Sentry
+
+on:
+  push:
+    paths:
+      - "scripts/**"
+      - "packages/groveman_sentry/**"
+      - ".github/workflows/groveman_sentry.yaml"
+
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "packages/groveman_sentry/**"
+      - ".github/workflows/groveman_sentry.yaml"
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: packages/groveman_sentry
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v1.5.3
+
+      - name: Install Dependencies
+        run: |
+          flutter packages get
+          pub global activate coverage
+
+      - name: Format
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings .
+
+      - name: Run Tests
+        run: ../../scripts/coverage.sh
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+        with:
+          path: packages/groveman_sentry/coverage/lcov.info
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          directory: packages/groveman_sentry/coverage
+          fail_ci_if_error: true
+
+  pana:
+    defaults:
+      run:
+        working-directory: packages/groveman_sentry
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        run: |
+          pub get
+          pub global activate pana
+
+      - name: Verify Pub Score
+        run: ../../scripts/verify_pub_score.sh 110
