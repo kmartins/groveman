@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
       Groveman.info(
         'Counter - $_counter',
-        tag: 'click',
+        tag: 'counter',
         json: {'my_counter': _counter},
       );
     });
