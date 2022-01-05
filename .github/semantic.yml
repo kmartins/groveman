@@ -14,3 +14,4 @@ types:
 scopes:
   - groveman
   - groveman_crashlytics
+  - groveman_sentry
