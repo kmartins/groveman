@@ -1,15 +1,21 @@
 import 'dart:async';
-import 'dart:isolate';
 
 import 'package:groveman/src/log_level.dart';
 import 'package:groveman/src/log_record.dart';
+import 'package:groveman/src/noop_handle_isolate_impl.dart'
+    if (dart.library.io) 'package:groveman/src/handle_isolate_impl.dart';
 import 'package:meta/meta.dart';
 
 // ignore: non_constant_identifier_names
 final Groveman = _Groveman();
 
+typedef HandleIsolateError = void Function(
+  dynamic error,
+);
+
 class _Groveman {
   final Map<String, Tree> _trees = {};
+  HandleIsolate _handleIsolate = HandleIsolateImpl();
 
   void plantTree(Tree tree) {
     _trees[tree.toString()] = tree;
@@ -20,10 +26,8 @@ class _Groveman {
     String tag = 'isolate',
     String message = 'Uncaught exception',
   }) {
-    Isolate.current.addErrorListener(
-      RawReceivePort(
-        (pair) => handleIsolateError(logLevel, tag, message, error),
-      ).sendPort,
+    _handleIsolate.handleError(
+      (dynamic error) => handleIsolateError(logLevel, tag, message, error),
     );
   }
 
@@ -128,9 +132,18 @@ class _Groveman {
   }
 
   @visibleForTesting
+  // ignore: use_setters_to_change_properties
+  void setMockHandleIsolate(HandleIsolate handleIsolate) =>
+      _handleIsolate = handleIsolate;
+
+  @visibleForTesting
   void clearAll() => _trees.clear();
 }
 
 abstract class Tree {
   void log(LogRecord logRecord);
+}
+
+abstract class HandleIsolate {
+  void handleError(HandleIsolateError handleIsolateError);
 }
