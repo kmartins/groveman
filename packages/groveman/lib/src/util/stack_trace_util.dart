@@ -66,7 +66,7 @@ class StackTraceUtil {
       return false;
     }
 
-    return match.group(2)!.startsWith('package:groveman');
+    return match.group(2)!.startsWith('package:groveman/');
   }
 
   bool _discardWebStacktraceLine(String line) {
@@ -75,7 +75,7 @@ class StackTraceUtil {
       return false;
     }
 
-    return match.group(1)!.startsWith('packages/groveman') ||
+    return match.group(1)!.startsWith('packages/groveman/') ||
         match.group(1)!.startsWith('dart-sdk/lib');
   }
 
@@ -85,7 +85,7 @@ class StackTraceUtil {
       return false;
     }
 
-    return match.group(1)!.startsWith('package:groveman') ||
+    return match.group(1)!.startsWith('package:groveman/') ||
         match.group(1)!.startsWith('dart:');
   }
 }
