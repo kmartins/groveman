@@ -1,14 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:groveman/groveman.dart';
 
 void main() {
   Groveman.plantTree(DebugTree(showColor: true));
-  if (!kIsWeb) {
-    Groveman.captureErrorInCurrentIsolate();
-  }
+  Groveman.captureErrorInCurrentIsolate();
   Groveman.captureErrorInZone(() => runApp(const MyApp()));
   Groveman.debug('Run App', tag: 'app');
 }

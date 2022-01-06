@@ -263,20 +263,28 @@ void main() {
       final exception = StateError('error');
       final stackTrace = StackTrace.current;
       final error = [exception, stackTrace];
+      final handleIsolateMock = HandleIsolateMock();
       Groveman.plantTree(assertTree);
+      Groveman.setMockHandleIsolate(handleIsolateMock);
       Groveman.captureErrorInCurrentIsolate();
 
-      Groveman.handleIsolateError(
-        LogLevel.fatal,
-        'Isolate',
-        'Uncaught exception',
-        error,
-      );
+      handleIsolateMock.callError(error);
+
       expect(assertTree.level, LogLevel.fatal);
-      expect(assertTree.tag, 'Isolate');
+      expect(assertTree.tag, 'isolate');
       expect(assertTree.message, 'Uncaught exception');
       expect(assertTree.error, exception);
       expect(assertTree.stackTrace, stackTrace);
     });
   });
+}
+
+class HandleIsolateMock extends HandleIsolate {
+  HandleIsolateError? _handleIsolateError;
+
+  @override
+  void handleError(HandleIsolateError handleIsolateError) =>
+      _handleIsolateError = handleIsolateError;
+
+  void callError(dynamic error) => _handleIsolateError?.call(error);
 }
