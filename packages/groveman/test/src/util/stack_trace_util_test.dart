@@ -52,11 +52,10 @@ void main() {
     test(
         'given a current stack trace, '
         'when this stack trace is not a line number '
-        'then the result is the name file '
-        'and line number of the first item stack be 0', () {
+        'then the result is the name file', () {
       final stackTraceUtil = StackTraceUtil();
       const stackTrace = 'file.dart';
-      expect(stackTraceUtil.getInfo(stackTrace), 'file-0');
+      expect(stackTraceUtil.getInfo(stackTrace), 'file');
     });
   });
 }

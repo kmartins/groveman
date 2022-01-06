@@ -54,7 +54,7 @@ class StackTraceUtil {
         }
         return '$fileName-$lineNumber';
       }
-      return '$fileName-0';
+      return fileName;
     }
   }
 
