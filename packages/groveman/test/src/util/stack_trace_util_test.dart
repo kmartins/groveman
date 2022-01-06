@@ -33,8 +33,7 @@ void main() {
     test(
         'given a current stack trace, '
         'when this stack trace is obfuscated '
-        "then the result is the name file be '' "
-        'and line number of the first item stack be 0', () {
+        'then the result of the info is null ', () {
       final stackTraceUtil = StackTraceUtil();
       const stackTrace = """
         'Warning: This VM has been configured to produce '
@@ -47,7 +46,7 @@ void main() {
         '    #00 abs 000075f17833027b '
         '_kDartIsolateSnapshotInstructions+0x1a127b'
         """;
-      expect(stackTraceUtil.getInfo(stackTrace), 'not_found_file-0');
+      expect(stackTraceUtil.getInfo(stackTrace), isNull);
     });
 
     test(
