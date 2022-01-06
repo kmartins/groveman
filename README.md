@@ -20,11 +20,19 @@ Start with the base package [groveman](https://pub.dev/packages/groveman).
 
 ## Trees officially supported
 
-- debug_tree (included in the `groveman` package)
+- debug_tree (included in the [groveman](https://pub.dev/packages/groveman))
 - [groveman_crashlytics](https://pub.dev/packages/groveman_crashlytics)
+- [groveman_sentry](https://pub.dev/packages/groveman_sentry)
 
 You can create your, just extend the `Tree` class. 
 Take a look at the `DebugTree` code to know more.
+
+### Who is using Groveman?
+
+The following projects are using Groveman:
+
+> Submit a PR if you'd like to add your project to the list.
+> Update the [README.md](https://github.com/kmartins/groveman/edit/main/README.md).
 
 ## 📝 Maintainers
 
@@ -43,6 +51,7 @@ You liked this package? Then give it a ⭐️. If you want to help then:
 The scope available are:
 - `groveman`
 - `groveman_crashlytics`
+- `groveman_sentry`
 
 ## 📝 License
 
