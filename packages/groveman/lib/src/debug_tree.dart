@@ -13,7 +13,6 @@ class DebugTree extends Tree {
   final bool showTag;
   final int methodCount;
   final int errorMethodCount;
-  final _stackTraceTag = StackTraceUtil();
 
   final _defaultAnsiColor = AnsiColor();
   final _defaultPrefix = '🤔';
@@ -62,12 +61,16 @@ class DebugTree extends Tree {
     );
   }
 
-  String formattedLogMessage(LogRecord logRecord) {
+  String formattedLogMessage(
+    LogRecord logRecord, {
+    String? Function()? ifTagIsNull,
+  }) {
     final stackTrace = logRecord.stackTrace;
     final level = logRecord.level;
     final stackTraceMessage = _getStackTraceMessage(stackTrace, level);
     final ansiColor = _getAnsiColor(level);
-    final currentTag = logRecord.tag ?? _stackTraceTag.getTag();
+    final defaultTag = ifTagIsNull ?? _stackTraceUtil.getTag;
+    final currentTag = logRecord.tag ?? defaultTag();
 
     return _formatPrint(
       ansiColor,
@@ -130,14 +133,14 @@ class DebugTree extends Tree {
   String _formatPrint(
     AnsiColor color,
     String message,
-    String tag,
+    String? tag,
     Map<String, dynamic>? json,
     String? error,
     String? stackTrace,
   ) {
     final buffer = StringBuffer();
 
-    if (showTag) {
+    if (showTag && tag != null) {
       buffer.write(color('[$tag]: '));
     }
 

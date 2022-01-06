@@ -92,6 +92,21 @@ void main() {
     });
 
     test(
+        'given that the DebugTree is to show the tag, '
+        'when the log message is formatted, but stack trace tag is null '
+        'then the result is message', () {
+      final debugTree = DebugTree();
+      const logRecord = LogRecord(level: LogLevel.debug, message: message);
+      expect(
+        debugTree.formattedLogMessage(
+          logRecord,
+          ifTagIsNull: () => null,
+        ),
+        message,
+      );
+    });
+
+    test(
         'given that the log has message and without tag, '
         'when the log message is formatted, '
         'then the result is the tag with name file '
