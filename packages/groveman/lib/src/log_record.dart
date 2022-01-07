@@ -6,7 +6,7 @@ class LogRecord {
   final LogLevel level;
   final String message;
   final String? tag;
-  final Map<String, dynamic>? json;
+  final Map<String, dynamic>? extra;
   final Object? error;
   final StackTrace? stackTrace;
 
@@ -14,7 +14,7 @@ class LogRecord {
     required this.level,
     required this.message,
     this.tag,
-    this.json,
+    this.extra,
     this.error,
     this.stackTrace,
   });

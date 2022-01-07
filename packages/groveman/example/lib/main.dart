@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       Groveman.info(
         'Counter',
-        json: <String, Object>{
+        extra: <String, Object>{
           'counter': _counter,
         },
       );
