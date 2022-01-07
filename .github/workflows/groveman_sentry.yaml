@@ -68,4 +68,4 @@ jobs:
           pub global activate pana
 
       - name: Verify Pub Score
-        run: ../../scripts/verify_pub_score.sh 110
+        run: ../../scripts/verify_pub_score.sh
