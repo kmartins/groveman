@@ -90,7 +90,7 @@ Look at the example app to see `Groveman` in action.
 
 Uses the dart:developer [log()](https://api.flutter.dev/flutter/dart-developer/log.html) function to show logging.
 
-In your **tests** it's not shown. Only in **debug mode**.
+>It's only shown in **debug mode**, so there's no problem keeping `DebugTree` in **production**.
 
 **Format of the output**
 ```
@@ -132,10 +132,12 @@ Groveman.plantTree(DebugTree(showColor: true));
 
 There is a problem with the show of the stack trace in flutter web, you can see here https://github.com/flutter/flutter/issues/79176
 
-## Others Trees
+## Others officially supported Trees
 
-There are no others trees in this package yet.
-However,  you can create your, just extend the `Tree` class. 
+- [groveman_crashlytics](https://pub.dev/packages/groveman_crashlytics)
+- [groveman_sentry](https://pub.dev/packages/groveman_sentry) 
+
+You can create your, just extend the `Tree` class. 
 Take a look at the `DebugTree` code to know more.
 
 ## 📝 Maintainers
@@ -155,5 +157,5 @@ You liked this package? Then give it a ⭐️. If you want to help then:
 
 ## 📝 License
 
-Copyright © 2021 [Kauê Martins](https://github.com/kmartins).<br />
+Copyright © 2022 [Kauê Martins](https://github.com/kmartins).<br />
 This project is [MIT](https://opensource.org/licenses/MIT) licensed.
