@@ -48,8 +48,8 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           directory: packages/groveman_crashlytics/coverage
+          flags: groveman_crashlytics
           fail_ci_if_error: true
-
   pana:
     defaults:
       run:

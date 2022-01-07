@@ -49,6 +49,7 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           directory: packages/groveman/coverage
+          flags: groveman
           fail_ci_if_error: true
 
   pana:
