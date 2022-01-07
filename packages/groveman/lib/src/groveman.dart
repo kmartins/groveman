@@ -52,53 +52,53 @@ class _Groveman {
   void debug(
     String message, {
     String? tag,
-    Map<String, dynamic>? json,
+    Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
   }) =>
-      _log(LogLevel.debug, tag, message, json, error, stackTrace);
+      _log(LogLevel.debug, tag, message, extra, error, stackTrace);
 
   void info(
     String message, {
     String? tag,
-    Map<String, dynamic>? json,
+    Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
   }) =>
-      _log(LogLevel.info, tag, message, json, error, stackTrace);
+      _log(LogLevel.info, tag, message, extra, error, stackTrace);
 
   void warning(
     String message, {
     String? tag,
-    Map<String, dynamic>? json,
+    Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
   }) =>
-      _log(LogLevel.warning, tag, message, json, error, stackTrace);
+      _log(LogLevel.warning, tag, message, extra, error, stackTrace);
 
   void error(
     String message, {
     String? tag,
-    Map<String, dynamic>? json,
+    Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
   }) =>
-      _log(LogLevel.error, tag, message, json, error, stackTrace);
+      _log(LogLevel.error, tag, message, extra, error, stackTrace);
 
   void fatal(
     String message, {
     String? tag,
-    Map<String, dynamic>? json,
+    Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
   }) =>
-      _log(LogLevel.fatal, tag, message, json, error, stackTrace);
+      _log(LogLevel.fatal, tag, message, extra, error, stackTrace);
 
   void _log(
     LogLevel logLevel,
     String? tag,
     String message,
-    Map<String, dynamic>? json,
+    Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
   ) {
@@ -108,7 +108,7 @@ class _Groveman {
           level: logLevel,
           message: message,
           tag: tag,
-          json: json,
+          extra: extra,
           error: error,
           stackTrace: stackTrace,
         ),

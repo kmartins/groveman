@@ -12,7 +12,7 @@ void main() {
   const tag = 'Test';
   const message = 'Jungle';
   const error = 'Error';
-  const json = <String, Object>{
+  const extra = <String, Object>{
     'name': 'Jungle',
     'trees': 50,
   };
@@ -143,10 +143,10 @@ void main() {
 
     test(
         'given that the log is a error and '
-        'has tag, message, json, error, stack trace '
+        'has tag, message, extra, error, stack trace '
         'and the error method count is 1 '
         'when the log message is formatted, '
-        'then the result is [tag]: message json error stackTrace(1)', () {
+        'then the result is [tag]: message extra error stackTrace(1)', () {
       final debugTree = DebugTree(errorMethodCount: 1);
       const encoder = JsonEncoder.withIndent('   ');
       final stackTrace = StackTrace.current;
@@ -157,23 +157,23 @@ void main() {
         level: LogLevel.error,
         message: message,
         tag: tag,
-        json: json,
+        extra: extra,
         error: error,
         stackTrace: stackTrace,
       );
       expect(
         debugTree.formattedLogMessage(logRecord),
-        '[$tag]: $message\n${encoder.convert(json)}'
+        '[$tag]: $message\n${encoder.convert(extra)}'
         '\n$error\n$stackTraceMessage',
       );
     });
 
     test(
         'given that the log is a fatal and '
-        'has tag, message, json, error, stack trace '
+        'has tag, message, extra, error, stack trace '
         'and the error method count is 2 '
         'when the log message is formatted, '
-        'then the result is [tag]: message json error stackTrace(2)', () {
+        'then the result is [tag]: message extra error stackTrace(2)', () {
       final debugTree = DebugTree(errorMethodCount: 2);
       const encoder = JsonEncoder.withIndent('   ');
       final stackTrace = StackTrace.current;
@@ -184,13 +184,13 @@ void main() {
         level: LogLevel.fatal,
         message: message,
         tag: tag,
-        json: json,
+        extra: extra,
         error: error,
         stackTrace: stackTrace,
       );
       expect(
         debugTree.formattedLogMessage(logRecord),
-        '[$tag]: $message\n${encoder.convert(json)}'
+        '[$tag]: $message\n${encoder.convert(extra)}'
         '\n$error\n$stackTraceMessage',
       );
     });
@@ -199,7 +199,7 @@ void main() {
         'given that the log is a debug and '
         'has tag, message and the method count is  '
         'bigger than stack trace lines when the log message is formatted, '
-        'then the result is [tag]: message json error stackTrace(entire)', () {
+        'then the result is [tag]: message stackTrace(entire)', () {
       final debugTree = DebugTree(methodCount: 100);
       final stackTrace = StackTrace.current;
       final stackTraceList = stackTrace.toString().split('\n');

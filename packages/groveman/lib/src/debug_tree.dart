@@ -76,7 +76,7 @@ class DebugTree extends Tree {
       ansiColor,
       logRecord.message,
       currentTag,
-      logRecord.json,
+      logRecord.extra,
       logRecord.error?.toString(),
       stackTraceMessage,
     );
@@ -134,7 +134,7 @@ class DebugTree extends Tree {
     AnsiColor color,
     String message,
     String? tag,
-    Map<String, dynamic>? json,
+    Map<String, dynamic>? extra,
     String? error,
     String? stackTrace,
   ) {
@@ -146,8 +146,8 @@ class DebugTree extends Tree {
 
     buffer.write(color(message));
 
-    if (json != null) {
-      final prettyJson = _encoder.convert(json);
+    if (extra != null) {
+      final prettyJson = _encoder.convert(extra);
       buffer.write(_formatLines(color, prettyJson));
     }
 

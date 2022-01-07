@@ -19,7 +19,7 @@ class AssertTree extends Tree {
   String? message;
   String? tag;
   LogLevel? level;
-  Map<String, dynamic>? json;
+  Map<String, dynamic>? extra;
   Object? error;
   StackTrace? stackTrace;
 
@@ -28,7 +28,7 @@ class AssertTree extends Tree {
     message = logRecord.message;
     level = logRecord.level;
     tag = logRecord.tag;
-    json = logRecord.json;
+    extra = logRecord.extra;
     error = logRecord.error;
     stackTrace = logRecord.stackTrace;
   }
@@ -40,7 +40,7 @@ void main() {
   group('Groveman', () {
     const message = 'Welcome to the jungle';
     const tag = 'Jungle';
-    const json = <String, Object>{
+    const extra = <String, Object>{
       'name': 'Jungle',
       'trees': 50,
     };
@@ -74,14 +74,14 @@ void main() {
       Groveman.debug(
         message,
         tag: tag,
-        json: json,
+        extra: extra,
         error: error,
         stackTrace: stackTrace,
       );
       expect(assertTree.level, LogLevel.debug);
       expect(assertTree.message, message);
       expect(assertTree.tag, tag);
-      expect(assertTree.json, json);
+      expect(assertTree.extra, extra);
       expect(assertTree.error, error);
       expect(assertTree.stackTrace, stackTrace);
     });
@@ -99,14 +99,14 @@ void main() {
       Groveman.info(
         message,
         tag: tag,
-        json: json,
+        extra: extra,
         error: error,
         stackTrace: stackTrace,
       );
       expect(assertTree.level, LogLevel.info);
       expect(assertTree.message, message);
       expect(assertTree.tag, tag);
-      expect(assertTree.json, json);
+      expect(assertTree.extra, extra);
       expect(assertTree.error, error);
       expect(assertTree.stackTrace, stackTrace);
     });
@@ -124,14 +124,14 @@ void main() {
       Groveman.warning(
         message,
         tag: tag,
-        json: json,
+        extra: extra,
         error: error,
         stackTrace: stackTrace,
       );
       expect(assertTree.level, LogLevel.warning);
       expect(assertTree.message, message);
       expect(assertTree.tag, tag);
-      expect(assertTree.json, json);
+      expect(assertTree.extra, extra);
       expect(assertTree.error, error);
       expect(assertTree.stackTrace, stackTrace);
     });
@@ -149,14 +149,14 @@ void main() {
       Groveman.error(
         message,
         tag: tag,
-        json: json,
+        extra: extra,
         error: error,
         stackTrace: stackTrace,
       );
       expect(assertTree.level, LogLevel.error);
       expect(assertTree.message, message);
       expect(assertTree.tag, tag);
-      expect(assertTree.json, json);
+      expect(assertTree.extra, extra);
       expect(assertTree.error, error);
       expect(assertTree.stackTrace, stackTrace);
     });
@@ -174,14 +174,14 @@ void main() {
       Groveman.fatal(
         message,
         tag: tag,
-        json: json,
+        extra: extra,
         error: error,
         stackTrace: stackTrace,
       );
       expect(assertTree.level, LogLevel.fatal);
       expect(assertTree.message, message);
       expect(assertTree.tag, tag);
-      expect(assertTree.json, json);
+      expect(assertTree.extra, extra);
       expect(assertTree.error, error);
       expect(assertTree.stackTrace, stackTrace);
     });

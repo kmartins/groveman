@@ -17,7 +17,7 @@ There are no Tree implementations installed by default because, second `Timber`,
 
 There is a `tree` for the debug mode called `DebugTree`, it's totally configurable.
 
-The logging is formed by the **level, tag, message, json, error and stack trace**.
+The logging is formed by the **level, tag, message, extra, error and stack trace**.
 
 ## Levels
 
@@ -53,7 +53,7 @@ void main(){
   //log
   Groveman.debug();
   Groveman.info('info', tag: 'info');
-  Groveman.warning('error', tag: 'info', json: <String, Object>{
+  Groveman.warning('error', tag: 'info', extra: <String, Object>{
       'name': 'Jungle',
       'trees': 50,
     },
@@ -95,14 +95,14 @@ Uses the dart:developer [log()](https://api.flutter.dev/flutter/dart-developer/l
 **Format of the output**
 ```
 [Log Level] [tag]: message
-json
+extra
 Error
 StackTrace
 ```
 
 ![output](https://raw.githubusercontent.com/kmartins/groveman/master/assets/output.png)
 
-The json will be showed formatted.
+The `extra` will be showed formatted as `JSON`.
 
 If the tag is not provided, the implementation will automatically figure out from which file and line it's being called and use that **file name and line as its tag**.
 You can set to not show the tag.
