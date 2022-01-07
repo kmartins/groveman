@@ -2,6 +2,8 @@ name: Groveman Sentry
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "scripts/**"
       - "packages/groveman_sentry/**"
@@ -49,6 +51,7 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           directory: packages/groveman_sentry/coverage
+          flags: groveman_sentry
           fail_ci_if_error: true
 
   pana:
@@ -68,4 +71,4 @@ jobs:
           pub global activate pana
 
       - name: Verify Pub Score
-        run: ../../scripts/verify_pub_score.sh 110
+        run: ../../scripts/verify_pub_score.sh

@@ -2,6 +2,8 @@ name: Groveman Crashlytics
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "scripts/**"
       - "packages/groveman_crashlytics/**"
@@ -42,14 +44,13 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
           path: packages/groveman_crashlytics/coverage/lcov.info
-          min_coverage: 90
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
           directory: packages/groveman_crashlytics/coverage
+          flags: groveman_crashlytics
           fail_ci_if_error: true
-
   pana:
     defaults:
       run:
@@ -67,4 +68,4 @@ jobs:
           flutter pub global activate pana
 
       - name: Verify Pub Score
-        run: ../../scripts/verify_pub_score.sh 110
+        run: ../../scripts/verify_pub_score.sh
