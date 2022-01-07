@@ -62,7 +62,7 @@ void main() {
 
   group('SentryTree', () {
     group('default levels', () {
-      setUpAll(() => Groveman.plantTree(SentryTree()..hub = mockHub));
+      setUpAll(() => Groveman.plantTree(SentryTree()..setMockHub(mockHub)));
       tearDownAll(Groveman.clearAll);
 
       test(
@@ -310,7 +310,7 @@ void main() {
               LogLevel.debug,
               LogLevel.warning,
             ],
-          )..hub = mockHub,
+          )..setMockHub(mockHub),
         );
 
         Groveman

@@ -20,8 +20,8 @@ class SentryTree extends Tree {
   Hub _hub = HubAdapter();
 
   @visibleForTesting
-  // ignore: avoid_setters_without_getters
-  set hub(Hub mockHub) => _hub = mockHub;
+  // ignore: use_setters_to_change_properties
+  void setMockHub(Hub mockHub) => _hub = mockHub;
 
   /// The default log levels are [LogLevel.info], [LogLevel.warning],
   /// [LogLevel.error], and [LogLevel.fatal] if there is a [error]
