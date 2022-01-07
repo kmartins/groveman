@@ -85,7 +85,7 @@ This project is [MIT](license_link) licensed
 [groveman_crashlytics_link]: https://pub.dev/packages/groveman_crashlytics
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
-[codecov_badge]: https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?token=9OHL7Q2V5A
+[codecov_badge]: https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?flag=groveman_crashlytics
 [codecov_link]: https://codecov.io/gh/kmartins/groveman
 [workflow_badge]: https://github.com/kmartins/groveman/actions/workflows/groveman_crashlytics.yaml/badge.svg
 [workflow_link]: https://github.com/kmartins/groveman/actions/workflows/groveman_crashlytics.yaml

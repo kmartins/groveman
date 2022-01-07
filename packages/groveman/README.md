@@ -1,8 +1,9 @@
 # Groveman
 
+[![pub](https://img.shields.io/pub/v/groveman.svg)](https://pub.dev/packages/groveman)
 [![License: MIT][license_badge]][license_link]
 [![groveman](https://github.com/kmartins/groveman/actions/workflows/groveman.yaml/badge.svg)](https://github.com/kmartins/groveman/actions/workflows/groveman.yaml)
-[![codecov](https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?token=9OHL7Q2V5A)](https://codecov.io/gh/kmartins/groveman)
+[![codecov](https://codecov.io/gh/kmartins/groveman/branch/main/graph/badge.svg?flag=groveman)](https://codecov.io/gh/kmartins/groveman)
 
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
