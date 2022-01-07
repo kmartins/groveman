@@ -2,6 +2,8 @@ name: Groveman
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "scripts/**"
       - "packages/groveman/**"
