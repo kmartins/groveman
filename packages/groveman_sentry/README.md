@@ -71,7 +71,7 @@ If the `LogRecord.error` is not null, it will be sent using `captureEvent`, othe
 `LogRecord` converted in **SentryEvent**:
 - `LogRecord.level` -> **SentryLevel**
 - `LogRecord.message` -> **SentryMessage(message)**
-- `LogRecord.json` -> **extra**
+- `LogRecord.extra` -> **extra**
 - `LogRecord.error` -> **throwable**
 - `LogRecord.tag` -> **tags**
 
@@ -81,7 +81,7 @@ The `LogRecord.stackTrace` is only sent in `captureEvent`.
 `LogRecord` converted in **Breadcrumb**:
 - `LogRecord.level` -> **SentryLevel**
 - `LogRecord.message` -> **message**
-- `LogRecord.json` -> **data**
+- `LogRecord.extra` -> **data**
 
 To custom, pass the levels that desire to send when creating the `SentryTree`.
 

@@ -10,7 +10,7 @@ environment:
   sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
-  groveman: ^1.1.0
+  groveman: ^1.2.0
   meta: ^1.7.0
   sentry: ^6.2.2
 

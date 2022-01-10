@@ -26,7 +26,7 @@ extension LogRecordExtension on LogRecord {
   Breadcrumb get toBreadcrumb => Breadcrumb(
         level: level.toSentryLevel,
         message: message,
-        data: json,
+        data: extra,
       );
 
   /// Converts from [LogRecord] to [SentryEvent].
@@ -35,7 +35,7 @@ extension LogRecordExtension on LogRecord {
     return SentryEvent(
       level: level.toSentryLevel,
       message: SentryMessage(message),
-      extra: json,
+      extra: extra,
       throwable: error,
       tags: sentryTag != null ? {'groveman_tag': sentryTag} : null,
       logger: 'groveman',
