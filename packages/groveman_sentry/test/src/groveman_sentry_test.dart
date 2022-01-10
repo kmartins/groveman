@@ -18,14 +18,14 @@ Matcher isBreadcrumbCalled({
 Matcher isSentryEventCalled({
   required SentryLevel level,
   required String message,
-  Map<String, dynamic>? json,
+  Map<String, dynamic>? extra,
   Object? error,
   Map<String, String>? tags,
 }) =>
     isA<SentryEvent>()
         .having((event) => event.level?.name, 'level', level.name)
         .having((event) => event.message?.formatted, 'message', message)
-        .having((event) => event.extra, 'extra', json)
+        .having((event) => event.extra, 'extra', extra)
         .having((event) => event.throwable, 'throwable', error)
         .having((event) => event.tags, 'tags', tags)
         .having((event) => event.logger, 'logger', 'groveman');
@@ -33,7 +33,7 @@ Matcher isSentryEventCalled({
 Matcher isCapturedEventCalled({
   required SentryLevel level,
   required String message,
-  Map<String, dynamic>? json,
+  Map<String, dynamic>? extra,
   Object? error,
   Map<String, String>? tags,
   StackTrace? stackTrace,
@@ -45,7 +45,7 @@ Matcher isCapturedEventCalled({
           isSentryEventCalled(
             level: level,
             message: message,
-            json: json,
+            extra: extra,
             error: error,
             tags: tags,
           ),
@@ -68,7 +68,7 @@ void main() {
       test(
           'given the default log level, '
           'when the log does not have an error, '
-          'without json and is a default level, '
+          'without extra and is a default level, '
           'then the log is sent using addBreadcrumb '
           'only with the level and the message', () {
         const message = 'message';
@@ -92,16 +92,16 @@ void main() {
       test(
           'given the default log level, '
           'when the log does not have an error, '
-          'with json and is a default level, '
+          'with extra and is a default level, '
           'then the log is sent using addBreadcrumb '
-          'only with the level, message and the json', () {
+          'only with the level, message and the extra', () {
         const message = 'message';
-        const json = {'message': 'json', 'value': 100};
+        const extra = {'message': 'extra', 'value': 100};
 
-        Groveman.info(message, json: json);
-        Groveman.warning(message, json: json);
-        Groveman.error(message, json: json);
-        Groveman.fatal(message, json: json);
+        Groveman.info(message, extra: extra);
+        Groveman.warning(message, extra: extra);
+        Groveman.error(message, extra: extra);
+        Groveman.fatal(message, extra: extra);
 
         expect(mockHub.addBreadcrumbCalls.length, 4);
         expect(
@@ -109,22 +109,22 @@ void main() {
             <Matcher>[
               isBreadcrumbCalled(
                 message: message,
-                data: json,
+                data: extra,
                 level: SentryLevel.info,
               ),
               isBreadcrumbCalled(
                 message: message,
-                data: json,
+                data: extra,
                 level: SentryLevel.warning,
               ),
               isBreadcrumbCalled(
                 message: message,
-                data: json,
+                data: extra,
                 level: SentryLevel.error,
               ),
               isBreadcrumbCalled(
                 message: message,
-                data: json,
+                data: extra,
                 level: SentryLevel.fatal,
               ),
             ]);
@@ -171,35 +171,35 @@ void main() {
       test(
           'given the default log level, '
           'when the log has an error, default level, '
-          'message, tag, json and without stack trace, '
+          'message, tag, extra and without stack trace, '
           'then the log is sent to using captureEvent', () {
         const message = 'message';
         const exception = 'exception';
-        const json = {'message': 'json', 'value': 100};
+        const extra = {'message': 'extra', 'value': 100};
 
         Groveman.info(
           message,
           tag: LogLevel.info.name,
           error: exception,
-          json: json,
+          extra: extra,
         );
         Groveman.warning(
           message,
           tag: LogLevel.warning.name,
           error: exception,
-          json: json,
+          extra: extra,
         );
         Groveman.error(
           message,
           tag: LogLevel.error.name,
           error: exception,
-          json: json,
+          extra: extra,
         );
         Groveman.fatal(
           message,
           tag: LogLevel.fatal.name,
           error: exception,
-          json: json,
+          extra: extra,
         );
 
         expect(mockHub.eventCalls.length, 4);
@@ -209,28 +209,28 @@ void main() {
             message: message,
             error: exception,
             tags: {'groveman_tag': LogLevel.info.name},
-            json: json,
+            extra: extra,
           ),
           isCapturedEventCalled(
             level: SentryLevel.warning,
             message: message,
             error: exception,
             tags: {'groveman_tag': LogLevel.warning.name},
-            json: json,
+            extra: extra,
           ),
           isCapturedEventCalled(
             level: SentryLevel.error,
             message: message,
             error: exception,
             tags: {'groveman_tag': LogLevel.error.name},
-            json: json,
+            extra: extra,
           ),
           isCapturedEventCalled(
             level: SentryLevel.fatal,
             message: message,
             error: exception,
             tags: {'groveman_tag': LogLevel.fatal.name},
-            json: json,
+            extra: extra,
           ),
         ]);
       });
@@ -285,9 +285,9 @@ void main() {
         const message = 'message';
         const exception = 'exception';
         final stackTrace = StackTrace.fromString(message);
-        const json = {'message': 'json', 'value': 100};
+        const extra = {'message': 'extra', 'value': 100};
 
-        Groveman.debug(message, json: json);
+        Groveman.debug(message, extra: extra);
         Groveman.debug(message);
         Groveman.debug(message, error: exception);
         Groveman.debug(message, error: exception, stackTrace: stackTrace);
@@ -303,7 +303,7 @@ void main() {
           'then the log is sent using addBreadcrumb', () {
         const message = 'message';
         const message2 = 'message2';
-        const json = {'message': 'json', 'value': 100};
+        const extra = {'message': 'extra', 'value': 100};
         Groveman.plantTree(
           SentryTree(
             logLevels: [
@@ -314,7 +314,7 @@ void main() {
         );
 
         Groveman
-          ..debug(message, json: json)
+          ..debug(message, extra: extra)
           ..warning(message)
           ..warning(message2)
           ..info(message)
@@ -326,7 +326,7 @@ void main() {
             <Matcher>[
               isBreadcrumbCalled(
                 message: message,
-                data: json,
+                data: extra,
                 level: SentryLevel.debug,
               ),
               isBreadcrumbCalled(message: message, level: SentryLevel.warning),

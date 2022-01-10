@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Groveman.info(
         'Counter - $_counter',
         tag: 'counter',
-        json: {'my_counter': _counter},
+        extra: {'my_counter': _counter},
       );
     });
   }
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Fatal',
                 error: 'Fatal',
                 stackTrace: StackTrace.current,
-                json: {'my_counter': _counter},
+                extra: {'my_counter': _counter},
               );
             },
             label: const Text('Report fatal error'),
