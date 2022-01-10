@@ -13,8 +13,6 @@ import 'package:sentry/sentry.dart';
 /// ```
 /// {@endtemplate}
 class SentryTree extends Tree {
-  /// {@macro sentry_tree}
-
   /// Log levels that will be sent for the sentry.
   final List<LogLevel> _logLevels;
   Hub _hub = HubAdapter();
