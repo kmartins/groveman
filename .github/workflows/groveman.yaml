@@ -1,14 +1,6 @@
 name: Groveman
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "scripts/**"
-      - "packages/groveman/**"
-      - ".github/workflows/groveman.yaml"
-
   pull_request:
     paths:
       - "scripts/**"
@@ -25,13 +17,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1
       - uses: subosito/flutter-action@v1.5.3
 
       - name: Install Dependencies
         run: |
           flutter packages get
-          pub global activate coverage
+          dart pub global activate coverage
 
       - name: Format
         run: dart format --set-exit-if-changed .
