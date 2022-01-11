@@ -1,0 +1,75 @@
+name: Upload Code Coverage
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/**"
+      - "packages/**"
+      - ".github/workflows/coverage.yaml"
+
+jobs:
+  dart:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: packages/${{ matrix.flag }}
+
+    strategy:
+      matrix:
+        flag:
+          - groveman
+          - groveman_crashlytics
+          - groveman_sentry
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: subosito/flutter-action@v1.5.3
+
+      - name: Install Dependencies
+        run: |
+          flutter packages get
+          dart pub global activate coverage
+
+      - name: Run Tests
+        run: ../../scripts/coverage.sh
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          directory: packages/${{ matrix.flag }}/coverage
+          flags: ${{ matrix.flag }}
+          fail_ci_if_error: true
+
+  flutter:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: packages/${{ matrix.flag }}
+
+    strategy:
+      matrix:
+        flag:
+          - groveman_crashlytics
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: subosito/flutter-action@v1.5.3
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Run Tests
+        run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          directory: packages/${{ matrix.flag }}/coverage
+          flags: ${{ matrix.flag }}
+          fail_ci_if_error: true
