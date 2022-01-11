@@ -18,10 +18,10 @@ jobs:
         working-directory: packages/${{ matrix.flag }}
 
     strategy:
+      fail-fast: false
       matrix:
         flag:
           - groveman
-          - groveman_crashlytics
           - groveman_sentry
 
     steps:
