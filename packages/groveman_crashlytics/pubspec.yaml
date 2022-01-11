@@ -1,5 +1,5 @@
 name: groveman_crashlytics
-description: Groveman tree that sends your logs to Firebase Crashlytics.
+description: Groveman tree that sends its logs to Firebase Crashlytics through recordError and logs.
 version: 1.0.0
 homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_crashlytics
