@@ -1,0 +1,31 @@
+name: PR title
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            fix
+            feat
+            docs
+            style
+            refactor
+            perf
+            tests
+            build
+            ci
+            revert
+            release
+          scopes: |
+            groveman
+            groveman_sentry
+            groveman_crashlytics
