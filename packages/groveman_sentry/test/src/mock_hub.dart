@@ -5,18 +5,12 @@ class MockHub implements Hub {
   List<EventCall> eventCalls = [];
 
   @override
-  void addBreadcrumb(Breadcrumb crumb, {dynamic hint}) {
-    addBreadcrumbCalls.add(AddBreadcrumbCall(crumb, hint));
-  }
+  Future<void> addBreadcrumb(Breadcrumb crumb, {dynamic hint}) async =>
+      addBreadcrumbCalls.add(AddBreadcrumbCall(crumb, hint));
 
   // The following methods and properties are not needed for the tests.
   @override
   void bindClient(SentryClient client) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Hub clone() {
     throw UnimplementedError();
   }
 
@@ -95,13 +89,29 @@ class MockHub implements Hub {
   ) {}
 
   @override
+  Future<Hub> clone() {
+    // TODO: implement clone
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement options
+  SentryOptions get options => throw UnimplementedError();
+
+  @override
   ISentrySpan startTransaction(
     String name,
     String operation, {
     String? description,
+    DateTime? startTimestamp,
     bool? bindToScope,
+    bool? waitForChildren,
+    Duration? autoFinishAfter,
+    bool? trimEnd,
+    OnTransactionFinish? onFinish,
     Map<String, dynamic>? customSamplingContext,
   }) {
+    // TODO: implement startTransaction
     throw UnimplementedError();
   }
 
@@ -109,8 +119,14 @@ class MockHub implements Hub {
   ISentrySpan startTransactionWithContext(
     SentryTransactionContext transactionContext, {
     Map<String, dynamic>? customSamplingContext,
+    DateTime? startTimestamp,
     bool? bindToScope,
+    bool? waitForChildren,
+    Duration? autoFinishAfter,
+    bool? trimEnd,
+    OnTransactionFinish? onFinish,
   }) {
+    // TODO: implement startTransactionWithContext
     throw UnimplementedError();
   }
 }
