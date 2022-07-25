@@ -38,16 +38,15 @@ class _Groveman {
     LogLevel logLevel = LogLevel.error,
     String tag = 'zone',
     String message = 'Uncaught exception',
-  }) {
-    runZonedGuarded<R>(
-      body,
-      (error, stackTrace) {
-        _log(logLevel, tag, message, null, error, stackTrace);
-      },
-      zoneValues: zoneValues,
-      zoneSpecification: zoneSpecification,
-    );
-  }
+  }) =>
+      runZonedGuarded<R>(
+        body,
+        (error, stackTrace) {
+          _log(logLevel, tag, message, null, error, stackTrace);
+        },
+        zoneValues: zoneValues,
+        zoneSpecification: zoneSpecification,
+      );
 
   void debug(
     String message, {

@@ -3,9 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// ignore: depend_on_referenced_packages
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
-// ignore: depend_on_referenced_packages
 import 'package:firebase_crashlytics_platform_interface/firebase_crashlytics_platform_interface.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,49 +12,63 @@ typedef Callback = void Function(MethodCall call);
 
 final List<MethodCall> methodCallLog = <MethodCall>[];
 
-void setupFirebaseCrashlyticsMocks([Callback? customHandlers]) {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  MethodChannelFirebase.channel.setMockMethodCallHandler((call) async {
-    if (call.method == 'Firebase#initializeCore') {
-      return [
-        {
-          'name': defaultFirebaseAppName,
-          'options': {
-            'apiKey': '123',
-            'appId': '123',
-            'messagingSenderId': '123',
-            'projectId': '123',
-          },
-          'pluginConstants': {
-            'plugins.flutter.io/firebase_crashlytics': {
-              'isCrashlyticsCollectionEnabled': true
-            }
-          },
+class MockFirebaseAppWithCollectionEnabled implements TestFirebaseCoreHostApi {
+  @override
+  Future<PigeonInitializeResponse> initializeApp(
+    String appName,
+    PigeonFirebaseOptions initializeAppRequest,
+  ) async {
+    return PigeonInitializeResponse(
+      name: appName,
+      options: PigeonFirebaseOptions(
+        apiKey: '123',
+        projectId: '123',
+        appId: '123',
+        messagingSenderId: '123',
+      ),
+      pluginConstants: {
+        'plugins.flutter.io/firebase_crashlytics': {
+          'isCrashlyticsCollectionEnabled': true
         }
-      ];
-    }
+      },
+    );
+  }
 
-    if (call.method == 'Firebase#initializeApp') {
-      return {
-        // ignore: avoid_dynamic_calls
-        'name': call.arguments['appName'],
-        // ignore: avoid_dynamic_calls
-        'options': call.arguments['options'],
-        'pluginConstants': {
+  @override
+  Future<List<PigeonInitializeResponse?>> initializeCore() async {
+    return [
+      PigeonInitializeResponse(
+        name: defaultFirebaseAppName,
+        options: PigeonFirebaseOptions(
+          apiKey: '123',
+          projectId: '123',
+          appId: '123',
+          messagingSenderId: '123',
+        ),
+        pluginConstants: {
           'plugins.flutter.io/firebase_crashlytics': {
             'isCrashlyticsCollectionEnabled': true
           }
         },
-      };
-    }
+      )
+    ];
+  }
 
-    if (customHandlers != null) {
-      customHandlers(call);
-    }
+  @override
+  Future<PigeonFirebaseOptions> optionsFromResource() async {
+    return PigeonFirebaseOptions(
+      apiKey: '123',
+      projectId: '123',
+      appId: '123',
+      messagingSenderId: '123',
+    );
+  }
+}
 
-    return null;
-  });
+void setupFirebaseCrashlyticsMocks([Callback? customHandlers]) {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  TestFirebaseCoreHostApi.setup(MockFirebaseAppWithCollectionEnabled());
 
   MethodChannelFirebaseCrashlytics.channel
       .setMockMethodCallHandler((MethodCall methodCall) async {

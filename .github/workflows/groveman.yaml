@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1.5.3
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
 
       - name: Install Dependencies
         run: |
@@ -34,12 +34,12 @@ jobs:
         run: ../../scripts/coverage.sh
 
       - name: Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+        uses: VeryGoodOpenSource/very_good_coverage@v1
         with:
           path: packages/groveman/coverage/lcov.info
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           directory: packages/groveman/coverage
           flags: groveman
@@ -53,13 +53,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
 
       - name: Install Dependencies
         run: |
-          pub get
-          pub global activate pana
+          dart pub get
+          dart pub global activate pana
 
       - name: Verify Pub Score
         run: ../../scripts/verify_pub_score.sh

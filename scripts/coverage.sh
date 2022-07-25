@@ -3,6 +3,6 @@
 # Fast fail the script on failures.
 set -e
 
-dart test --coverage="coverage"
+dart test -j 4 --coverage=coverage 
 
-format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.packages --report-on=lib
+dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib

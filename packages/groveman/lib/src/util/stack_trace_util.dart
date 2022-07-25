@@ -56,6 +56,8 @@ class StackTraceUtil {
       }
       return fileName;
     }
+
+    return null;
   }
 
   bool _discardDeviceStacktraceLine(String line) {
