@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  groveman: ^1.2.0
+  groveman: ^1.2.1
   groveman_sentry:
     path: ../
   sentry_flutter: ^6.8.0
