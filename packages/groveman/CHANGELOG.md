@@ -1,3 +1,9 @@
+## 1.2.1
+
+ - **REFACTOR**: update all gitignore (#36).
+ - **REFACTOR**: update all gitignore (#34).
+ - **FIX**: error ci and lint errors (#41).
+
 ## 1.2.0
 
  - **REFACTOR**: remove unused package - stacktrace (#28).
