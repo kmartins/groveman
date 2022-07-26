@@ -11,13 +11,13 @@ class AnsiColor {
 
   @override
   String toString() {
-    final StringBuffer _sb = StringBuffer();
+    final StringBuffer sb = StringBuffer();
 
     if (foregroundColor != null) {
-      _sb.write('${ansiEsc}38;5;${foregroundColor}m');
+      sb.write('${ansiEsc}38;5;${foregroundColor}m');
     }
 
-    return _sb.toString();
+    return sb.toString();
   }
 
   String call(String msg) => '${this}$msg';
