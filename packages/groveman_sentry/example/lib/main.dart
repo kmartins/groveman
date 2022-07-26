@@ -5,7 +5,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() {
   Groveman.plantTree(DebugTree(showColor: true));
-  print('DNS - ${const String.fromEnvironment('SENTRY_DNS')}');
   Groveman.captureErrorInZone(() async {
     await SentryFlutter.init(
       (options) {
