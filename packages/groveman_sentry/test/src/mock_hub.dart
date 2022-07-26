@@ -89,7 +89,7 @@ class MockHub implements Hub {
   ) {}
 
   @override
-  Future<Hub> clone() {
+  Hub clone() {
     // TODO: implement clone
     throw UnimplementedError();
   }
