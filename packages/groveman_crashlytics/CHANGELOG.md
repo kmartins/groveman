@@ -1,3 +1,8 @@
+## 1.0.1
+
+ - **FIX**: error ci and lint errors (#41).
+ - **DOCS**: remove firebase analytics from the readme (#49).
+
 ## 1.0.0
 
 Initial Version of the library.
