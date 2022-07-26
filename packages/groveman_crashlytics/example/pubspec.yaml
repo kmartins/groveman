@@ -12,7 +12,7 @@ dependencies:
   firebase_core: ^1.20.0
   flutter:
     sdk: flutter
-  groveman: ^1.2.0
+  groveman: ^1.2.1
   groveman_crashlytics:
     path: ../
 
