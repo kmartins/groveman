@@ -14,7 +14,7 @@ dependencies:
   groveman: ^1.2.1
   groveman_sentry:
     path: ../
-  sentry_flutter: ^6.8.0
+  sentry_flutter: ^7.4.2
 
 dev_dependencies:
   flutter_test:
