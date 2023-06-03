@@ -20,7 +20,7 @@ class AnsiColor {
     return sb.toString();
   }
 
-  String call(String msg) => '${this}$msg';
+  String call(String msg) => '$this$msg';
 
   static int grey(double level) => 232 + (level.clamp(0.0, 1.0) * 23).round();
 }

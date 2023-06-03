@@ -35,7 +35,7 @@ extension LogRecordExtension on LogRecord {
     return SentryEvent(
       level: level.toSentryLevel,
       message: SentryMessage(message),
-      extra: extra,
+      contexts: extra != null ? Contexts.fromJson(extra!) : null,
       throwable: error,
       tags: sentryTag != null ? {'groveman_tag': sentryTag} : null,
       logger: 'groveman',
