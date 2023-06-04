@@ -67,7 +67,10 @@ class MockHub implements Hub {
   }
 
   @override
-  Future<SentryId> captureTransaction(SentryTransaction transaction) {
+  Future<SentryId> captureTransaction(
+    SentryTransaction transaction, {
+    SentryTraceContextHeader? traceContext,
+  }) {
     throw UnimplementedError();
   }
 

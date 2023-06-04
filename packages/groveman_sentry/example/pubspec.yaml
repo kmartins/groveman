@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -14,12 +14,9 @@ dependencies:
   groveman: ^1.2.1
   groveman_sentry:
     path: ../
-  sentry_flutter: ^6.8.0
+  sentry_flutter: ^7.6.3
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
   flutter_lints: ^2.0.1
 
 flutter:
