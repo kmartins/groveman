@@ -17,9 +17,6 @@ dependencies:
   sentry_flutter: ^7.6.3
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
   flutter_lints: ^2.0.1
 
 flutter:
