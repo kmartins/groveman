@@ -5,6 +5,12 @@ homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_crashlytics
 issue_tracker: https://github.com/kmartins/groveman/issues
 documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_crashlytics
+topics:
+  - log
+  - logging
+  - crashlytics
+  - report
+  - error
 
 environment:
   sdk: ">=2.17.0 <3.0.0"

@@ -5,6 +5,12 @@ homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_sentry
 issue_tracker: https://github.com/kmartins/groveman/issues
 documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_sentry
+topics:
+  - log
+  - logging
+  - sentry
+  - report
+  - error
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
