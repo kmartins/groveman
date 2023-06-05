@@ -3,6 +3,13 @@ description: Logging for Dart/Flutter applications, with the same concepts for t
 version: 1.2.1
 homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman
+topics:
+  - log
+  - logger
+  - logging
+  - timber
+  - report
+  - error
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
