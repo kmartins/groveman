@@ -1,6 +1,6 @@
 name: groveman_crashlytics
 description: Groveman tree that sends its logs to Firebase Crashlytics through recordError and logs.
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_crashlytics
 issue_tracker: https://github.com/kmartins/groveman/issues
@@ -20,7 +20,7 @@ dependencies:
   firebase_crashlytics: ^3.3.2
   flutter:
     sdk: flutter
-  groveman: ^1.2.1
+  groveman: ^1.2.2
 
 dev_dependencies:
   firebase_core: ^2.13.1

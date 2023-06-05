@@ -1,3 +1,8 @@
+## 1.0.2
+
+ - **BUILD**: Update Flutter version.
+ - **BUILD**: Update dependencies to the latest release.
+
 ## 1.0.1
 
  - **REFACTOR**: update all gitignore (#36).
