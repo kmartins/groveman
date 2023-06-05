@@ -5,6 +5,7 @@ homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman
 topics:
   - log
+  - logger
   - logging
   - timber
   - report

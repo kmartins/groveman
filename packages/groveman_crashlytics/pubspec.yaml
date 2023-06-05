@@ -7,6 +7,7 @@ issue_tracker: https://github.com/kmartins/groveman/issues
 documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_crashlytics
 topics:
   - log
+  - logger
   - logging
   - crashlytics
   - report
