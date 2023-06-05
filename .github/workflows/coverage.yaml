@@ -38,7 +38,7 @@ jobs:
         run: ../../scripts/coverage.sh
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           directory: packages/${{ matrix.flag }}/coverage
           flags: ${{ matrix.flag }}
@@ -68,7 +68,7 @@ jobs:
         run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           directory: packages/${{ matrix.flag }}/coverage
           flags: ${{ matrix.flag }}
