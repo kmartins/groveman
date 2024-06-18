@@ -56,10 +56,11 @@ void main() {
         'Crashlytics#recordError',
         arguments: {
           'exception': exception,
-          'information': '',
           'reason': message,
+          'information': '',
           'fatal': false,
           'stackTraceElements': getStackTraceElements(stack),
+          'buildId': '',
         },
       );
       expect(methodCallLog, <Matcher>[
@@ -84,10 +85,11 @@ void main() {
           'Crashlytics#recordError',
           arguments: {
             'exception': exception,
-            'information': '',
             'reason': message,
+            'information': '',
             'fatal': true,
             'stackTraceElements': getStackTraceElements(stack),
+            'buildId': '',
           },
         )
       ]);
@@ -137,10 +139,11 @@ void main() {
           'Crashlytics#recordError',
           arguments: {
             'exception': exception,
-            'information': '',
             'reason': message,
+            'information': '',
             'fatal': false,
             'stackTraceElements': getStackTraceElements(stack),
+            'buildId': '',
           },
         )
       ]);

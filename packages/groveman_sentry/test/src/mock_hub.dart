@@ -67,6 +67,14 @@ class MockHub implements Hub {
   }
 
   @override
+  Future<SentryId> captureTransaction(
+    SentryTransaction transaction, {
+    SentryTraceContextHeader? traceContext,
+  }) {
+    throw UnimplementedError();
+  }
+
+  @override
   Future<void> captureUserFeedback(SentryUserFeedback userFeedback) {
     throw UnimplementedError();
   }
@@ -122,12 +130,6 @@ class MockHub implements Hub {
     OnTransactionFinish? onFinish,
   }) {
     // TODO: implement startTransactionWithContext
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<SentryId> captureTransaction(SentryTransaction transaction, {SentryTraceContextHeader? traceContext}) {
-    // TODO: implement captureTransaction
     throw UnimplementedError();
   }
 }

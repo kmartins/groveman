@@ -25,7 +25,7 @@ Matcher isSentryEventCalled({
     isA<SentryEvent>()
         .having((event) => event.level?.name, 'level', level.name)
         .having((event) => event.message?.formatted, 'message', message)
-        .having((event) => event.extra, 'extra', extra)
+        .having((event) => event.contexts.toJson(), 'extra', extra ?? {})
         .having((event) => event.throwable, 'throwable', error)
         .having((event) => event.tags, 'tags', tags)
         .having((event) => event.logger, 'logger', 'groveman');

@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
-  firebase_core: ^2.10.0
+  firebase_core: ^3.1.0
   flutter:
     sdk: flutter
   groveman: ^1.2.1
@@ -17,9 +17,7 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  lint: ^1.10.0
+  lint: ^2.1.2
 
 flutter:
   uses-material-design: true

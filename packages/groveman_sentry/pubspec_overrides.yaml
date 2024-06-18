@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: groveman
+dependency_overrides:
+  groveman:
+    path: ../groveman
