@@ -19,7 +19,7 @@ environment:
 dependencies:
   groveman: ^1.2.2
   meta: ^1.9.1
-  sentry: ^7.6.3
+  sentry: ^8.3.0
 
 dev_dependencies:
   lint: ^2.1.2

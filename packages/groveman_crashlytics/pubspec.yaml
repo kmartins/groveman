@@ -23,9 +23,9 @@ dependencies:
   groveman: ^1.2.2
 
 dev_dependencies:
-  firebase_core: ^2.13.1
-  firebase_core_platform_interface: ^4.8.0
-  firebase_crashlytics_platform_interface: ^3.6.2
+  firebase_core: ^3.1.0
+  firebase_core_platform_interface: ^5.1.0
+  firebase_crashlytics_platform_interface: ^3.6.37
   flutter_test:
     sdk: flutter
   lint: ^2.1.2

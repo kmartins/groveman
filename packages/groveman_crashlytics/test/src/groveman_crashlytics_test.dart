@@ -80,19 +80,22 @@ void main() {
       Groveman.plantTree(CrashlyticsTree());
 
       Groveman.fatal(message, error: exception, stackTrace: stack);
-      expect(methodCallLog, <Matcher>[
-        isMethodCall(
-          'Crashlytics#recordError',
-          arguments: {
-            'exception': exception,
-            'reason': message,
-            'information': '',
-            'fatal': true,
-            'stackTraceElements': getStackTraceElements(stack),
-            'buildId': '',
-          },
-        )
-      ]);
+      expect(
+        methodCallLog,
+        <Matcher>[
+          isMethodCall(
+            'Crashlytics#recordError',
+            arguments: {
+              'exception': exception,
+              'reason': message,
+              'information': '',
+              'fatal': true,
+              'stackTraceElements': getStackTraceElements(stack),
+              'buildId': '',
+            },
+          ),
+        ],
+      );
     });
 
     test(
@@ -131,22 +134,25 @@ void main() {
         ..info(message, error: exception, stackTrace: stack)
         ..error(message);
 
-      expect(methodCallLog, <Matcher>[
-        isMethodCall('Crashlytics#log', arguments: {'message': message}),
-        isMethodCall('Crashlytics#log', arguments: {'message': message}),
-        isMethodCall('Crashlytics#log', arguments: {'message': message2}),
-        isMethodCall(
-          'Crashlytics#recordError',
-          arguments: {
-            'exception': exception,
-            'reason': message,
-            'information': '',
-            'fatal': false,
-            'stackTraceElements': getStackTraceElements(stack),
-            'buildId': '',
-          },
-        )
-      ]);
+      expect(
+        methodCallLog,
+        <Matcher>[
+          isMethodCall('Crashlytics#log', arguments: {'message': message}),
+          isMethodCall('Crashlytics#log', arguments: {'message': message}),
+          isMethodCall('Crashlytics#log', arguments: {'message': message2}),
+          isMethodCall(
+            'Crashlytics#recordError',
+            arguments: {
+              'exception': exception,
+              'reason': message,
+              'information': '',
+              'fatal': false,
+              'stackTraceElements': getStackTraceElements(stack),
+              'buildId': '',
+            },
+          ),
+        ],
+      );
     });
 
     test(
