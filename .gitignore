@@ -8,3 +8,6 @@
 .dart_tool/
 
 .vscode/
+
+# Melos
+pubspec_overrides.yaml

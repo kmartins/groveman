@@ -80,19 +80,22 @@ void main() {
       Groveman.plantTree(CrashlyticsTree());
 
       Groveman.fatal(message, error: exception, stackTrace: stack);
-      expect(methodCallLog, <Matcher>[
-        isMethodCall(
-          'Crashlytics#recordError',
-          arguments: {
-            'exception': exception,
-            'reason': message,
-            'information': '',
-            'fatal': true,
-            'stackTraceElements': getStackTraceElements(stack),
-            'buildId': '',
-          },
-        )
-      ]);
+      expect(
+        methodCallLog,
+        <Matcher>[
+          isMethodCall(
+            'Crashlytics#recordError',
+            arguments: {
+              'exception': exception,
+              'reason': message,
+              'information': '',
+              'fatal': true,
+              'stackTraceElements': getStackTraceElements(stack),
+              'buildId': '',
+            },
+          ),
+        ],
+      );
     });
 
     test(
@@ -145,7 +148,7 @@ void main() {
             'stackTraceElements': getStackTraceElements(stack),
             'buildId': '',
           },
-        )
+        ),
       ]);
     });
 
