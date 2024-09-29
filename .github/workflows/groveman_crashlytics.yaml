@@ -38,7 +38,7 @@ jobs:
           path: packages/groveman_crashlytics/coverage/lcov.info
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           directory: packages/groveman_crashlytics/coverage
           flags: groveman_crashlytics
