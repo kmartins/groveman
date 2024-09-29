@@ -39,11 +39,12 @@ jobs:
           path: packages/groveman/coverage/lcov.info
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           directory: packages/groveman/coverage
           flags: groveman
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   pana:
     defaults:
@@ -62,4 +63,4 @@ jobs:
           flutter pub global activate pana
 
       - name: Verify Pub Score
-        run: ../../scripts/verify_pub_score.sh
+        run: ../../scripts/verify_pub_score.sh 150

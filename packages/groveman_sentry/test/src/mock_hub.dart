@@ -1,4 +1,10 @@
+// ignore_for_file: invalid_use_of_internal_member
+
 import 'package:sentry/sentry.dart';
+import 'package:sentry/src/metrics/metric.dart';
+import 'package:sentry/src/metrics/metrics_aggregator.dart';
+import 'package:sentry/src/metrics/metrics_api.dart';
+import 'package:sentry/src/profiling.dart';
 
 class MockHub implements Hub {
   List<AddBreadcrumbCall> addBreadcrumbCalls = [];
@@ -132,6 +138,29 @@ class MockHub implements Hub {
     // TODO: implement startTransactionWithContext
     throw UnimplementedError();
   }
+
+  @override
+  SentryProfilerFactory? profilerFactory;
+
+  @override
+  Future<SentryId> captureMetrics(Map<int, Iterable<Metric>> metricsBuckets) {
+    // TODO: implement captureMetrics
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement metricsAggregator
+  MetricsAggregator? get metricsAggregator {
+    throw UnimplementedError();
+  }
+
+  @override
+  // TODO: implement metricsApi
+  MetricsApi get metricsApi => throw UnimplementedError();
+
+  @override
+  // TODO: implement scope
+  Scope get scope => throw UnimplementedError();
 }
 
 class AddBreadcrumbCall {
