@@ -44,6 +44,7 @@ jobs:
           directory: packages/groveman_sentry/coverage
           flags: groveman_sentry
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   pana:
     defaults:

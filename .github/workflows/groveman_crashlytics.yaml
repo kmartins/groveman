@@ -43,6 +43,8 @@ jobs:
           directory: packages/groveman_crashlytics/coverage
           flags: groveman_crashlytics
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          
   pana:
     defaults:
       run:
