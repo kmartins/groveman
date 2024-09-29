@@ -1,6 +1,6 @@
 name: groveman_sentry
 description: Groveman tree that sends its logs to Sentry.io through Breadcrumbs and events capture.
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/kmartins/groveman
 repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_sentry
 issue_tracker: https://github.com/kmartins/groveman/issues
