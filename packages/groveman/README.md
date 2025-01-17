@@ -158,5 +158,5 @@ You liked this package? Then give it a ⭐️. If you want to help then:
 
 ## 📝 License
 
-Copyright © 2022 [Kauê Martins](https://github.com/kmartins).<br />
+Copyright © 2025 [Kauê Martins](https://github.com/kmartins).<br />
 This project is [MIT](https://opensource.org/licenses/MIT) licensed.

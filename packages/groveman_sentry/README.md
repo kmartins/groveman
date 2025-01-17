@@ -97,7 +97,7 @@ Groveman.plantTree(
 
 ## 📝 License
 
-Copyright © 2022 [Kauê Martins](github) </br>
+Copyright © 2025 [Kauê Martins](github) </br>
 This project is [MIT](license_link) licensed
 
 [groveman_sentry_badge]: https://img.shields.io/pub/v/groveman_sentry.svg
