@@ -61,8 +61,10 @@ void main() {
           'fatal': false,
           'stackTraceElements': getStackTraceElements(stack),
           'buildId': '',
+          'loadingUnits': [],
         },
       );
+
       expect(methodCallLog, <Matcher>[
         matcher,
         matcher,
@@ -92,6 +94,7 @@ void main() {
               'fatal': true,
               'stackTraceElements': getStackTraceElements(stack),
               'buildId': '',
+              'loadingUnits': [],
             },
           ),
         ],
@@ -147,6 +150,7 @@ void main() {
             'fatal': false,
             'stackTraceElements': getStackTraceElements(stack),
             'buildId': '',
+            'loadingUnits': [],
           },
         ),
       ]);

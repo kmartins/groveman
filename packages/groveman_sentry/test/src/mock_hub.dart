@@ -81,11 +81,6 @@ class MockHub implements Hub {
   }
 
   @override
-  Future<void> captureUserFeedback(SentryUserFeedback userFeedback) {
-    throw UnimplementedError();
-  }
-
-  @override
   ISentrySpan? getSpan() {
     throw UnimplementedError();
   }
@@ -161,6 +156,23 @@ class MockHub implements Hub {
   @override
   // TODO: implement scope
   Scope get scope => throw UnimplementedError();
+
+  @override
+  Future<SentryId> captureFeedback(
+    SentryFeedback feedback, {
+    Hint? hint,
+    ScopeCallback? withScope,
+  }) {
+    // TODO: implement captureFeedback
+    throw UnimplementedError();
+  }
+
+  @override
+  // ignore: deprecated_member_use
+  Future<void> captureUserFeedback(SentryUserFeedback userFeedback) {
+    // TODO: implement captureUserFeedback
+    throw UnimplementedError();
+  }
 }
 
 class AddBreadcrumbCall {
