@@ -1,9 +1,8 @@
 // ignore_for_file: invalid_use_of_internal_member
 
+import 'dart:async';
+
 import 'package:sentry/sentry.dart';
-import 'package:sentry/src/metrics/metric.dart';
-import 'package:sentry/src/metrics/metrics_aggregator.dart';
-import 'package:sentry/src/metrics/metrics_api.dart';
 import 'package:sentry/src/profiling.dart';
 
 class MockHub implements Hub {
@@ -76,6 +75,8 @@ class MockHub implements Hub {
   Future<SentryId> captureTransaction(
     SentryTransaction transaction, {
     SentryTraceContextHeader? traceContext,
+    dynamic hint,
+    ScopeCallback? withScope,
   }) {
     throw UnimplementedError();
   }
@@ -138,22 +139,6 @@ class MockHub implements Hub {
   SentryProfilerFactory? profilerFactory;
 
   @override
-  Future<SentryId> captureMetrics(Map<int, Iterable<Metric>> metricsBuckets) {
-    // TODO: implement captureMetrics
-    throw UnimplementedError();
-  }
-
-  @override
-  // TODO: implement metricsAggregator
-  MetricsAggregator? get metricsAggregator {
-    throw UnimplementedError();
-  }
-
-  @override
-  // TODO: implement metricsApi
-  MetricsApi get metricsApi => throw UnimplementedError();
-
-  @override
   // TODO: implement scope
   Scope get scope => throw UnimplementedError();
 
@@ -168,10 +153,14 @@ class MockHub implements Hub {
   }
 
   @override
-  // ignore: deprecated_member_use
-  Future<void> captureUserFeedback(SentryUserFeedback userFeedback) {
-    // TODO: implement captureUserFeedback
+  Future<void> captureLog(SentryLog log) {
+    // TODO: implement captureLog
     throw UnimplementedError();
+  }
+
+  @override
+  void generateNewTraceId() {
+    // TODO: implement generateNewTraceId
   }
 }
 
@@ -187,10 +176,5 @@ class EventCall {
   final dynamic stackTrace;
   final dynamic hint;
   final ScopeCallback? withScope;
-  EventCall(
-    this.sentryEvent, {
-    this.stackTrace,
-    this.hint,
-    this.withScope,
-  });
+  EventCall(this.sentryEvent, {this.stackTrace, this.hint, this.withScope});
 }

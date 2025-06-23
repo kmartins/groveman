@@ -10,12 +10,13 @@ topics:
   - timber
   - report
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
+resolution: workspace
 
 dependencies:
-  meta: ^1.15.0
+  meta: ^1.16.0
 
 dev_dependencies:
-  lint: ^2.3.0
+  lint: ^2.8.0
   mocktail: ^1.0.4
-  test: ^1.25.14
+  test: ^1.26.2

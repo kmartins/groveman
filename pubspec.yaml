@@ -1,6 +1,18 @@
 name: groveman_workspace
+publish_to: none
+maintainer: Kauê Martins
+repository: https://github.com/kmartins/groveman
+issue_tracker: https://github.com/kmartins/groveman
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-dev_dependencies:
-  melos: ^6.1.0
+  sdk: ^3.8.0
+workspace:
+  - packages/groveman
+  - packages/groveman_crashlytics
+  - packages/groveman_sentry
+  - packages/groveman/example
+  - packages/groveman_crashlytics/example
+  - packages/groveman_sentry/example
+
+dependency_overrides:
+  test_api: ^0.7.4

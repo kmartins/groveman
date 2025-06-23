@@ -6,7 +6,8 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
+resolution: workspace
 
 dependencies:
   flutter:
@@ -14,13 +15,13 @@ dependencies:
   groveman: ^1.2.3
   groveman_sentry:
     path: ../
-  sentry_flutter: ^8.12.0
+  sentry_flutter: ^9.0.0
 
 dev_dependencies:
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 dependency_overrides:
-  win32: ^5.5.3
+  win32: ^5.14.0
 
 flutter:
   uses-material-design: true

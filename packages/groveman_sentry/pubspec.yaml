@@ -13,13 +13,15 @@ topics:
   - report
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.8.0 <4.0.0"
+
+resolution: workspace
 
 dependencies:
   groveman: ^1.2.4
-  meta: ^1.15.0
-  sentry: ^8.12.0
+  meta: ^1.16.0
+  sentry: ^9.0.0
 
 dev_dependencies:
-  lint: ^2.3.0
-  test: ^1.25.14
+  lint: ^2.8.0
+  test: ^1.26.2
