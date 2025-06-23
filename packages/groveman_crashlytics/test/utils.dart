@@ -5,8 +5,9 @@
 
 import 'package:stack_trace/stack_trace.dart';
 
-final _obfuscatedStackTraceLineRegExp =
-    RegExp(r'^(\s*#\d{2} abs )([\da-f]+)((?: virt [\da-f]+)?(?: .*)?)$');
+final _obfuscatedStackTraceLineRegExp = RegExp(
+  r'^(\s*#\d{2} abs )([\da-f]+)((?: virt [\da-f]+)?(?: .*)?)$',
+);
 
 /// Returns a [List] containing detailed output of each line in a stack trace.
 List<Map<String, String>> getStackTraceElements(StackTrace stackTrace) {
@@ -25,8 +26,9 @@ List<Map<String, String>> getStackTraceElements(StackTrace stackTrace) {
         // group same exceptions. Also we don't need abs addresses for
         // deobfuscating, if we have virt address or symbol name + offset.
         final String method = frame.member.replaceFirstMapped(
-            _obfuscatedStackTraceLineRegExp,
-            (match) => '${match.group(1)}0${match.group(3)}');
+          _obfuscatedStackTraceLineRegExp,
+          (match) => '${match.group(1)}0${match.group(3)}',
+        );
         elements.add(<String, String>{
           'file': '',
           'line': '0',

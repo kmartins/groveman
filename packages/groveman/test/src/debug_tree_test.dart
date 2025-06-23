@@ -23,8 +23,7 @@ void main() {
       registerFallbackValue(FakeLogRecord());
     });
 
-    test(
-        'given that the stackTrace is bigger 1, '
+    test('given that the stackTrace is bigger 1, '
         'when the tree is created with a methodCount or '
         'errorMethodCount smaller than 1, '
         'then the result is an assert error', () {
@@ -35,8 +34,7 @@ void main() {
       );
     });
 
-    test(
-        'given that the log has level with text, '
+    test('given that the log has level with text, '
         'when to get prefix, '
         'then the result is a text with the type of the log level', () {
       final debugTree = DebugTree();
@@ -47,8 +45,7 @@ void main() {
       expect(debugTree.formattedLogPrefix(LogLevel.fatal), 'Fatal');
     });
 
-    test(
-        'given that the log has level with emoji, '
+    test('given that the log has level with emoji, '
         'when to get prefix, '
         'then the result is a emoji with the type of the log level', () {
       final debugTree = DebugTree(showEmoji: true);
@@ -59,41 +56,46 @@ void main() {
       expect(debugTree.formattedLogPrefix(LogLevel.fatal), '🔥');
     });
 
-    test(
-        'given that the log has a color, '
+    test('given that the log has a color, '
         'when the log message is formatted, '
         'then the result is a text with the color of level', () {
       final debugTree = DebugTree(showTag: false, showColor: true);
-      const logRecord =
-          LogRecord(level: LogLevel.error, message: message, tag: tag);
+      const logRecord = LogRecord(
+        level: LogLevel.error,
+        message: message,
+        tag: tag,
+      );
       expect(
         debugTree.formattedLogMessage(logRecord),
         '\x1B[38;5;${196}m$message',
       );
     });
 
-    test(
-        'given that the log has message, but not tag, '
+    test('given that the log has message, but not tag, '
         'when the log message is formatted, '
         'then the result is message', () {
       final debugTree = DebugTree(showTag: false);
-      const logRecord =
-          LogRecord(level: LogLevel.debug, message: message, tag: tag);
+      const logRecord = LogRecord(
+        level: LogLevel.debug,
+        message: message,
+        tag: tag,
+      );
       expect(debugTree.formattedLogMessage(logRecord), message);
     });
 
-    test(
-        'given that the log has tag and message, '
+    test('given that the log has tag and message, '
         'when the log message is formatted, '
         'then the result is [tag]: message', () {
       final debugTree = DebugTree();
-      const logRecord =
-          LogRecord(level: LogLevel.debug, message: message, tag: tag);
+      const logRecord = LogRecord(
+        level: LogLevel.debug,
+        message: message,
+        tag: tag,
+      );
       expect(debugTree.formattedLogMessage(logRecord), '[$tag]: $message');
     });
 
-    test(
-        'given that the DebugTree is to show the tag, '
+    test('given that the DebugTree is to show the tag, '
         'when the log message is formatted, but stack trace tag is null '
         'then the result is message', () {
       final debugTree = DebugTree();
@@ -107,8 +109,7 @@ void main() {
       );
     });
 
-    test(
-        'given that the log has message and without tag, '
+    test('given that the log has message and without tag, '
         'when the log message is formatted, '
         'then the result is the tag with name file '
         'and line number of the first item stack ', () {
@@ -120,8 +121,7 @@ void main() {
       );
     });
 
-    test(
-        'given that the log is a debug and '
+    test('given that the log is a debug and '
         'has tag, message, stack trace the method count is 1 '
         'when the log message is formatted, '
         'then the result is [tag]: message stackTrace(1)', () {
@@ -142,8 +142,7 @@ void main() {
       );
     });
 
-    test(
-        'given that the log is a error and '
+    test('given that the log is a error and '
         'has tag, message, extra, error, stack trace '
         'and the error method count is 1 '
         'when the log message is formatted, '
@@ -169,8 +168,7 @@ void main() {
       );
     });
 
-    test(
-        'given that the log is a fatal and '
+    test('given that the log is a fatal and '
         'has tag, message, extra, error, stack trace '
         'and the error method count is 2 '
         'when the log message is formatted, '
@@ -196,8 +194,7 @@ void main() {
       );
     });
 
-    test(
-        'given that the log is a debug and '
+    test('given that the log is a debug and '
         'has tag, message and the method count is  '
         'bigger than stack trace lines when the log message is formatted, '
         'then the result is [tag]: message stackTrace(entire)', () {
@@ -218,15 +215,17 @@ void main() {
       );
     });
 
-    test(
-        'when the groveman throwing a log, '
+    test('when the groveman throwing a log, '
         'then the debug tree receive this log', () {
       final mockDebugTree = MockDebugTree();
       final debugTree = DebugTree();
       Groveman.plantTree(mockDebugTree);
       Groveman.plantTree(debugTree);
-      const logRecord =
-          LogRecord(level: LogLevel.debug, message: message, tag: tag);
+      const logRecord = LogRecord(
+        level: LogLevel.debug,
+        message: message,
+        tag: tag,
+      );
       when(() => mockDebugTree.log(logRecord)).thenReturn(null);
       Groveman.debug(message, tag: tag);
       final captured = verify(() => mockDebugTree.log(captureAny())).captured;

@@ -9,9 +9,10 @@ import 'package:meta/meta.dart';
 // ignore: non_constant_identifier_names
 final Groveman = _Groveman();
 
-typedef HandleIsolateError = void Function(
-  dynamic error,
-);
+typedef HandleIsolateError =
+    void Function(
+      dynamic error,
+    );
 
 class _Groveman {
   final Map<String, Tree> _trees = {};
@@ -38,15 +39,14 @@ class _Groveman {
     LogLevel logLevel = LogLevel.error,
     String tag = 'zone',
     String message = 'Uncaught exception',
-  }) =>
-      runZonedGuarded<R>(
-        body,
-        (error, stackTrace) {
-          _log(logLevel, tag, message, null, error, stackTrace);
-        },
-        zoneValues: zoneValues,
-        zoneSpecification: zoneSpecification,
-      );
+  }) => runZonedGuarded<R>(
+    body,
+    (error, stackTrace) {
+      _log(logLevel, tag, message, null, error, stackTrace);
+    },
+    zoneValues: zoneValues,
+    zoneSpecification: zoneSpecification,
+  );
 
   void debug(
     String message, {
@@ -54,8 +54,7 @@ class _Groveman {
     Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(LogLevel.debug, tag, message, extra, error, stackTrace);
+  }) => _log(LogLevel.debug, tag, message, extra, error, stackTrace);
 
   void info(
     String message, {
@@ -63,8 +62,7 @@ class _Groveman {
     Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(LogLevel.info, tag, message, extra, error, stackTrace);
+  }) => _log(LogLevel.info, tag, message, extra, error, stackTrace);
 
   void warning(
     String message, {
@@ -72,8 +70,7 @@ class _Groveman {
     Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(LogLevel.warning, tag, message, extra, error, stackTrace);
+  }) => _log(LogLevel.warning, tag, message, extra, error, stackTrace);
 
   void error(
     String message, {
@@ -81,8 +78,7 @@ class _Groveman {
     Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(LogLevel.error, tag, message, extra, error, stackTrace);
+  }) => _log(LogLevel.error, tag, message, extra, error, stackTrace);
 
   void fatal(
     String message, {
@@ -90,8 +86,7 @@ class _Groveman {
     Map<String, dynamic>? extra,
     Object? error,
     StackTrace? stackTrace,
-  }) =>
-      _log(LogLevel.fatal, tag, message, extra, error, stackTrace);
+  }) => _log(LogLevel.fatal, tag, message, extra, error, stackTrace);
 
   void _log(
     LogLevel logLevel,

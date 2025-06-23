@@ -50,8 +50,8 @@ class DebugTree extends Tree {
     this.showTag = true,
     this.methodCount = 2,
     this.errorMethodCount = 8,
-  })  : assert(methodCount > 0),
-        assert(errorMethodCount > 0);
+  }) : assert(methodCount > 0),
+       assert(errorMethodCount > 0);
 
   @override
   void log(LogRecord logRecord) {

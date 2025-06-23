@@ -21,9 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -44,25 +42,19 @@ class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {
       _counter++;
-      Groveman.info(
-        'Counter - $_counter',
-      );
+      Groveman.info('Counter - $_counter');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+            const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
@@ -84,9 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: const Text('Report fatal error'),
             icon: const Icon(Icons.bug_report),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           FloatingActionButton.extended(
             onPressed: () {
               Future.delayed(
@@ -97,9 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             label: const Text('Report error'),
             icon: const Icon(Icons.error),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           FloatingActionButton.extended(
             onPressed: _incrementCounter,
             label: const Text('Increment'),

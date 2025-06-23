@@ -9,11 +9,10 @@ Matcher isBreadcrumbCalled({
   required SentryLevel level,
   required String message,
   Map<String, dynamic>? data,
-}) =>
-    const TypeMatcher<Breadcrumb>()
-        .having((crumb) => crumb.level?.name, 'level', level.name)
-        .having((crumb) => crumb.message, 'message', message)
-        .having((crumb) => crumb.data, 'data', data);
+}) => const TypeMatcher<Breadcrumb>()
+    .having((crumb) => crumb.level?.name, 'level', level.name)
+    .having((crumb) => crumb.message, 'message', message)
+    .having((crumb) => crumb.data, 'data', data);
 
 Matcher isSentryEventCalled({
   required SentryLevel level,
@@ -21,14 +20,13 @@ Matcher isSentryEventCalled({
   Map<String, dynamic>? extra,
   Object? error,
   Map<String, String>? tags,
-}) =>
-    isA<SentryEvent>()
-        .having((event) => event.level?.name, 'level', level.name)
-        .having((event) => event.message?.formatted, 'message', message)
-        .having((event) => event.contexts.toJson(), 'extra', extra ?? {})
-        .having((event) => event.throwable, 'throwable', error)
-        .having((event) => event.tags, 'tags', tags)
-        .having((event) => event.logger, 'logger', 'groveman');
+}) => isA<SentryEvent>()
+    .having((event) => event.level?.name, 'level', level.name)
+    .having((event) => event.message?.formatted, 'message', message)
+    .having((event) => event.contexts.toJson(), 'extra', extra ?? {})
+    .having((event) => event.throwable, 'throwable', error)
+    .having((event) => event.tags, 'tags', tags)
+    .having((event) => event.logger, 'logger', 'groveman');
 
 Matcher isCapturedEventCalled({
   required SentryLevel level,
@@ -37,20 +35,19 @@ Matcher isCapturedEventCalled({
   Object? error,
   Map<String, String>? tags,
   StackTrace? stackTrace,
-}) =>
-    isA<EventCall>()
-        .having(
-          (event) => event.sentryEvent,
-          'stackTrace',
-          isSentryEventCalled(
-            level: level,
-            message: message,
-            extra: extra,
-            error: error,
-            tags: tags,
-          ),
-        )
-        .having((event) => event.stackTrace, 'stackTrace', stackTrace);
+}) => isA<EventCall>()
+    .having(
+      (event) => event.sentryEvent,
+      'stackTrace',
+      isSentryEventCalled(
+        level: level,
+        message: message,
+        extra: extra,
+        error: error,
+        tags: tags,
+      ),
+    )
+    .having((event) => event.stackTrace, 'stackTrace', stackTrace);
 
 void main() {
   final mockHub = MockHub();
@@ -65,8 +62,7 @@ void main() {
       setUpAll(() => Groveman.plantTree(SentryTree()..setMockHub(mockHub)));
       tearDownAll(Groveman.clearAll);
 
-      test(
-          'given the default log level, '
+      test('given the default log level, '
           'when the log does not have an error, '
           'without extra and is a default level, '
           'then the log is sent using addBreadcrumb '
@@ -80,17 +76,17 @@ void main() {
 
         expect(mockHub.addBreadcrumbCalls.length, 4);
         expect(
-            mockHub.addBreadcrumbCalls.map((add) => add.crumb).toList(),
-            <Matcher>[
-              isBreadcrumbCalled(message: message, level: SentryLevel.info),
-              isBreadcrumbCalled(message: message, level: SentryLevel.warning),
-              isBreadcrumbCalled(message: message, level: SentryLevel.error),
-              isBreadcrumbCalled(message: message, level: SentryLevel.fatal),
-            ]);
+          mockHub.addBreadcrumbCalls.map((add) => add.crumb).toList(),
+          <Matcher>[
+            isBreadcrumbCalled(message: message, level: SentryLevel.info),
+            isBreadcrumbCalled(message: message, level: SentryLevel.warning),
+            isBreadcrumbCalled(message: message, level: SentryLevel.error),
+            isBreadcrumbCalled(message: message, level: SentryLevel.fatal),
+          ],
+        );
       });
 
-      test(
-          'given the default log level, '
+      test('given the default log level, '
           'when the log does not have an error, '
           'with extra and is a default level, '
           'then the log is sent using addBreadcrumb '
@@ -105,33 +101,33 @@ void main() {
 
         expect(mockHub.addBreadcrumbCalls.length, 4);
         expect(
-            mockHub.addBreadcrumbCalls.map((add) => add.crumb).toList(),
-            <Matcher>[
-              isBreadcrumbCalled(
-                message: message,
-                data: extra,
-                level: SentryLevel.info,
-              ),
-              isBreadcrumbCalled(
-                message: message,
-                data: extra,
-                level: SentryLevel.warning,
-              ),
-              isBreadcrumbCalled(
-                message: message,
-                data: extra,
-                level: SentryLevel.error,
-              ),
-              isBreadcrumbCalled(
-                message: message,
-                data: extra,
-                level: SentryLevel.fatal,
-              ),
-            ]);
+          mockHub.addBreadcrumbCalls.map((add) => add.crumb).toList(),
+          <Matcher>[
+            isBreadcrumbCalled(
+              message: message,
+              data: extra,
+              level: SentryLevel.info,
+            ),
+            isBreadcrumbCalled(
+              message: message,
+              data: extra,
+              level: SentryLevel.warning,
+            ),
+            isBreadcrumbCalled(
+              message: message,
+              data: extra,
+              level: SentryLevel.error,
+            ),
+            isBreadcrumbCalled(
+              message: message,
+              data: extra,
+              level: SentryLevel.fatal,
+            ),
+          ],
+        );
       });
 
-      test(
-          'given the default log level, '
+      test('given the default log level, '
           'when the log has an error, a default level, '
           'a message and without stack trace, '
           'then the log is sent to using captureEvent', () {
@@ -168,8 +164,7 @@ void main() {
         ]);
       });
 
-      test(
-          'given the default log level, '
+      test('given the default log level, '
           'when the log has an error, default level, '
           'message, tag, extra and without stack trace, '
           'then the log is sent to using captureEvent', () {
@@ -235,8 +230,7 @@ void main() {
         ]);
       });
 
-      test(
-          'given the default log level, '
+      test('given the default log level, '
           'when the log has an error, a default level, '
           'a message and stack trace, '
           'then the log is sent to using captureEvent', () {
@@ -278,8 +272,7 @@ void main() {
         ]);
       });
 
-      test(
-          'given the default log level, '
+      test('given the default log level, '
           'when debug log level is called '
           'then the log not is sent to Sentry', () {
         const message = 'message';
@@ -297,8 +290,7 @@ void main() {
 
     group('custom levels', () {
       tearDown(Groveman.clearAll);
-      test(
-          'given the custom log level, '
+      test('given the custom log level, '
           'when one theses log is called '
           'then the log is sent using addBreadcrumb', () {
         const message = 'message';
@@ -322,20 +314,20 @@ void main() {
 
         expect(mockHub.addBreadcrumbCalls.length, 3);
         expect(
-            mockHub.addBreadcrumbCalls.map((add) => add.crumb).toList(),
-            <Matcher>[
-              isBreadcrumbCalled(
-                message: message,
-                data: extra,
-                level: SentryLevel.debug,
-              ),
-              isBreadcrumbCalled(message: message, level: SentryLevel.warning),
-              isBreadcrumbCalled(message: message2, level: SentryLevel.warning),
-            ]);
+          mockHub.addBreadcrumbCalls.map((add) => add.crumb).toList(),
+          <Matcher>[
+            isBreadcrumbCalled(
+              message: message,
+              data: extra,
+              level: SentryLevel.debug,
+            ),
+            isBreadcrumbCalled(message: message, level: SentryLevel.warning),
+            isBreadcrumbCalled(message: message2, level: SentryLevel.warning),
+          ],
+        );
       });
 
-      test(
-          'given the custom log level, '
+      test('given the custom log level, '
           'when none log level is passed '
           'then the result is an assert error', () {
         expect(() => SentryTree(logLevels: []), throwsA(isA<AssertionError>()));

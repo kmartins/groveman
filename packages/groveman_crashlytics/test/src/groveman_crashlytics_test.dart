@@ -17,8 +17,7 @@ void main() {
   });
 
   group('GrovemanCrashlytics', () {
-    test(
-        'given the default log level, '
+    test('given the default log level, '
         'when the log does not have an error and is a default level, '
         'then the log is sent to Crashlytics.log', () {
       const message = 'message';
@@ -29,8 +28,10 @@ void main() {
       Groveman.error(message);
       Groveman.fatal(message);
 
-      final matcher =
-          isMethodCall('Crashlytics#log', arguments: {'message': message});
+      final matcher = isMethodCall(
+        'Crashlytics#log',
+        arguments: {'message': message},
+      );
       expect(methodCallLog, <Matcher>[
         matcher,
         matcher,
@@ -39,8 +40,7 @@ void main() {
       ]);
     });
 
-    test(
-        'given the default log level, '
+    test('given the default log level, '
         'when the log has an error and is a default level, '
         'then the log is sent to Crashlytics.recordError', () {
       const message = 'message';
@@ -72,8 +72,7 @@ void main() {
       ]);
     });
 
-    test(
-        'given the default log level, '
+    test('given the default log level, '
         'when the log has an error and is fatal, '
         'then the log is sent to Crashlytics.record as fatal', () {
       const message = 'message';
@@ -101,8 +100,7 @@ void main() {
       );
     });
 
-    test(
-        'given the default log level, '
+    test('given the default log level, '
         'when debug log level is called '
         'then the log not is sent to Crashlytics', () {
       const message = 'message';
@@ -112,8 +110,7 @@ void main() {
       expect(methodCallLog, []);
     });
 
-    test(
-        'given the custom log level, '
+    test('given the custom log level, '
         'when one theses log is called '
         'then the log is sent to Crashlytics.log', () {
       const message = 'message';
@@ -156,8 +153,7 @@ void main() {
       ]);
     });
 
-    test(
-        'given the custom log level, '
+    test('given the custom log level, '
         'when none log level is passed '
         'then the result is an assert error', () {
       expect(() => CrashlyticsTree(logLevels: []), throwsAssertionError);

@@ -49,8 +49,7 @@ void main() {
 
     tearDown(() => Groveman.clearAll());
 
-    test(
-        'given none tree was planted, '
+    test('given none tree was planted, '
         'when any log is called, '
         'none trees are notified', () {
       final assertTree = AssertTree();
@@ -61,8 +60,7 @@ void main() {
       expect(secondAssertTree.message, isNull);
     });
 
-    test(
-        'given a tree planted, '
+    test('given a tree planted, '
         'when DEBUG log is called, '
         'the tree is notified', () {
       final assertTree = AssertTree();
@@ -86,8 +84,7 @@ void main() {
       expect(assertTree.stackTrace, stackTrace);
     });
 
-    test(
-        'given a tree planted, '
+    test('given a tree planted, '
         'when INFO log is called, '
         'the tree is notified', () {
       final assertTree = AssertTree();
@@ -111,8 +108,7 @@ void main() {
       expect(assertTree.stackTrace, stackTrace);
     });
 
-    test(
-        'given a tree planted, '
+    test('given a tree planted, '
         'when WARNING log is called, '
         'the tree is notified', () {
       final assertTree = AssertTree();
@@ -136,8 +132,7 @@ void main() {
       expect(assertTree.stackTrace, stackTrace);
     });
 
-    test(
-        'given a tree planted, '
+    test('given a tree planted, '
         'when ERROR log is called, '
         'then the tree is notified', () {
       final assertTree = AssertTree();
@@ -161,8 +156,7 @@ void main() {
       expect(assertTree.stackTrace, stackTrace);
     });
 
-    test(
-        'given a tree planted, '
+    test('given a tree planted, '
         'when FATAL log is called, '
         'then the tree is notified', () {
       final assertTree = AssertTree();
@@ -186,8 +180,7 @@ void main() {
       expect(assertTree.stackTrace, stackTrace);
     });
 
-    test(
-        'given a tree already planted, '
+    test('given a tree already planted, '
         'when trying plant the same tree, '
         'then only last tree is planted', () {
       final assertTree = AssertTree();
@@ -200,8 +193,7 @@ void main() {
       expect(assertTree2.message, message);
     });
 
-    test(
-        'given 2 trees planted, '
+    test('given 2 trees planted, '
         'when any log is called, '
         'all the trees are notified', () {
       final assertTree = AssertTree();
@@ -214,8 +206,7 @@ void main() {
       expect(secondAssertTree.message, message);
     });
 
-    test(
-        'given 2 trees planted, '
+    test('given 2 trees planted, '
         'when cutting off all the trees, '
         'none trees are notified', () {
       final assertTree = AssertTree();
@@ -229,8 +220,7 @@ void main() {
       expect(secondAssertTree.message, isNull);
     });
 
-    test(
-        'given a zone, '
+    test('given a zone, '
         'when threw an uncaught exception, '
         'then the result is a log with an error and exception', () {
       final assertTree = AssertTree();
@@ -255,8 +245,7 @@ void main() {
       expect(assertTree.message, 'Fatal');
     });
 
-    test(
-        'given a current isolate, '
+    test('given a current isolate, '
         'when threw an uncaught exception, '
         'then the result is a log with an error and exception', () {
       final assertTree = AssertTree();

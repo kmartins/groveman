@@ -3,8 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('StackTraceUtil', () {
-    test(
-        'given a current stack trace, '
+    test('given a current stack trace, '
         'when to get a tag, '
         'then expect result is the name file '
         'and line number of the first item stack', () {
@@ -12,8 +11,7 @@ void main() {
       expect(stackTraceUtil.getTag(), 'stack_trace_util_test-12');
     });
 
-    test(
-        'given a current stack trace, '
+    test('given a current stack trace, '
         'when to remove an unnecessary trace '
         'then expected result is without trace of mobile, '
         'web, browser, and line without information', () {
@@ -30,8 +28,7 @@ void main() {
       expect(stackTraceList, isEmpty);
     });
 
-    test(
-        'given a current stack trace, '
+    test('given a current stack trace, '
         'when this stack trace is obfuscated '
         'then the result of the info is null ', () {
       final stackTraceUtil = StackTraceUtil();
@@ -49,8 +46,7 @@ void main() {
       expect(stackTraceUtil.getInfo(stackTrace), isNull);
     });
 
-    test(
-        'given a current stack trace, '
+    test('given a current stack trace, '
         'when this stack trace is not a line number '
         'then the result is the name file', () {
       final stackTraceUtil = StackTraceUtil();

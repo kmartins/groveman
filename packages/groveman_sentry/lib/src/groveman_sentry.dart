@@ -25,14 +25,15 @@ class SentryTree extends Tree {
   /// [LogLevel.error], and [LogLevel.fatal] if there is a [error]
   /// then it's sent using `captureEvent`, otherwise, with `addBreadcrumb`.
   SentryTree({List<LogLevel>? logLevels})
-      : _logLevels = logLevels ??
-            [
-              LogLevel.info,
-              LogLevel.warning,
-              LogLevel.error,
-              LogLevel.fatal,
-            ],
-        assert(logLevels?.isNotEmpty ?? true, 'must have at least one level');
+    : _logLevels =
+          logLevels ??
+          [
+            LogLevel.info,
+            LogLevel.warning,
+            LogLevel.error,
+            LogLevel.fatal,
+          ],
+      assert(logLevels?.isNotEmpty ?? true, 'must have at least one level');
 
   @override
   void log(LogRecord logRecord) {

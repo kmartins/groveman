@@ -37,8 +37,9 @@ class StackTraceUtil {
   @visibleForTesting
   String? getInfo(String trace) {
     final indexOfFileName = trace.indexOf(_dartFileRegex);
-    final fileInfo =
-        indexOfFileName > -1 ? trace.substring(indexOfFileName) : null;
+    final fileInfo = indexOfFileName > -1
+        ? trace.substring(indexOfFileName)
+        : null;
     final listOfInfos = fileInfo?.split(':') ?? List.empty();
 
     if (listOfInfos.isNotEmpty) {

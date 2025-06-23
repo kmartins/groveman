@@ -24,10 +24,10 @@ extension LogLevelExtension on LogLevel {
 extension LogRecordExtension on LogRecord {
   /// Converts from [LogRecord] to [Breadcrumb].
   Breadcrumb get toBreadcrumb => Breadcrumb(
-        level: level.toSentryLevel,
-        message: message,
-        data: extra,
-      );
+    level: level.toSentryLevel,
+    message: message,
+    data: extra,
+  );
 
   /// Converts from [LogRecord] to [SentryEvent].
   SentryEvent get toEvent {

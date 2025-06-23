@@ -1,5 +1,8 @@
 include: package:lint/analysis_options_package.yaml
 
+formatter:
+  trailing_commas: preserve
+
 linter:
   rules:
     prefer_single_quotes: true
