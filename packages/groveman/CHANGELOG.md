@@ -1,3 +1,8 @@
+## 1.2.5
+
+ - **BUILD**: Update Flutter version.
+ - **BUILD**: Update dependencies to the latest release.
+  
 ## 1.2.4
 
  - **BUILD**: Update Flutter version.

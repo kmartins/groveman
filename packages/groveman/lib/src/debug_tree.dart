@@ -7,11 +7,24 @@ import 'package:groveman/src/log_record.dart';
 import 'package:groveman/src/util/ansi_color.dart';
 import 'package:groveman/src/util/stack_trace_util.dart';
 
+/// A [Tree] that logs to the console.
+///
+/// It's a simple logger that prints the log message to the console.
+/// It's useful for debugging purposes.
 class DebugTree extends Tree {
+  /// Whether to show the emoji in the log message.
   final bool showEmoji;
+
+  /// Whether to show the color in the log message.
   final bool showColor;
+
+  /// Whether to show the tag in the log message.
   final bool showTag;
+
+  /// The number of methods to show in the stack trace.
   final int methodCount;
+
+  /// The number of methods to show in the stack trace for errors.
   final int errorMethodCount;
 
   final _defaultAnsiColor = AnsiColor();
@@ -44,6 +57,7 @@ class DebugTree extends Tree {
     LogLevel.fatal: AnsiColor(foregroundColor: 199),
   };
 
+  /// Creates a new [DebugTree].
   DebugTree({
     this.showEmoji = false,
     this.showColor = false,
@@ -61,6 +75,7 @@ class DebugTree extends Tree {
     );
   }
 
+  /// Formats the log message.
   String formattedLogMessage(
     LogRecord logRecord, {
     String? Function()? ifTagIsNull,
@@ -82,6 +97,7 @@ class DebugTree extends Tree {
     );
   }
 
+  /// Formats the log prefix.
   String formattedLogPrefix(LogLevel level) {
     return showEmoji
         ? _levelPrefixes[level] ?? _defaultPrefix
@@ -100,6 +116,7 @@ class DebugTree extends Tree {
     return null;
   }
 
+  /// Whether the log level is an error.
   bool isError(LogLevel logLevel) =>
       logLevel.index == LogLevel.error.index ||
       logLevel.index == LogLevel.fatal.index;

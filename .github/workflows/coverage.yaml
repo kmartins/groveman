@@ -25,9 +25,9 @@ jobs:
           - groveman_sentry
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
-      - uses: subosito/flutter-action@v1.5.3
+      - uses: subosito/flutter-action@v2
 
       - name: Install Dependencies
         run: |
@@ -38,7 +38,7 @@ jobs:
         run: ../../scripts/coverage.sh
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           directory: packages/${{ matrix.flag }}/coverage
           flags: ${{ matrix.flag }}
@@ -58,9 +58,9 @@ jobs:
           - groveman_crashlytics
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
-      - uses: subosito/flutter-action@v1.5.3
+      - uses: subosito/flutter-action@v2
 
       - name: Install Dependencies
         run: flutter pub get
@@ -69,7 +69,7 @@ jobs:
         run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           directory: packages/${{ matrix.flag }}/coverage
           flags: ${{ matrix.flag }}
