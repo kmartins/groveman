@@ -17,6 +17,7 @@ class SentryTree extends Tree {
   final List<LogLevel> _logLevels;
   Hub _hub = HubAdapter();
 
+  /// Sets a mock [Hub] for testing purposes.
   @visibleForTesting
   // ignore: use_setters_to_change_properties
   void setMockHub(Hub mockHub) => _hub = mockHub;

@@ -6,9 +6,11 @@ import 'package:groveman/src/noop_handle_isolate_impl.dart'
     if (dart.library.io) 'package:groveman/src/handle_isolate_impl.dart';
 import 'package:meta/meta.dart';
 
+/// A logging facade.
 // ignore: non_constant_identifier_names
 final Groveman = _Groveman();
 
+/// A function that handles an error from an isolate.
 typedef HandleIsolateError = void Function(
   dynamic error,
 );
@@ -17,10 +19,12 @@ class _Groveman {
   final Map<String, Tree> _trees = {};
   HandleIsolate _handleIsolate = HandleIsolateImpl();
 
+  /// Plants a tree.
   void plantTree(Tree tree) {
     _trees[tree.toString()] = tree;
   }
 
+  /// Captures an error in the current isolate.
   void captureErrorInCurrentIsolate({
     LogLevel logLevel = LogLevel.fatal,
     String tag = 'isolate',
@@ -31,6 +35,7 @@ class _Groveman {
     );
   }
 
+  /// Captures an error in a zone.
   R? captureErrorInZone<R>(
     R Function() body, {
     Map<Object?, Object?>? zoneValues,
@@ -48,6 +53,7 @@ class _Groveman {
         zoneSpecification: zoneSpecification,
       );
 
+  /// Logs a message at the [LogLevel.debug] level.
   void debug(
     String message, {
     String? tag,
@@ -57,6 +63,7 @@ class _Groveman {
   }) =>
       _log(LogLevel.debug, tag, message, extra, error, stackTrace);
 
+  /// Logs a message at the [LogLevel.info] level.
   void info(
     String message, {
     String? tag,
@@ -66,6 +73,7 @@ class _Groveman {
   }) =>
       _log(LogLevel.info, tag, message, extra, error, stackTrace);
 
+  /// Logs a message at the [LogLevel.warning] level.
   void warning(
     String message, {
     String? tag,
@@ -75,6 +83,7 @@ class _Groveman {
   }) =>
       _log(LogLevel.warning, tag, message, extra, error, stackTrace);
 
+  /// Logs a message at the [LogLevel.error] level.
   void error(
     String message, {
     String? tag,
@@ -84,6 +93,7 @@ class _Groveman {
   }) =>
       _log(LogLevel.error, tag, message, extra, error, stackTrace);
 
+  /// Logs a message at the [LogLevel.fatal] level.
   void fatal(
     String message, {
     String? tag,
@@ -139,10 +149,14 @@ class _Groveman {
   void clearAll() => _trees.clear();
 }
 
+/// A tree is a destination for log messages.
 abstract class Tree {
+  /// Logs a [LogRecord].
   void log(LogRecord logRecord);
 }
 
+/// A handle to an isolate.
 abstract class HandleIsolate {
+  /// Handles an error from an isolate.
   void handleError(HandleIsolateError handleIsolateError);
 }
