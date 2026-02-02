@@ -46,7 +46,7 @@ void main() {
         'given all fields, '
         'when UserIdentifier is created, '
         'then all fields should be stored correctly', () {
-      final geo = UserGeoIdentifier(
+      const geo = UserGeoIdentifier(
         city: 'New York',
         countryCode: 'US',
         region: 'NY',
@@ -88,7 +88,7 @@ void main() {
         'given all fields, '
         'when UserGeoIdentifier is created, '
         'then all fields should be stored correctly', () {
-      final geo = UserGeoIdentifier(
+      const geo = UserGeoIdentifier(
         city: 'New York',
         countryCode: 'US',
         region: 'NY',
@@ -103,7 +103,7 @@ void main() {
         'given no fields, '
         'when UserGeoIdentifier is created, '
         'then all fields should be null', () {
-      final geo = UserGeoIdentifier();
+      const geo = UserGeoIdentifier();
 
       expect(geo.city, isNull);
       expect(geo.countryCode, isNull);
