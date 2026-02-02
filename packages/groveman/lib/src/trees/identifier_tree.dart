@@ -39,7 +39,7 @@ mixin IdentifierTree<User extends UserIdentifier> on Tree {
 
 /// Describes the current user associated with the application, such as the
 /// currently signed in user.
-final class UserIdentifier {
+class UserIdentifier {
   /// You should provide at least one of [id], [email], [ipAddress], [username]
   UserIdentifier({
     this.id,
@@ -56,22 +56,22 @@ final class UserIdentifier {
         data = data == null ? null : Map.from(data);
 
   /// A unique identifier of the user.
-  String? id;
+  final String? id;
 
   /// The username of the user.
-  String? username;
+  final String? username;
 
   /// The email address of the user.
-  String? email;
+  final String? email;
 
   /// The IP of the user.
-  String? ipAddress;
+  final String? ipAddress;
 
   /// Any other user context information that may be helpful.
   ///
   /// These keys are stored as extra information but not specifically processed
   /// by Sentry.
-  Map<String, dynamic>? data;
+  final Map<String, dynamic>? data;
 
   /// Approximate geographical location of the end user or device.
   ///
@@ -79,16 +79,16 @@ final class UserIdentifier {
   /// Sentry however doesn't collect the [ipAddress] automatically because it is PII.
   /// The geo location will currently not be synced to the native layer, if available.
   // See https://github.com/getsentry/sentry-dart/issues/1065
-  UserGeoIdentifier? geo;
+  final UserGeoIdentifier? geo;
 
   /// Human readable name of the user.
-  String? name;
+  final String? name;
 }
 
 /// Geographical location of the end user or device.
 final class UserGeoIdentifier {
   /// Geographical location of the end user or device.
-  UserGeoIdentifier({this.city, this.countryCode, this.region});
+  const UserGeoIdentifier({this.city, this.countryCode, this.region});
 
   /// Human readable city name.
   final String? city;
