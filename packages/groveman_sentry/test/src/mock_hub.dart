@@ -135,18 +135,6 @@ class MockHub implements Hub {
   void generateNewTrace() {}
 
   @override
-  Map<Type, List<Function>> get lifecycleCallbacks =>
-      throw UnimplementedError();
-
-  @override
-  void registerSdkLifecycleCallback<T extends SdkLifecycleEvent>(
-      SdkLifecycleCallback<T> callback) {}
-
-  @override
-  void removeSdkLifecycleCallback<T extends SdkLifecycleEvent>(
-      SdkLifecycleCallback<T> callback) {}
-
-  @override
   Future<SentryId> captureException(dynamic throwable,
       {Object? stackTrace,
       Hint? hint,
