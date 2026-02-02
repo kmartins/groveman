@@ -135,18 +135,6 @@ class MockHub implements Hub {
   void generateNewTrace() {}
 
   @override
-  Map<Type, List<Function>> get lifecycleCallbacks =>
-      throw UnimplementedError();
-
-  @override
-  void registerSdkLifecycleCallback<T extends SdkLifecycleEvent>(
-      SdkLifecycleCallback<T> callback) {}
-
-  @override
-  void removeSdkLifecycleCallback<T extends SdkLifecycleEvent>(
-      SdkLifecycleCallback<T> callback) {}
-
-  @override
   Future<SentryId> captureException(dynamic throwable,
       {Object? stackTrace,
       Hint? hint,
@@ -158,6 +146,16 @@ class MockHub implements Hub {
   @override
   Future<SentryId> captureTransaction(SentryTransaction transaction,
       {SentryTraceContextHeader? traceContext, Hint? hint}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  void removeAttribute(String key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  void setAttributes(Map<String, SentryAttribute> attributes) {
     throw UnimplementedError();
   }
 }
