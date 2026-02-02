@@ -30,6 +30,8 @@ For define severity of a logging. The level is set to one of five values, which 
 - info 
 - debug
 
+If you want to pass more context and user data, see [Identifier Tree](#identifier-tree).
+
 ## Usage
 
 Add it in your `pubspec.yaml`:
@@ -133,6 +135,49 @@ Groveman.plantTree(DebugTree(showColor: true));
 
 There is a problem with the show of the stack trace in flutter web, you can see here https://github.com/flutter/flutter/issues/79176
 
+## Identifier Tree
+
+This mixin is used to provide user identification and context data to the trees.
+
+Currently, it's used by `CrashlyticsTree` and `SentryTree`.
+
+### Usage
+
+```dart
+// Sets the user identifier
+Groveman.setUserIdentifier(
+  UserIdentifier(
+    id: '1',
+    email: 'groveman@example.com',
+    username: 'groveman',
+    name: 'Groveman',
+  ),
+);
+
+// Sets the context and tags
+Groveman.setIdentifiers(
+  context: {
+    'key': 'value',
+  },
+  tags: {
+    'tag': 'value',
+  },
+);
+
+// Clears the user identifier
+Groveman.clearUserIdentifier();
+
+// Clears specific identifiers
+Groveman.clearIdentifiers(
+  contextKeys: ['key'],
+  tagKeys: ['tag'],
+);
+
+// Clears all identifiers
+// If isReset is true, resets to the default state, clearing the user identifier too.
+Groveman.clearAllIdentifiers(isReset: true);
+```
+
 ## Others officially supported Trees
 
 - [groveman_crashlytics](https://pub.dev/packages/groveman_crashlytics)
@@ -158,5 +203,5 @@ You liked this package? Then give it a ⭐️. If you want to help then:
 
 ## 📝 License
 
-Copyright © 2025 [Kauê Martins](https://github.com/kmartins).<br />
+Copyright © 2026 [Kauê Martins](https://github.com/kmartins).<br />
 This project is [MIT](https://opensource.org/licenses/MIT) licensed.

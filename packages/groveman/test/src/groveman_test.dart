@@ -15,13 +15,14 @@ void callError() => Groveman.error('error');
 
 void callFatal() => Groveman.fatal('fatal');
 
-class AssertTree extends Tree {
+class AssertTree extends Tree with IdentifierTree {
   String? message;
   String? tag;
   LogLevel? level;
   Map<String, dynamic>? extra;
   Object? error;
   StackTrace? stackTrace;
+  UserIdentifier? userIdentifier;
 
   @override
   void log(LogRecord logRecord) {
@@ -31,6 +32,37 @@ class AssertTree extends Tree {
     extra = logRecord.extra;
     error = logRecord.error;
     stackTrace = logRecord.stackTrace;
+  }
+
+  @override
+  void clearUser() => userIdentifier = null;
+
+  @override
+  void setUser(UserIdentifier userIdentifier) =>
+      this.userIdentifier = userIdentifier;
+
+  @override
+  void setIdentifiers(
+      {Map<String, dynamic> context = const {},
+      Map<String, Object> tags = const {}}) {
+    this.tags.addAll(tags);
+    this.context.addAll(context);
+  }
+
+  @override
+  void clearAll({bool isReset = false}) {
+    tags.clear();
+    context.clear();
+    if (isReset) {
+      userIdentifier = null;
+    }
+  }
+
+  @override
+  void clearIdentifiers(
+      {List<String> contextKeys = const [], List<String> tagKeys = const []}) {
+    tagKeys.forEach(tags.remove);
+    contextKeys.forEach(context.remove);
   }
 }
 
@@ -198,6 +230,87 @@ void main() {
       Groveman.info(message);
       expect(assertTree.message, isNull);
       expect(assertTree2.message, message);
+    });
+
+    test(
+        'given a planted tree, when user identifier is updated or cleared, '
+        'then the tree should reflect those changes', () {
+      final assertTree = AssertTree();
+      Groveman.plantTree(assertTree);
+
+      Groveman.setUserIdentifier(UserIdentifier(id: '123456'));
+      expect(assertTree.userIdentifier?.id, '123456');
+      Groveman.setUserIdentifier(UserIdentifier(id: '1'));
+      expect(assertTree.userIdentifier?.id, '1');
+      Groveman.clearUserIdentifier();
+      expect(assertTree.userIdentifier, isNull);
+    });
+
+    test(
+        'given a planted tree, '
+        'when setIdentifiers is called, '
+        'then the tree should have the context and tags', () {
+      final assertTree = AssertTree();
+      Groveman.plantTree(assertTree);
+
+      const context = {'key': 'value'};
+      const tags = {'tag': 'value'};
+      Groveman.setIdentifiers(context: context, tags: tags);
+
+      expect(assertTree.context, context);
+      expect(assertTree.tags, tags);
+    });
+
+    test(
+        'given a planted tree with identifiers, '
+        'when clearIdentifiers is called, '
+        'then the tree should have the identifiers cleared', () {
+      final assertTree = AssertTree();
+      Groveman.plantTree(assertTree);
+
+      Groveman.setIdentifiers(
+        context: {'key1': 'value1', 'key2': 'value2'},
+        tags: {'tag1': 'value1', 'tag2': 'value2'},
+      );
+      Groveman.clearIdentifiers(contextKeys: ['key1'], tagKeys: ['tag1']);
+
+      expect(assertTree.context, {'key2': 'value2'});
+      expect(assertTree.tags, {'tag2': 'value2'});
+    });
+
+    test(
+        'given a planted tree with identifiers, '
+        'when clearAllIdentifiers is called with isReset as false, '
+        'then the tree should have the identifiers cleared but not the user',
+        () {
+      final assertTree = AssertTree();
+      Groveman.plantTree(assertTree);
+
+      Groveman.setUserIdentifier(UserIdentifier(id: '123456'));
+      Groveman.setIdentifiers(
+          context: {'key': 'value'}, tags: {'tag': 'value'});
+      Groveman.clearAllIdentifiers();
+
+      expect(assertTree.context, isEmpty);
+      expect(assertTree.tags, isEmpty);
+      expect(assertTree.userIdentifier, isNotNull);
+    });
+
+    test(
+        'given a planted tree with identifiers, '
+        'when clearAllIdentifiers is called with isReset as true, '
+        'then the tree should have all identifiers and user cleared', () {
+      final assertTree = AssertTree();
+      Groveman.plantTree(assertTree);
+
+      Groveman.setUserIdentifier(UserIdentifier(id: '123456'));
+      Groveman.setIdentifiers(
+          context: {'key': 'value'}, tags: {'tag': 'value'});
+      Groveman.clearAllIdentifiers(isReset: true);
+
+      expect(assertTree.context, isEmpty);
+      expect(assertTree.tags, isEmpty);
+      expect(assertTree.userIdentifier, isNull);
     });
 
     test(

@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:groveman/src/log_level.dart';
-import 'package:groveman/src/log_record.dart';
+import 'package:groveman/groveman.dart';
 import 'package:groveman/src/noop_handle_isolate_impl.dart'
     if (dart.library.io) 'package:groveman/src/handle_isolate_impl.dart';
 import 'package:meta/meta.dart';
@@ -15,13 +14,17 @@ typedef HandleIsolateError = void Function(
   dynamic error,
 );
 
-class _Groveman {
+final class _Groveman {
   final Map<String, Tree> _trees = {};
+  final Map<String, IdentifierTree> _identifierTree = {};
   HandleIsolate _handleIsolate = HandleIsolateImpl();
 
   /// Plants a tree.
   void plantTree(Tree tree) {
     _trees[tree.toString()] = tree;
+    if (tree is IdentifierTree) {
+      _identifierTree[tree.toString()] = tree;
+    }
   }
 
   /// Captures an error in the current isolate.
@@ -122,6 +125,49 @@ class _Groveman {
           stackTrace: stackTrace,
         ),
       );
+    }
+  }
+
+  /// Sets the user identifier for all planted trees that support it.
+  void setUserIdentifier(UserIdentifier userIdentifier) {
+    for (final tree in _identifierTree.values) {
+      tree.setUser(userIdentifier);
+    }
+  }
+
+  /// Clears the user identifier for all planted trees that support it.
+  void clearUserIdentifier() {
+    for (final tree in _identifierTree.values) {
+      tree.clearUser();
+    }
+  }
+
+  /// Sets identifiers (context and tags) for all planted trees that support it.
+  void setIdentifiers({
+    Map<String, dynamic> context = const {},
+    Map<String, Object> tags = const {},
+  }) {
+    for (final tree in _identifierTree.values) {
+      tree.setIdentifiers(context: context, tags: tags);
+    }
+  }
+
+  /// Clears specific identifiers for all planted trees that support it.
+  void clearIdentifiers({
+    List<String> contextKeys = const [],
+    List<String> tagKeys = const [],
+  }) {
+    for (final tree in _identifierTree.values) {
+      tree.clearIdentifiers(contextKeys: contextKeys, tagKeys: tagKeys);
+    }
+  }
+
+  /// Clears all identifiers for all planted trees that support it.
+  ///
+  /// If [isReset] is true, resets to the default state.
+  void clearAllIdentifiers({bool isReset = false}) {
+    for (final tree in _identifierTree.values) {
+      tree.clearAll(isReset: isReset);
     }
   }
 
