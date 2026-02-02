@@ -15,7 +15,7 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  lint: ^2.3.0
+  lint: ^2.8.0
 
 flutter:
   uses-material-design: true

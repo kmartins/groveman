@@ -16,15 +16,15 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  firebase_crashlytics: ^5.0.1
+  firebase_crashlytics: ^5.0.7
   flutter:
     sdk: flutter
   groveman: ^1.2.5
 
 dev_dependencies:
-  firebase_core: ^4.1.0
-  firebase_core_platform_interface: ^6.0.0
-  firebase_crashlytics_platform_interface: ^3.8.12
+  firebase_core: ^4.4.0
+  firebase_core_platform_interface: ^6.0.2
+  firebase_crashlytics_platform_interface: ^3.8.17
   flutter_test:
     sdk: flutter
   lint: ^2.8.0

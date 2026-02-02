@@ -160,6 +160,16 @@ class MockHub implements Hub {
       {SentryTraceContextHeader? traceContext, Hint? hint}) {
     throw UnimplementedError();
   }
+
+  @override
+  void removeAttribute(String key) {
+    throw UnimplementedError();
+  }
+
+  @override
+  void setAttributes(Map<String, SentryAttribute> attributes) {
+    throw UnimplementedError();
+  }
 }
 
 class AddBreadcrumbCall {
