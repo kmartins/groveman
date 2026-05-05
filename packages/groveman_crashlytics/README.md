@@ -74,9 +74,60 @@ Groveman.plantTree(
 );
 ```
 
+## Identifier Tree
+
+`CrashlyticsTree` implements the `IdentifierTree` mixin, which allows you to enrich your Crashlytics reports with user and custom key data. See [Customize crash reports][crashlytics_customize] for more details.
+
+### Set user
+
+```dart
+Groveman.setUserIdentifier(
+  UserIdentifier(
+    id: '1',
+    email: 'user@example.com',
+    username: 'username',
+    name: 'User Name',
+  ),
+);
+```
+
+The first non-null value among `id`, `email`, `username`, and `name` is passed to [`setUserIdentifier`][crashlytics_set_user].
+
+### Set custom keys (tags)
+
+```dart
+Groveman.setIdentifiers(
+  tags: {
+    'environment': 'production',
+    'version': '1.1.0',
+  },
+);
+```
+
+Tags are set as Crashlytics custom keys via [`setCustomKey`][crashlytics_custom_keys].
+
+> **Note:** Crashlytics does not support context — only `tags` are applied.
+
+### Clear identifiers
+
+Crashlytics does not support removing user identifiers or custom keys directly — clearing sets them to an empty string, as described in the [documentation][crashlytics_customize].
+
+```dart
+// Clears the user
+Groveman.clearUserIdentifier();
+
+// Clears specific tag keys
+Groveman.clearIdentifiers(
+  tagKeys: ['environment'],
+);
+
+// Clears all user and custom keys
+Groveman.clearAllIdentifiers();
+```
+
 ## 📝 License
 
-Copyright © 2025 [Kauê Martins](github) </br>
+Copyright © 2026 [Kauê Martins](github) </br>
 This project is [MIT](license_link) licensed
 
 [groveman_crashlytics_badge]: https://img.shields.io/pub/v/groveman_crashlytics.svg
@@ -94,4 +145,7 @@ This project is [MIT](license_link) licensed
 [firebase_crahslytics_doc]: https://firebase.flutter.dev/docs/crashlytics/overview
 [record_error]: https://firebase.flutter.dev/docs/crashlytics/usage#fatal-crash
 [log]: https://firebase.flutter.dev/docs/crashlytics/usage#add-custom-log-messages
+[crashlytics_customize]: https://firebase.flutter.dev/docs/crashlytics/usage
+[crashlytics_set_user]: https://firebase.flutter.dev/docs/crashlytics/usage#set-user-identifiers
+[crashlytics_custom_keys]: https://firebase.flutter.dev/docs/crashlytics/usage#add-custom-keys
 [github]: https://github.com/kmartins

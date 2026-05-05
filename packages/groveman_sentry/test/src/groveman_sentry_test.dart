@@ -341,5 +341,145 @@ void main() {
         expect(() => SentryTree(logLevels: []), throwsA(isA<AssertionError>()));
       });
     });
+
+    group('IdentifierTree', () {
+      late SentryTree sentryTree;
+
+      setUp(() {
+        sentryTree = SentryTree()..setMockHub(mockHub);
+        Groveman.plantTree(sentryTree);
+      });
+
+      tearDown(() {
+        Groveman.clearAll();
+        mockHub.mockScope.clear();
+      });
+
+      test(
+          'given a user identifier, '
+          'when setUserIdentifier is called, '
+          'then the user is sent to Sentry scope', () {
+        final user = UserIdentifier(
+          id: '123',
+          username: 'groveman',
+          email: 'groveman@example.com',
+          ipAddress: '127.0.0.1',
+          name: 'Groveman',
+          data: {'key': 'value'},
+          geo: const UserGeoIdentifier(
+            city: 'New York',
+            countryCode: 'US',
+            region: 'NY',
+          ),
+        );
+
+        Groveman.setUserIdentifier(user);
+
+        final sentryUser = mockHub.mockScope.user;
+        expect(sentryUser?.id, user.id);
+        expect(sentryUser?.username, user.username);
+        expect(sentryUser?.email, user.email);
+        expect(sentryUser?.ipAddress, user.ipAddress);
+        expect(sentryUser?.name, user.name);
+        expect(sentryUser?.data, user.data);
+        expect(sentryUser?.geo?.city, user.geo?.city);
+        expect(sentryUser?.geo?.countryCode, user.geo?.countryCode);
+        expect(sentryUser?.geo?.region, user.geo?.region);
+      });
+
+      test(
+          'given a previously set user, '
+          'when clearUserIdentifier is called, '
+          'then the user is removed from Sentry scope', () {
+        Groveman.setUserIdentifier(UserIdentifier(id: '123'));
+        expect(mockHub.mockScope.user, isNotNull);
+
+        Groveman.clearUserIdentifier();
+        expect(mockHub.mockScope.user, isNull);
+      });
+
+      test(
+          'given custom context and tags, '
+          'when setIdentifiers is called, '
+          'then they are added to Sentry scope', () {
+        const context = {'key': 'value'};
+        const tags = {'tag': 'value'};
+
+        sentryTree.setIdentifiers(context: context, tags: tags);
+
+        expect(sentryTree.context, context);
+        expect(sentryTree.tags, tags);
+        expect(mockHub.mockScope.context, context);
+        expect(mockHub.mockScope.tags, tags);
+      });
+
+      test(
+          'given tags with non-primitive values, '
+          'when setIdentifiers is called, '
+          'then an AssertionError is thrown', () {
+        expect(
+          () => sentryTree.setIdentifiers(tags: {'tag': <String>[]}),
+          throwsA(isA<AssertionError>()),
+        );
+      });
+
+      test(
+          'given existing context and tags, '
+          'when clearIdentifiers is called with specific keys, '
+          'then only those keys are removed from Sentry scope', () {
+        sentryTree.setIdentifiers(
+          context: {'key1': 'value1', 'key2': 'value2'},
+          tags: {'tag1': 'value1', 'tag2': 'value2'},
+        );
+        final clearContext = {'key2': 'value2'};
+        final clearTags = {'tag2': 'value2'};
+
+        sentryTree.clearIdentifiers(
+          contextKeys: ['key1'],
+          tagKeys: ['tag1'],
+        );
+
+        expect(sentryTree.context, clearContext);
+        expect(sentryTree.tags, clearTags);
+        expect(mockHub.mockScope.context, clearContext);
+        expect(mockHub.mockScope.tags, clearTags);
+      });
+
+      test(
+          'given existing identifiers, '
+          'when clearAll is called with isReset as false, '
+          'then only tags and context are removed from Sentry scope', () {
+        sentryTree.setIdentifiers(
+          context: {'key': 'value'},
+          tags: {'tag': 'value'},
+        );
+
+        sentryTree.clearAll();
+
+        expect(sentryTree.context, isEmpty);
+        expect(sentryTree.tags, isEmpty);
+        expect(mockHub.mockScope.context, isEmpty);
+        expect(mockHub.mockScope.tags, isEmpty);
+      });
+
+      test(
+          'given existing identifiers, '
+          'when clearAll is called with isReset as true, '
+          'then all data including user is removed from Sentry scope', () {
+        sentryTree.setUser(UserIdentifier(id: '123'));
+        sentryTree.setIdentifiers(
+          context: {'key': 'value'},
+          tags: {'tag': 'value'},
+        );
+
+        sentryTree.clearAll();
+
+        expect(sentryTree.context, isEmpty);
+        expect(sentryTree.tags, isEmpty);
+        expect(mockHub.mockScope.user, isNull);
+        expect(mockHub.mockScope.context, isEmpty);
+        expect(mockHub.mockScope.tags, isEmpty);
+      });
+    });
   });
 }

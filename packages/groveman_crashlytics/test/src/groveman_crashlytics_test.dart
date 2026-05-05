@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:groveman/groveman.dart';
 import 'package:groveman_crashlytics/groveman_crashlytics.dart';
@@ -161,6 +162,137 @@ void main() {
         'when none log level is passed '
         'then the result is an assert error', () {
       expect(() => CrashlyticsTree(logLevels: []), throwsAssertionError);
+    });
+  });
+
+  group('IdentifierTree', () {
+    late CrashlyticsTree crashlyticsTree;
+
+    setUp(() {
+      crashlyticsTree = CrashlyticsTree();
+      Groveman.plantTree(crashlyticsTree);
+    });
+
+    tearDown(() {
+      Groveman.clearAll();
+      methodCallLog.clear();
+    });
+
+    test(
+        'given a user identifier, '
+        'when setUserIdentifier is called, '
+        'then the user is sent to Crashlytics', () {
+      final user = UserIdentifier(id: '123');
+
+      Groveman.setUserIdentifier(user);
+
+      expect(
+        methodCallLog,
+        contains(
+          isMethodCall(
+            'Crashlytics#setUserIdentifier',
+            arguments: {'identifier': '123'},
+          ),
+        ),
+      );
+    });
+
+    test(
+        'given a previously set user, '
+        'when clearUserIdentifier is called, '
+        'then the user is cleared in Crashlytics', () {
+      Groveman.clearUserIdentifier();
+      expect(
+        methodCallLog,
+        contains(
+          isMethodCall(
+            'Crashlytics#setUserIdentifier',
+            arguments: {'identifier': ''},
+          ),
+        ),
+      );
+    });
+
+    test(
+        'given custom context and tags, '
+        'when setIdentifiers is called, '
+        'then tags are sent to Crashlytics as custom keys', () {
+      const tags = {'tag': 'value', 'number': 1};
+
+      crashlyticsTree.setIdentifiers(tags: tags);
+      expect(crashlyticsTree.context, isEmpty);
+      expect(crashlyticsTree.tags, tags);
+      expect(methodCallLog, <Matcher>[
+        isA<MethodCall>()
+            .having((c) => c.method, 'method', 'Crashlytics#setCustomKey')
+            .having(
+                (c) => c.arguments,
+                'arguments',
+                allOf(containsPair('key', 'tag'),
+                    containsPair('value', 'value'))),
+        isA<MethodCall>()
+            .having((c) => c.method, 'method', 'Crashlytics#setCustomKey')
+            .having(
+                (c) => c.arguments,
+                'arguments',
+                allOf(
+                    containsPair('key', 'number'), containsPair('value', '1'))),
+      ]);
+    });
+
+    test(
+        'given existing identifiers, '
+        'when clearIdentifiers is called with context keys, '
+        'then those keys are cleared in Crashlytics', () {
+      crashlyticsTree
+          .setIdentifiers(context: {'key1': 'value1', 'key2': 'value2'});
+      crashlyticsTree.clearIdentifiers(contextKeys: ['key1']);
+      expect(crashlyticsTree.context, isEmpty);
+      expect(crashlyticsTree.tags, isEmpty);
+      expect(methodCallLog, isEmpty);
+    });
+
+    test(
+        'given existing identifiers, '
+        'when clearIdentifiers is called with tag keys, '
+        'then those keys are cleared in Crashlytics', () {
+      crashlyticsTree.setIdentifiers(tags: {'key1': 'value1'});
+      crashlyticsTree.clearIdentifiers(tagKeys: ['key1']);
+      expect(crashlyticsTree.context, isEmpty);
+      expect(crashlyticsTree.tags, isEmpty);
+      expect(methodCallLog, <Matcher>[
+        isMethodCall(
+          'Crashlytics#setCustomKey',
+          arguments: {'key': 'key1', 'value': 'value1'},
+        ),
+        isMethodCall(
+          'Crashlytics#setCustomKey',
+          arguments: {'key': 'key1', 'value': ''},
+        ),
+      ]);
+    });
+
+    test(
+        'given existing identifiers, '
+        'when clearAll is called, '
+        'then user is cleared and all tags are cleared in Crashlytics', () {
+      crashlyticsTree.setIdentifiers(tags: {'tag': 'value'});
+      methodCallLog.clear();
+
+      crashlyticsTree.clearAll();
+
+      expect(crashlyticsTree.context, isEmpty);
+      expect(crashlyticsTree.tags, isEmpty);
+      expect(methodCallLog, <Matcher>[
+        isMethodCall(
+          'Crashlytics#setUserIdentifier',
+          arguments: {'identifier': ''},
+        ),
+        isMethodCall(
+          'Crashlytics#setCustomKey',
+          arguments: {'key': 'tag', 'value': ''},
+        ),
+      ]);
     });
   });
 }
