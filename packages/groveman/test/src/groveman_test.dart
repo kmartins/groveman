@@ -42,11 +42,12 @@ class AssertTree extends Tree with IdentifierTree {
       this.userIdentifier = userIdentifier;
 
   @override
-  void setIdentifiers(
-      {Map<String, dynamic> context = const {},
-      Map<String, Object> tags = const {}}) {
-    this.tags.addAll(tags);
-    this.context.addAll(context);
+  void setIdentifiers({
+    Map<String, dynamic>? context,
+    Map<String, Object>? tags,
+  }) {
+    this.tags.addAll(tags ?? {});
+    this.context.addAll(context ?? {});
   }
 
   @override
@@ -57,10 +58,12 @@ class AssertTree extends Tree with IdentifierTree {
   }
 
   @override
-  void clearIdentifiers(
-      {List<String> contextKeys = const [], List<String> tagKeys = const []}) {
-    tagKeys.forEach(tags.remove);
-    contextKeys.forEach(context.remove);
+  void clearIdentifiers({
+    List<String>? contextKeys,
+    List<String>? tagKeys,
+  }) {
+    tagKeys?.forEach(tags.remove);
+    contextKeys?.forEach(context.remove);
   }
 }
 
@@ -242,26 +245,6 @@ void main() {
       expect(assertTree.userIdentifier?.id, '1');
       Groveman.clearUserIdentifier();
       expect(assertTree.userIdentifier, isNull);
-    });
-
-    test(
-        'given an empty context and tags, '
-        'when setIdentifiers is called, '
-        'then an AssertionError is thrown', () {
-      expect(
-        () => Groveman.setIdentifiers(),
-        throwsA(isA<AssertionError>()),
-      );
-    });
-
-    test(
-        'given empty contextKeys and tagKeys, '
-        'when clearIdentifiers is called, '
-        'then an AssertionError is thrown', () {
-      expect(
-        () => Groveman.clearIdentifiers(),
-        throwsA(isA<AssertionError>()),
-      );
     });
 
     test(

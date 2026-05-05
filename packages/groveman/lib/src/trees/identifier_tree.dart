@@ -18,8 +18,8 @@ mixin IdentifierTree<User extends UserIdentifier> on Tree {
 
   /// Sets custom context and tags.
   void setIdentifiers({
-    Map<String, dynamic> context = const {},
-    Map<String, Object> tags = const {},
+    Map<String, dynamic>? context,
+    Map<String, Object>? tags,
   });
 
   /// Clears the current user.
@@ -27,8 +27,8 @@ mixin IdentifierTree<User extends UserIdentifier> on Tree {
 
   /// Clears specific context and tag keys.
   void clearIdentifiers({
-    List<String> contextKeys = const [],
-    List<String> tagKeys = const [],
+    List<String>? contextKeys,
+    List<String>? tagKeys,
   });
 
   /// Clears all user and identification data.

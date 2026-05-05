@@ -147,14 +147,9 @@ final class _Groveman {
 
   /// Sets identifiers (context and tags) for all planted trees that support it.
   void setIdentifiers({
-    Map<String, dynamic> context = const {},
-    Map<String, Object> tags = const {},
+    Map<String, dynamic>? context,
+    Map<String, Object>? tags,
   }) {
-    assert(
-      context.isNotEmpty || tags.isNotEmpty,
-      'At least one of context or tags must be provided',
-    );
-
     for (final tree in _identifierTree.values) {
       tree.setIdentifiers(context: context, tags: tags);
     }
@@ -162,14 +157,9 @@ final class _Groveman {
 
   /// Clears specific identifiers for all planted trees that support it.
   void clearIdentifiers({
-    List<String> contextKeys = const [],
-    List<String> tagKeys = const [],
+    List<String>? contextKeys,
+    List<String>? tagKeys,
   }) {
-    assert(
-      contextKeys.isNotEmpty || tagKeys.isNotEmpty,
-      'At least one of contextKeys or tagKeys must be provided',
-    );
-
     for (final tree in _identifierTree.values) {
       tree.clearIdentifiers(contextKeys: contextKeys, tagKeys: tagKeys);
     }
