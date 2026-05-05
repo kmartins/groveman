@@ -1,3 +1,9 @@
+## 1.3.0
+
+ - **FEAT**: add identifier tree (#67).
+ - **REFACTOR**: extract tree class to its own file and fix circular imports (#68).
+ - **BUILD**: update dependencies to the latest release (#66).
+
 ## 1.2.5
 
  - **BUILD**: Update Flutter version.
