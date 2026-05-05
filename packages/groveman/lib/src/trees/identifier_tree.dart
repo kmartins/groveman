@@ -1,4 +1,4 @@
-import 'package:groveman/groveman.dart';
+import 'package:groveman/src/trees/tree.dart';
 import 'package:meta/meta.dart';
 
 /// A mixin for [Tree] that provides user identification and context data.

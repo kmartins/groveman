@@ -50,12 +50,10 @@ class AssertTree extends Tree with IdentifierTree {
   }
 
   @override
-  void clearAll({bool isReset = false}) {
+  void clearAll() {
     tags.clear();
     context.clear();
-    if (isReset) {
-      userIdentifier = null;
-    }
+    userIdentifier = null;
   }
 
   @override
@@ -293,7 +291,7 @@ void main() {
 
       expect(assertTree.context, isEmpty);
       expect(assertTree.tags, isEmpty);
-      expect(assertTree.userIdentifier, isNotNull);
+      expect(assertTree.userIdentifier, isNull);
     });
 
     test(
