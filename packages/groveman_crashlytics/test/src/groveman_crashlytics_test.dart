@@ -198,6 +198,63 @@ void main() {
     });
 
     test(
+        'given a user identifier with only email, '
+        'when setUserIdentifier is called, '
+        'then the email is sent to Crashlytics', () {
+      final user = UserIdentifier(email: 'test@email.com');
+
+      Groveman.setUserIdentifier(user);
+
+      expect(
+        methodCallLog,
+        contains(
+          isMethodCall(
+            'Crashlytics#setUserIdentifier',
+            arguments: {'identifier': 'test@email.com'},
+          ),
+        ),
+      );
+    });
+
+    test(
+        'given a user identifier with only username, '
+        'when setUserIdentifier is called, '
+        'then the username is sent to Crashlytics', () {
+      final user = UserIdentifier(username: 'testuser');
+
+      Groveman.setUserIdentifier(user);
+
+      expect(
+        methodCallLog,
+        contains(
+          isMethodCall(
+            'Crashlytics#setUserIdentifier',
+            arguments: {'identifier': 'testuser'},
+          ),
+        ),
+      );
+    });
+
+    test(
+        'given a user identifier with only name, '
+        'when setUserIdentifier is called, '
+        'then the name is sent to Crashlytics', () {
+      final user = UserIdentifier(name: 'Test User');
+
+      Groveman.setUserIdentifier(user);
+
+      expect(
+        methodCallLog,
+        contains(
+          isMethodCall(
+            'Crashlytics#setUserIdentifier',
+            arguments: {'identifier': 'Test User'},
+          ),
+        ),
+      );
+    });
+
+    test(
         'given a previously set user, '
         'when clearUserIdentifier is called, '
         'then the user is cleared in Crashlytics', () {
