@@ -306,7 +306,7 @@ void main() {
       Groveman.setUserIdentifier(UserIdentifier(id: '123456'));
       Groveman.setIdentifiers(
           context: {'key': 'value'}, tags: {'tag': 'value'});
-      Groveman.clearAllIdentifiers(isReset: true);
+      Groveman.clearAllIdentifiers();
 
       expect(assertTree.context, isEmpty);
       expect(assertTree.tags, isEmpty);
