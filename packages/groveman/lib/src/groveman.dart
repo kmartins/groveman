@@ -163,7 +163,7 @@ final class _Groveman {
   }
 
   /// Clears all identifiers for all planted trees that support it.
-  void clearAllIdentifiers({bool isReset = false}) {
+  void clearAllIdentifiers() {
     for (final tree in _identifierTree.values) {
       tree.clearAll();
     }
