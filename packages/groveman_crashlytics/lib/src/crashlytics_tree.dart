@@ -48,7 +48,6 @@ class CrashlyticsTree extends Tree with IdentifierTree {
         userIdentifier.id ??
             userIdentifier.email ??
             userIdentifier.username ??
-            userIdentifier.name ??
             '',
       );
 
