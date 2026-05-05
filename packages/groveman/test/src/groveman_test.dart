@@ -50,12 +50,10 @@ class AssertTree extends Tree with IdentifierTree {
   }
 
   @override
-  void clearAll({bool isReset = false}) {
+  void clearAll() {
     tags.clear();
     context.clear();
-    if (isReset) {
-      userIdentifier = null;
-    }
+    userIdentifier = null;
   }
 
   @override
@@ -293,7 +291,7 @@ void main() {
 
       expect(assertTree.context, isEmpty);
       expect(assertTree.tags, isEmpty);
-      expect(assertTree.userIdentifier, isNotNull);
+      expect(assertTree.userIdentifier, isNull);
     });
 
     test(
@@ -306,7 +304,7 @@ void main() {
       Groveman.setUserIdentifier(UserIdentifier(id: '123456'));
       Groveman.setIdentifiers(
           context: {'key': 'value'}, tags: {'tag': 'value'});
-      Groveman.clearAllIdentifiers(isReset: true);
+      Groveman.clearAllIdentifiers();
 
       expect(assertTree.context, isEmpty);
       expect(assertTree.tags, isEmpty);

@@ -1,8 +1,11 @@
 import 'dart:async';
 
-import 'package:groveman/groveman.dart';
+import 'package:groveman/src/log_level.dart';
+import 'package:groveman/src/log_record.dart';
 import 'package:groveman/src/noop_handle_isolate_impl.dart'
     if (dart.library.io) 'package:groveman/src/handle_isolate_impl.dart';
+import 'package:groveman/src/trees/identifier_tree.dart';
+import 'package:groveman/src/trees/tree.dart';
 import 'package:meta/meta.dart';
 
 /// A logging facade.
@@ -163,11 +166,9 @@ final class _Groveman {
   }
 
   /// Clears all identifiers for all planted trees that support it.
-  ///
-  /// If [isReset] is true, resets to the default state.
-  void clearAllIdentifiers({bool isReset = false}) {
+  void clearAllIdentifiers() {
     for (final tree in _identifierTree.values) {
-      tree.clearAll(isReset: isReset);
+      tree.clearAll();
     }
   }
 
@@ -193,12 +194,6 @@ final class _Groveman {
 
   @visibleForTesting
   void clearAll() => _trees.clear();
-}
-
-/// A tree is a destination for log messages.
-abstract class Tree {
-  /// Logs a [LogRecord].
-  void log(LogRecord logRecord);
 }
 
 /// A handle to an isolate.

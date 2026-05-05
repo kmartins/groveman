@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
-import 'package:groveman/src/groveman.dart';
 import 'package:groveman/src/log_level.dart';
 import 'package:groveman/src/log_record.dart';
+import 'package:groveman/src/trees/tree.dart';
 import 'package:groveman/src/util/ansi_color.dart';
 import 'package:groveman/src/util/stack_trace_util.dart';
 
