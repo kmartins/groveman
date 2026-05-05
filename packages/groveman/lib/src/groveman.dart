@@ -150,6 +150,11 @@ final class _Groveman {
     Map<String, dynamic> context = const {},
     Map<String, Object> tags = const {},
   }) {
+    assert(
+      context.isNotEmpty || tags.isNotEmpty,
+      'At least one of context or tags must be provided',
+    );
+
     for (final tree in _identifierTree.values) {
       tree.setIdentifiers(context: context, tags: tags);
     }
@@ -160,6 +165,11 @@ final class _Groveman {
     List<String> contextKeys = const [],
     List<String> tagKeys = const [],
   }) {
+    assert(
+      contextKeys.isNotEmpty || tagKeys.isNotEmpty,
+      'At least one of contextKeys or tagKeys must be provided',
+    );
+
     for (final tree in _identifierTree.values) {
       tree.clearIdentifiers(contextKeys: contextKeys, tagKeys: tagKeys);
     }

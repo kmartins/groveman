@@ -245,6 +245,26 @@ void main() {
     });
 
     test(
+        'given an empty context and tags, '
+        'when setIdentifiers is called, '
+        'then an AssertionError is thrown', () {
+      expect(
+        () => Groveman.setIdentifiers(),
+        throwsA(isA<AssertionError>()),
+      );
+    });
+
+    test(
+        'given empty contextKeys and tagKeys, '
+        'when clearIdentifiers is called, '
+        'then an AssertionError is thrown', () {
+      expect(
+        () => Groveman.clearIdentifiers(),
+        throwsA(isA<AssertionError>()),
+      );
+    });
+
+    test(
         'given a planted tree, '
         'when setIdentifiers is called, '
         'then the tree should have the context and tags', () {
