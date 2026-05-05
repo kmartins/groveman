@@ -66,9 +66,6 @@ class UserIdentifier {
   final String? ipAddress;
 
   /// Any other user context information that may be helpful.
-  ///
-  /// These keys are stored as extra information but not specifically processed
-  /// by Sentry.
   final Map<String, dynamic>? data;
 
   /// Approximate geographical location of the end user or device.
