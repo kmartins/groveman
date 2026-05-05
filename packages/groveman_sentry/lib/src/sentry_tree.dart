@@ -87,8 +87,14 @@ class SentryTree extends Tree with IdentifierTree {
       context?.forEach(scope.setContexts);
       tags?.forEach((key, value) => scope.setTag(key, value.toString()));
     });
-    this.tags.addAll(tags ?? {});
-    this.context.addAll(context ?? {});
+
+    if (tags case final tags?) {
+      this.tags.addAll(tags);
+    }
+
+    if (context case final context?) {
+      this.context.addAll(context);
+    }
   }
 
   @override

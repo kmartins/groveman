@@ -1,1 +1,1 @@
-export 'src/groveman_sentry.dart';
+export 'src/sentry_tree.dart';

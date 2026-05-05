@@ -57,8 +57,10 @@ class CrashlyticsTree extends Tree with IdentifierTree {
     Map<String, dynamic>? context,
     Map<String, Object>? tags,
   }) {
-    this.tags.addAll(tags ?? {});
-    this.tags.forEach(_crashlytics.setCustomKey);
+    if (tags case final tags?) {
+      tags.forEach(_crashlytics.setCustomKey);
+      this.tags.addAll(tags);
+    }
   }
 
   @override
