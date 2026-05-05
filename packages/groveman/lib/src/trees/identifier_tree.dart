@@ -32,9 +32,7 @@ mixin IdentifierTree<User extends UserIdentifier> on Tree {
   });
 
   /// Clears all user and identification data.
-  ///
-  /// If [isReset] is true, resets to the default state.
-  void clearAll({bool isReset = false});
+  void clearAll();
 }
 
 /// Describes the current user associated with the application, such as the
@@ -74,11 +72,6 @@ class UserIdentifier {
   final Map<String, dynamic>? data;
 
   /// Approximate geographical location of the end user or device.
-  ///
-  /// The geolocation is automatically inferred by Sentry.io if the [ipAddress] is set.
-  /// Sentry however doesn't collect the [ipAddress] automatically because it is PII.
-  /// The geo location will currently not be synced to the native layer, if available.
-  // See https://github.com/getsentry/sentry-dart/issues/1065
   final UserGeoIdentifier? geo;
 
   /// Human readable name of the user.

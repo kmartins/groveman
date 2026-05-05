@@ -174,8 +174,7 @@ Groveman.clearIdentifiers(
 );
 
 // Clears all identifiers
-// If isReset is true, resets to the default state, clearing the user identifier too.
-Groveman.clearAllIdentifiers(isReset: true);
+Groveman.clearAllIdentifiers();
 ```
 
 ## Others officially supported Trees

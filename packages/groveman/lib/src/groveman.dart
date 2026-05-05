@@ -163,11 +163,9 @@ final class _Groveman {
   }
 
   /// Clears all identifiers for all planted trees that support it.
-  ///
-  /// If [isReset] is true, resets to the default state.
   void clearAllIdentifiers({bool isReset = false}) {
     for (final tree in _identifierTree.values) {
-      tree.clearAll(isReset: isReset);
+      tree.clearAll();
     }
   }
 
