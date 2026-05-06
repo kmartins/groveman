@@ -3,5 +3,4 @@ include: package:lint/analysis_options_package.yaml
 linter:
   rules:
     prefer_single_quotes: true
-    prefer_relative_imports: true
     public_member_api_docs: true

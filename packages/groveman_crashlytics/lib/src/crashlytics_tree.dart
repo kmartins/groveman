@@ -2,7 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:groveman/groveman.dart';
 
 /// [Tree] that sends your logs to the Crashlytics.
-class CrashlyticsTree extends Tree {
+class CrashlyticsTree extends Tree with IdentifierTree {
   /// Instance of the Crashlytics.
   late final _crashlytics = FirebaseCrashlytics.instance;
 
@@ -38,5 +38,45 @@ class CrashlyticsTree extends Tree {
         _crashlytics.log(logRecord.message);
       }
     }
+  }
+
+  @override
+  void clearUser() => _crashlytics.setUserIdentifier('');
+
+  @override
+  void setUser(UserIdentifier userIdentifier) => _crashlytics.setUserIdentifier(
+        userIdentifier.id ??
+            userIdentifier.email ??
+            userIdentifier.username ??
+            '',
+      );
+
+  @override
+  void setIdentifiers({
+    Map<String, dynamic>? context,
+    Map<String, Object>? tags,
+  }) {
+    if (tags case final tags?) {
+      tags.forEach(_crashlytics.setCustomKey);
+      this.tags.addAll(tags);
+    }
+  }
+
+  @override
+  void clearIdentifiers({
+    List<String>? contextKeys,
+    List<String>? tagKeys,
+  }) {
+    for (final key in tagKeys ?? <String>[]) {
+      _crashlytics.setCustomKey(key, '');
+    }
+    tagKeys?.forEach(tags.remove);
+  }
+
+  @override
+  void clearAll() {
+    _crashlytics.setUserIdentifier('');
+    tags.forEach((key, _) => _crashlytics.setCustomKey(key, ''));
+    tags.clear();
   }
 }

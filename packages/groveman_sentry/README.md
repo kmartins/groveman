@@ -95,9 +95,74 @@ Groveman.plantTree(
 );
 ```
 
+## Identifier Tree
+
+`SentryTree` implements the `IdentifierTree` mixin, which allows you to enrich your Sentry events with user and context data via the [Sentry scope][sentry_scopes].
+
+### Set user
+
+```dart
+Groveman.setUserIdentifier(
+  UserIdentifier(
+    id: '1',
+    email: 'user@example.com',
+    username: 'username',
+    name: 'User Name',
+    ipAddress: '127.0.0.1',
+    geo: UserGeoIdentifier(
+      city: 'São Paulo',
+      countryCode: 'BR',
+      region: 'SP',
+    ),
+    data: {'key': 'value'},
+  ),
+);
+```
+
+All fields are mapped directly to the [SentryUser][sentry_user].
+
+### Set context and tags
+
+```dart
+Groveman.setIdentifiers(
+  context: {
+    'device': {'model': 'Pixel 9'},
+  },
+  tags: {
+    'environment': 'production',
+  },
+);
+```
+
+Context is set via `setContexts` and tags via `setTag` on the Sentry scope.
+
+See the Sentry documentation for more details:
+- [Context][sentry_context]
+- [Tags][sentry_tags]
+
+> **Note:** Sentry tags only support primitive values (`int`, `num`, `String`, `bool`).
+
+### Clear identifiers
+
+Use these methods to remove identification data from the Sentry scope.
+
+```dart
+// Removes the current user from the Sentry scope
+Groveman.clearUserIdentifier();
+
+// Removes specific context and tag keys from the Sentry scope
+Groveman.clearIdentifiers(
+  contextKeys: ['device'],
+  tagKeys: ['environment'],
+);
+
+// Removes all user, context and tags from the Sentry scope
+Groveman.clearAllIdentifiers();
+```
+
 ## 📝 License
 
-Copyright © 2025 [Kauê Martins](github) </br>
+Copyright © 2026 [Kauê Martins](github) </br>
 This project is [MIT](license_link) licensed
 
 [groveman_sentry_badge]: https://img.shields.io/pub/v/groveman_sentry.svg
@@ -113,4 +178,8 @@ This project is [MIT](license_link) licensed
 [sentry_dart]: https://pub.dev/packages/sentry
 [sentry_flutter]: https://pub.dev/packages/sentry_flutter
 [add_breadcrumb]: https://docs.sentry.io/platforms/flutter/enriching-events/breadcrumbs/
+[sentry_user]: https://docs.sentry.io/platforms/flutter/enriching-events/identify-user/
+[sentry_context]: https://docs.sentry.io/platforms/flutter/enriching-events/context/
+[sentry_tags]: https://docs.sentry.io/platforms/flutter/enriching-events/tags/
+[sentry_scopes]: https://docs.sentry.io/platforms/flutter/enriching-events/scopes/
 [github]: https://github.com/kmartins

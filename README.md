@@ -55,5 +55,5 @@ The scope available are:
 
 ## 📝 License
 
-Copyright © 2025 [Kauê Martins](https://github.com/kmartins).<br />
+Copyright © 2026 [Kauê Martins](https://github.com/kmartins).<br />
 This project is [MIT](https://opensource.org/licenses/MIT) licensed.

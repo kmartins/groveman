@@ -1,3 +1,8 @@
+## 1.1.0
+
+ - **FEAT**: add `IdentifierTree` support to `CrashlyticsTree` with `setUser`, `clearUser`, `setIdentifiers`, `clearIdentifiers` and `clearAll`.
+ - **BUILD**: update dependencies to the latest release.
+
 ## 1.0.6
 
  - **BUILD**: Update Flutter version.

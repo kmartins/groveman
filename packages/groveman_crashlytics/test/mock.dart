@@ -91,6 +91,10 @@ void setupFirebaseCrashlyticsMocks([Callback? customHandlers]) {
         };
       case 'Crashlytics#recordError':
         return null;
+      case 'Crashlytics#setUserIdentifier':
+        return null;
+      case 'Crashlytics#setCustomKey':
+        return null;
       default:
         return false;
     }
