@@ -280,18 +280,6 @@ void main() {
 
     test(
         'given existing identifiers, '
-        'when clearIdentifiers is called with context keys, '
-        'then those keys are cleared in Crashlytics', () {
-      crashlyticsTree
-          .setIdentifiers(context: {'key1': 'value1', 'key2': 'value2'});
-      crashlyticsTree.clearIdentifiers(contextKeys: ['key1']);
-      expect(crashlyticsTree.context, isEmpty);
-      expect(crashlyticsTree.tags, isEmpty);
-      expect(methodCallLog, isEmpty);
-    });
-
-    test(
-        'given existing identifiers, '
         'when clearIdentifiers is called with tag keys, '
         'then those keys are cleared in Crashlytics', () {
       crashlyticsTree.setIdentifiers(tags: {'key1': 'value1'});

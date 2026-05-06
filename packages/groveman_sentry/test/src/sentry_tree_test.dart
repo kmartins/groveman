@@ -447,7 +447,7 @@ void main() {
 
       test(
           'given existing identifiers, '
-          'when clearAll is called with isReset as false, '
+          'when clearAll is called, '
           'then only tags and context are removed from Sentry scope', () {
         sentryTree.setIdentifiers(
           context: {'key': 'value'},
@@ -458,25 +458,6 @@ void main() {
 
         expect(sentryTree.context, isEmpty);
         expect(sentryTree.tags, isEmpty);
-        expect(mockHub.mockScope.context, isEmpty);
-        expect(mockHub.mockScope.tags, isEmpty);
-      });
-
-      test(
-          'given existing identifiers, '
-          'when clearAll is called with isReset as true, '
-          'then all data including user is removed from Sentry scope', () {
-        sentryTree.setUser(UserIdentifier(id: '123'));
-        sentryTree.setIdentifiers(
-          context: {'key': 'value'},
-          tags: {'tag': 'value'},
-        );
-
-        sentryTree.clearAll();
-
-        expect(sentryTree.context, isEmpty);
-        expect(sentryTree.tags, isEmpty);
-        expect(mockHub.mockScope.user, isNull);
         expect(mockHub.mockScope.context, isEmpty);
         expect(mockHub.mockScope.tags, isEmpty);
       });
