@@ -375,6 +375,37 @@ void main() {
     });
 
     test(
+        'given trees, interceptors, and identifiers added, '
+        'when clearAll is called, '
+        'then no tree receives logs, no interceptor runs, identifier '
+        'operations no longer reach the tree, and tree identifiers are cleared',
+        () {
+      final assertTree = AssertTree();
+      final interceptor = PassThroughInterceptor();
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(interceptor);
+      Groveman.setUserIdentifier(UserIdentifier(id: '123'));
+      Groveman.setIdentifiers(
+        context: {'key': 'value'},
+        tags: {'tag': 'value'},
+      );
+
+      Groveman.clearAll();
+
+      expect(assertTree.userIdentifier, isNull);
+      expect(assertTree.context, isEmpty);
+      expect(assertTree.tags, isEmpty);
+
+      Groveman.info(message);
+      expect(assertTree.message, isNull);
+      expect(interceptor.callCount, 0);
+
+      Groveman.setUserIdentifier(UserIdentifier(id: '456'));
+      expect(assertTree.userIdentifier, isNull);
+    });
+
+    test(
         'given an interceptor that passes through, '
         'when a log is called, '
         'then the tree receives the record', () {

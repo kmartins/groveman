@@ -213,7 +213,9 @@ final class _Groveman {
 
   @visibleForTesting
   void clearAll() {
+    clearAllIdentifiers();
     _trees.clear();
+    _identifierTree.clear();
     _interceptors.clear();
   }
 }
