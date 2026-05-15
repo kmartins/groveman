@@ -173,6 +173,20 @@ Groveman
   ..plantTree(CrashlyticsTree());
 ```
 
+### DelegatedGrovemanInterceptor
+
+Creates an interceptor inline from a function, without defining a class:
+
+```dart
+Groveman
+  ..addInterceptor(
+    DelegatedGrovemanInterceptor(
+      (record) => record.level.index >= LogLevel.warning.index ? record : null,
+    ),
+  )
+  ..plantTree(DebugTree());
+```
+
 ### Custom interceptors
 
 Create your own by implementing `GrovemanInterceptor`:
