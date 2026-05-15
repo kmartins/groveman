@@ -13,7 +13,7 @@ import 'package:groveman/src/log_record.dart';
 /// );
 /// ```
 final class LogLevelInterceptor implements GrovemanInterceptor {
-  /// The log allowedLevels allowed to pass through. Records with other allowedLevels are
+  /// The log levels allowed to pass through. Records with other levels are
   /// rejected.
   final List<LogLevel> allowedLevels;
 
