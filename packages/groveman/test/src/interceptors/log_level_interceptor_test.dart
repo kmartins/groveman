@@ -126,7 +126,11 @@ void main() {
         allowedLevels: [LogLevel.error, LogLevel.fatal],
       );
 
-      for (final level in const [LogLevel.debug, LogLevel.info, LogLevel.warning]) {
+      for (final level in const [
+        LogLevel.debug,
+        LogLevel.info,
+        LogLevel.warning
+      ]) {
         final record = LogRecord(level: level, message: message);
         expect(interceptor.intercept(record), isNull);
       }
