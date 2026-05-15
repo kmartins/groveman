@@ -49,9 +49,6 @@ import 'package:groveman/src/log_record.dart';
 /// }
 /// ```
 abstract interface class GrovemanInterceptor {
-  /// {@macro groveman.GrovemanInterceptor}
-  const GrovemanInterceptor();
-
   /// Intercepts a log record.
   ///
   /// Return the [record] unchanged to pass through, a modified copy to
