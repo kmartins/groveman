@@ -59,6 +59,5 @@ void main() {
       const debug = LogRecord(level: LogLevel.debug, message: 'dbg');
       expect(interceptor.intercept(debug), isNull);
     });
-
   });
 }
