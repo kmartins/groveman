@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:groveman/src/interceptors/groveman_interceptor.dart';
 import 'package:groveman/src/log_level.dart';
 import 'package:groveman/src/log_record.dart';
 import 'package:groveman/src/noop_handle_isolate_impl.dart'
@@ -20,6 +21,7 @@ typedef HandleIsolateError = void Function(
 final class _Groveman {
   final Map<String, Tree> _trees = {};
   final Map<String, IdentifierTree> _identifierTree = {};
+  final List<GrovemanInterceptor> _interceptors = [];
   HandleIsolate _handleIsolate = HandleIsolateImpl();
 
   /// Plants a tree.
@@ -28,6 +30,15 @@ final class _Groveman {
     if (tree is IdentifierTree) {
       _identifierTree[tree.toString()] = tree;
     }
+  }
+
+  /// Adds an interceptor to the chain.
+  ///
+  /// Interceptors are executed in the order they are added, before any tree
+  /// receives the log record. If an interceptor returns `null`, the chain
+  /// stops and no tree receives the record.
+  void addInterceptor(GrovemanInterceptor interceptor) {
+    _interceptors.add(interceptor);
   }
 
   /// Captures an error in the current isolate.
@@ -117,17 +128,25 @@ final class _Groveman {
     Object? error,
     StackTrace? stackTrace,
   ) {
+    LogRecord record = LogRecord(
+      level: logLevel,
+      message: message,
+      tag: tag,
+      extra: extra,
+      error: error,
+      stackTrace: stackTrace,
+    );
+
+    for (final interceptor in _interceptors) {
+      final interceptedRecord = interceptor.intercept(record);
+      if (interceptedRecord == null) {
+        return;
+      }
+      record = interceptedRecord;
+    }
+
     for (final tree in _trees.values) {
-      tree.log(
-        LogRecord(
-          level: logLevel,
-          message: message,
-          tag: tag,
-          extra: extra,
-          error: error,
-          stackTrace: stackTrace,
-        ),
-      );
+      tree.log(record);
     }
   }
 
@@ -193,7 +212,12 @@ final class _Groveman {
       _handleIsolate = handleIsolate;
 
   @visibleForTesting
-  void clearAll() => _trees.clear();
+  void clearAll() {
+    clearAllIdentifiers();
+    _trees.clear();
+    _identifierTree.clear();
+    _interceptors.clear();
+  }
 }
 
 /// A handle to an isolate.

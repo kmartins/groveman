@@ -135,6 +135,76 @@ Groveman.plantTree(DebugTree(showColor: true));
 
 There is a problem with the show of the stack trace in flutter web, you can see here https://github.com/flutter/flutter/issues/79176
 
+## Interceptors
+
+Interceptors sit between the log call and the trees, allowing you to inspect, transform, or discard log records before they are delivered.
+
+Interceptors are executed in the order they were added. Each interceptor receives the output of the previous one. If any interceptor returns `null`, the chain stops and no tree receives the record.
+
+Add an interceptor with `Groveman.addInterceptor`.
+
+```dart
+void main() {
+  Groveman
+    ..addInterceptor(MyInterceptor())
+    ..plantTree(DebugTree());
+}
+```
+
+### LogLevelInterceptor
+
+A built-in interceptor that filters records by log level.
+
+Use `LogLevelInterceptor(levels)` to pass a custom list of allowed levels:
+
+```dart
+Groveman
+  ..addInterceptor(
+    const LogLevelInterceptor([LogLevel.warning, LogLevel.error, LogLevel.fatal]),
+  )
+  ..plantTree(DebugTree());
+```
+
+Use `LogLevelInterceptor.reportable()` when integrating with error reporting tools (e.g. Crashlytics, Sentry). It allows `info`, `warning`, `error`, and `fatal`, discarding `debug` logs:
+
+```dart
+Groveman
+  ..addInterceptor(const LogLevelInterceptor.reportable())
+  ..plantTree(CrashlyticsTree());
+```
+
+### DelegatedGrovemanInterceptor
+
+Creates an interceptor inline from a function, without defining a class:
+
+```dart
+Groveman
+  ..addInterceptor(
+    DelegatedGrovemanInterceptor(
+      (record) => record.level.index >= LogLevel.warning.index ? record : null,
+    ),
+  )
+  ..plantTree(DebugTree());
+```
+
+### Custom interceptors
+
+Create your own by implementing `GrovemanInterceptor`:
+
+```dart
+/// Discards all records below [minLevel].
+class LevelFilterInterceptor implements GrovemanInterceptor {
+  final LogLevel minLevel;
+
+  const LevelFilterInterceptor(this.minLevel);
+
+  @override
+  LogRecord? intercept(LogRecord record) {
+    return record.level.index >= minLevel.index ? record : null;
+  }
+}
+```
+
 ## Identifier Tree
 
 This mixin is used to provide user identification and context data to the trees.

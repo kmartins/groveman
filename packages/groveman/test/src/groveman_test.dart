@@ -69,6 +69,37 @@ class AssertTree extends Tree with IdentifierTree {
 
 class SecondAssertTree extends AssertTree {}
 
+class PassThroughInterceptor implements GrovemanInterceptor {
+  int callCount = 0;
+
+  @override
+  LogRecord? intercept(LogRecord record) {
+    callCount++;
+    return record;
+  }
+}
+
+class RejectInterceptor implements GrovemanInterceptor {
+  @override
+  LogRecord? intercept(LogRecord record) => null;
+}
+
+class TransformInterceptor implements GrovemanInterceptor {
+  final String newMessage;
+
+  TransformInterceptor(this.newMessage);
+
+  @override
+  LogRecord? intercept(LogRecord record) => LogRecord(
+        level: record.level,
+        message: newMessage,
+        tag: record.tag,
+        extra: record.extra,
+        error: record.error,
+        stackTrace: record.stackTrace,
+      );
+}
+
 void main() {
   group('Groveman', () {
     const message = 'Welcome to the jungle';
@@ -341,6 +372,134 @@ void main() {
       Groveman.info(message);
       expect(assertTree.message, isNull);
       expect(secondAssertTree.message, isNull);
+    });
+
+    test(
+        'given trees, interceptors, and identifiers added, '
+        'when clearAll is called, '
+        'then no tree receives logs, no interceptor runs, identifier '
+        'operations no longer reach the tree, and tree identifiers are cleared',
+        () {
+      final assertTree = AssertTree();
+      final interceptor = PassThroughInterceptor();
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(interceptor);
+      Groveman.setUserIdentifier(UserIdentifier(id: '123'));
+      Groveman.setIdentifiers(
+        context: {'key': 'value'},
+        tags: {'tag': 'value'},
+      );
+
+      Groveman.clearAll();
+
+      expect(assertTree.userIdentifier, isNull);
+      expect(assertTree.context, isEmpty);
+      expect(assertTree.tags, isEmpty);
+
+      Groveman.info(message);
+      expect(assertTree.message, isNull);
+      expect(interceptor.callCount, 0);
+
+      Groveman.setUserIdentifier(UserIdentifier(id: '456'));
+      expect(assertTree.userIdentifier, isNull);
+    });
+
+    test(
+        'given an interceptor that passes through, '
+        'when a log is called, '
+        'then the tree receives the record', () {
+      final assertTree = AssertTree();
+      final interceptor = PassThroughInterceptor();
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(interceptor);
+
+      Groveman.info(message, tag: tag);
+      expect(assertTree.message, message);
+      expect(assertTree.tag, tag);
+      expect(interceptor.callCount, 1);
+    });
+
+    test(
+        'given an interceptor that rejects, '
+        'when a log is called, '
+        'then the tree is not notified', () {
+      final assertTree = AssertTree();
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(RejectInterceptor());
+
+      Groveman.info(message);
+      expect(assertTree.message, isNull);
+    });
+
+    test(
+        'given an interceptor that transforms the record, '
+        'when a log is called, '
+        'then the tree receives the transformed record', () {
+      final assertTree = AssertTree();
+      const transformedMessage = 'redacted';
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(TransformInterceptor(transformedMessage));
+
+      Groveman.info(message, tag: tag);
+      expect(assertTree.message, transformedMessage);
+      expect(assertTree.tag, tag);
+    });
+
+    test(
+        'given two interceptors in chain, '
+        'when a log is called, '
+        'then both interceptors are called in order', () {
+      final assertTree = AssertTree();
+      final first = PassThroughInterceptor();
+      final second = PassThroughInterceptor();
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(first)
+        ..addInterceptor(second);
+
+      Groveman.info(message);
+      expect(first.callCount, 1);
+      expect(second.callCount, 1);
+      expect(assertTree.message, message);
+    });
+
+    test(
+        'given two interceptors where the first rejects, '
+        'when a log is called, '
+        'then the second interceptor is not called and tree is not notified',
+        () {
+      final assertTree = AssertTree();
+      final second = PassThroughInterceptor();
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(RejectInterceptor())
+        ..addInterceptor(second);
+
+      Groveman.info(message);
+      expect(second.callCount, 0);
+      expect(assertTree.message, isNull);
+    });
+
+    test(
+        'given an interceptor added, '
+        'when clearAll is called, '
+        'then the interceptor is removed and logs pass through', () {
+      final assertTree = AssertTree();
+      Groveman
+        ..plantTree(assertTree)
+        ..addInterceptor(RejectInterceptor());
+
+      Groveman.info(message);
+      expect(assertTree.message, isNull);
+
+      Groveman.clearAll();
+      Groveman.plantTree(assertTree);
+      Groveman.info(message);
+      expect(assertTree.message, message);
     });
 
     test(
