@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 /// A log record represents an event being logged.
 @immutable
-class LogRecord {
+final class LogRecord {
   /// The log level.
   final LogLevel level;
 
@@ -68,8 +68,7 @@ class LogRecord {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      runtimeType == other.runtimeType &&
-          other is LogRecord &&
+      other is LogRecord &&
           level == other.level &&
           message == other.message &&
           tag == other.tag &&
