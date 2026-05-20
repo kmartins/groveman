@@ -7,8 +7,6 @@ import 'package:test/test.dart';
 
 class MockDebugTree extends Mock implements DebugTree {}
 
-class FakeLogRecord extends Fake implements LogRecord {}
-
 void main() {
   const tag = 'Test';
   const message = 'Jungle';
@@ -20,7 +18,8 @@ void main() {
 
   group('DebugTree', () {
     setUpAll(() {
-      registerFallbackValue(FakeLogRecord());
+      registerFallbackValue(
+          const LogRecord(level: LogLevel.fatal, message: ''));
     });
 
     test(
