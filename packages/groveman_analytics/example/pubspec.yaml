@@ -1,0 +1,21 @@
+name: groveman_analytics_example
+description: Example app for groveman_analytics.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  groveman_analytics:
+    path: ../
+
+dev_dependencies:
+  lint: ^2.8.0
+
+flutter:
+  uses-material-design: true

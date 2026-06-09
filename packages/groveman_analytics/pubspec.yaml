@@ -1,0 +1,21 @@
+name: groveman_analytics
+description: Analytics for Dart/Flutter applications, with the same concepts for tree and planting analytics tree as groveman for logging.
+version: 0.1.0
+homepage: https://github.com/kmartins/groveman
+repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics
+issue_tracker: https://github.com/kmartins/groveman/issues
+documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics
+topics:
+  - analytics
+  - tracker
+  - tracking
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  meta: ^1.17.0
+
+dev_dependencies:
+  lint: ^2.8.0
+  test: ^1.31.1
