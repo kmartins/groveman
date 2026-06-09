@@ -54,6 +54,34 @@ class AssertAnalyticsTree extends AnalyticsTree {
 
 class SecondAssertAnalyticsTree extends AssertAnalyticsTree {}
 
+class ThrowingAnalyticsTree extends AnalyticsTree {
+  @override
+  Future<void> track(AnalyticsEvent event) async =>
+      throw Exception('track failed');
+
+  @override
+  Future<void> identify(String userId,
+          {Map<String, dynamic>? properties}) async =>
+      throw Exception('identify failed');
+
+  @override
+  Future<void> setSuperProperties(Map<String, dynamic> properties) async =>
+      throw Exception('setSuperProperties failed');
+
+  @override
+  Future<void> clearSuperProperties() async =>
+      throw Exception('clearSuperProperties failed');
+
+  @override
+  Future<void> enable() async => throw Exception('enable failed');
+
+  @override
+  Future<void> disable() async => throw Exception('disable failed');
+
+  @override
+  Future<void> reset() async => throw Exception('reset failed');
+}
+
 void main() {
   group('GrovemanAnalytics', () {
     final event = ButtonClickedEvent('home');
@@ -192,6 +220,56 @@ void main() {
       await GrovemanAnalytics.disable();
       await GrovemanAnalytics.enable();
       expect(tree.isEnabled, isTrue);
+    });
+
+    group('given a throwing tree and a healthy tree planted', () {
+      late AssertAnalyticsTree healthyTree;
+
+      setUp(() {
+        healthyTree = AssertAnalyticsTree();
+        GrovemanAnalytics
+          ..plantTree(ThrowingAnalyticsTree())
+          ..plantTree(healthyTree);
+      });
+
+      test('when track is called, the healthy tree still receives the event',
+          () async {
+        await expectLater(
+          () => GrovemanAnalytics.track(event),
+          throwsException,
+        );
+        expect(healthyTree.lastEvent, event);
+      });
+
+      test(
+          'when identify is called, the healthy tree still identifies the user',
+          () async {
+        await expectLater(
+          () => GrovemanAnalytics.identify('user_123'),
+          throwsException,
+        );
+        expect(healthyTree.userId, 'user_123');
+      });
+
+      test(
+          'when setSuperProperties is called, '
+          'the healthy tree still receives the properties', () async {
+        await expectLater(
+          () => GrovemanAnalytics.setSuperProperties({'version': '1.0.0'}),
+          throwsException,
+        );
+        expect(healthyTree.superProperties, {'version': '1.0.0'});
+      });
+
+      test(
+          'when reset is called, '
+          'the healthy tree still resets', () async {
+        await expectLater(
+          () => GrovemanAnalytics.reset(),
+          throwsException,
+        );
+        expect(healthyTree.wasReset, isTrue);
+      });
     });
 
     test(

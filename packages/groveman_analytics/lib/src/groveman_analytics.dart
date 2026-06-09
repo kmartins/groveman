@@ -7,11 +7,11 @@ import 'package:meta/meta.dart';
 final GrovemanAnalytics = _GrovemanAnalytics();
 
 final class _GrovemanAnalytics {
-  final Map<String, AnalyticsTree> _trees = {};
+  final Map<Type, AnalyticsTree> _trees = {};
 
   /// Plants an analytics tree.
-  void plantTree(AnalyticsTree tree) {
-    _trees[tree.toString()] = tree;
+  void plantTree<T extends AnalyticsTree>(T tree) {
+    _trees[T] = tree;
   }
 
   /// Tracks an [AnalyticsEvent] across all planted trees.
@@ -21,7 +21,8 @@ final class _GrovemanAnalytics {
   /// Identifies the current user across all planted trees.
   Future<void> identify(String userId, {Map<String, dynamic>? properties}) =>
       Future.wait(
-        _trees.values.map((tree) => tree.identify(userId, properties: properties)),
+        _trees.values
+            .map((tree) => tree.identify(userId, properties: properties)),
       );
 
   /// Sets super properties across all planted trees.
