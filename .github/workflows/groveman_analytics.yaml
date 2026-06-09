@@ -1,0 +1,66 @@
+name: Groveman Analytics
+
+on:
+  pull_request:
+    paths:
+      - "scripts/**"
+      - "packages/groveman_analytics/**"
+      - ".github/workflows/groveman_analytics.yaml"
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: packages/groveman_analytics
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2
+
+      - name: Install Dependencies
+        run: |
+          dart pub get
+          dart pub global activate coverage
+
+      - name: Format
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings .
+
+      - name: Run Tests
+        run: ../../scripts/coverage.sh
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v3
+        with:
+          path: packages/groveman_analytics/coverage/lcov.info
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          directory: packages/groveman_analytics/coverage
+          flags: groveman_analytics
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  pana:
+    defaults:
+      run:
+        working-directory: packages/groveman_analytics
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2
+
+      - name: Install Dependencies
+        run: |
+          dart pub get
+          dart pub global activate pana
+
+      - name: Verify Pub Score
+        run: ../../scripts/verify_pub_score.sh

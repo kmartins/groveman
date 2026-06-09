@@ -27,6 +27,18 @@ Start with the base package [groveman](https://pub.dev/packages/groveman).
 You can create your, just extend the `Tree` class. 
 Take a look at the `DebugTree` code to know more.
 
+## Groveman Analytics
+
+Analytics for **Dart/Flutter** applications, following the same concepts of tree and planting as groveman.
+
+Start with the base package [groveman_analytics](https://pub.dev/packages/groveman_analytics).
+
+### Analytics trees officially supported
+
+- [groveman_analytics_mixpanel](https://pub.dev/packages/groveman_analytics_mixpanel)
+- [groveman_analytics_posthog](https://pub.dev/packages/groveman_analytics_posthog)
+- [groveman_analytics_firebase](https://pub.dev/packages/groveman_analytics_firebase)
+
 ### Who is using Groveman?
 
 The following projects are using Groveman:
@@ -52,6 +64,7 @@ The scope available are:
 - `groveman`
 - `groveman_crashlytics`
 - `groveman_sentry`
+- `groveman_analytics`
 
 ## 📝 License
 

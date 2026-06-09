@@ -29,3 +29,4 @@ jobs:
             groveman
             groveman_sentry
             groveman_crashlytics
+            groveman_analytics
