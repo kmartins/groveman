@@ -74,6 +74,8 @@ await GrovemanAnalytics.track(PurchaseCompletedEvent(99.9));
 
 Sets default parameters automatically included in every event logged to Firebase Analytics.
 
+> **Note:** `setSuperProperties()`, `clearSuperProperties()`, and `reset()` are not supported on web by Firebase Analytics and are no-ops on that platform.
+
 ```dart
 await GrovemanAnalytics.setSuperProperties({
   'app_version': '1.0.0',

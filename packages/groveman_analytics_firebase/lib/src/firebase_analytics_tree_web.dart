@@ -4,8 +4,6 @@ import 'package:groveman_analytics/groveman_analytics.dart';
 /// [AnalyticsTree] that sends events to Firebase Analytics.
 class FirebaseAnalyticsTree extends AnalyticsTree {
   /// Creates a [FirebaseAnalyticsTree].
-  ///
-  /// Uses [FirebaseAnalytics.instance] if no [analytics] is provided.
   FirebaseAnalyticsTree(this._firebaseAnalytics);
 
   final FirebaseAnalytics _firebaseAnalytics;

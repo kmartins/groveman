@@ -39,10 +39,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Groveman Analytics Firebase Example',
-      theme: ThemeData(primarySwatch: Colors.deepOrange),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
