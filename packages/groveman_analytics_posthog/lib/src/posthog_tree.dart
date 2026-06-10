@@ -26,8 +26,7 @@ class PostHogTree extends AnalyticsTree {
   @override
   Future<void> setSuperProperties(Map<String, Object> properties) async {
     await Future.wait(
-      properties.entries
-          .map((e) => _posthog.register(e.key, e.value)),
+      properties.entries.map((e) => _posthog.register(e.key, e.value)),
     );
     _superPropertyKeys.addAll(properties.keys);
   }
