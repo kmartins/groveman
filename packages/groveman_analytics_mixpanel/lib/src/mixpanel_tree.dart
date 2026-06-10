@@ -14,13 +14,13 @@ class MixpanelTree extends AnalyticsTree {
 
   @override
   Future<void> identify(String userId,
-      {Map<String, dynamic>? properties}) async {
+      {Map<String, Object>? properties}) async {
     await _mixpanel.identify(userId);
     properties?.forEach((key, value) => _mixpanel.getPeople().set(key, value));
   }
 
   @override
-  Future<void> setSuperProperties(Map<String, dynamic> properties) =>
+  Future<void> setSuperProperties(Map<String, Object> properties) =>
       _mixpanel.registerSuperProperties(properties);
 
   @override

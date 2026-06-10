@@ -10,7 +10,7 @@ class PurchaseEvent extends AnalyticsEvent {
   String get eventName => 'purchase_completed';
 
   @override
-  Map<String, dynamic> get properties => {'value': value};
+  Map<String, Object> get properties => {'value': value};
 }
 
 class SimpleEvent extends AnalyticsEvent {

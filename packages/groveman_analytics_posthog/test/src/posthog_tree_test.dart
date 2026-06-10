@@ -10,7 +10,7 @@ class _TestEvent extends AnalyticsEvent {
   String get eventName => 'test_event';
 
   @override
-  Map<String, dynamic>? get properties => {'screen': 'home'};
+  Map<String, Object>? get properties => {'screen': 'home'};
 }
 
 class _SimpleEvent extends AnalyticsEvent {
@@ -141,6 +141,23 @@ void main() {
       expect(
         methodCallLog,
         contains(isMethodCall('reset', arguments: null)),
+      );
+    });
+
+    test(
+        'given previously set super properties, '
+        'when reset is called, '
+        'then clears super properties so clearSuperProperties does nothing',
+        () async {
+      await tree.setSuperProperties({'app_version': '1.0.0'});
+      await tree.reset();
+      methodCallLog.clear();
+
+      await tree.clearSuperProperties();
+
+      expect(
+        methodCallLog,
+        isNot(contains(isMethodCall('unregister', arguments: anything))),
       );
     });
   });

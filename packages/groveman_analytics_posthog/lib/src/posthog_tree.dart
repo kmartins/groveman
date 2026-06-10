@@ -13,31 +13,28 @@ class PostHogTree extends AnalyticsTree {
   @override
   Future<void> track(AnalyticsEvent event) => _posthog.capture(
         eventName: event.eventName,
-        properties: event.properties
-            ?.map((key, value) => MapEntry(key, value as Object)),
+        properties: event.properties,
       );
 
   @override
-  Future<void> identify(String userId, {Map<String, dynamic>? properties}) =>
+  Future<void> identify(String userId, {Map<String, Object>? properties}) =>
       _posthog.identify(
         userId: userId,
-        userProperties:
-            properties?.map((key, value) => MapEntry(key, value as Object)),
+        userProperties: properties,
       );
 
   @override
-  Future<void> setSuperProperties(Map<String, dynamic> properties) async {
-    for (final entry in properties.entries) {
-      await _posthog.register(entry.key, entry.value as Object);
-      _superPropertyKeys.add(entry.key);
-    }
+  Future<void> setSuperProperties(Map<String, Object> properties) async {
+    await Future.wait(
+      properties.entries
+          .map((e) => _posthog.register(e.key, e.value)),
+    );
+    _superPropertyKeys.addAll(properties.keys);
   }
 
   @override
   Future<void> clearSuperProperties() async {
-    for (final key in _superPropertyKeys) {
-      await _posthog.unregister(key);
-    }
+    await Future.wait(_superPropertyKeys.map(_posthog.unregister));
     _superPropertyKeys.clear();
   }
 
@@ -48,5 +45,8 @@ class PostHogTree extends AnalyticsTree {
   Future<void> disable() => _posthog.disable();
 
   @override
-  Future<void> reset() => _posthog.reset();
+  Future<void> reset() async {
+    await _posthog.reset();
+    _superPropertyKeys.clear();
+  }
 }

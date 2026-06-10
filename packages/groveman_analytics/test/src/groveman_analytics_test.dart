@@ -10,29 +10,29 @@ class ButtonClickedEvent extends AnalyticsEvent {
   String get eventName => 'button_clicked';
 
   @override
-  Map<String, dynamic> get properties => {'screen': screen};
+  Map<String, Object> get properties => {'screen': screen};
 }
 
 class AssertAnalyticsTree extends AnalyticsTree {
   AnalyticsEvent? lastEvent;
   String? userId;
-  Map<String, dynamic>? userProperties;
+  Map<String, Object>? userProperties;
   bool wasReset = false;
   bool isEnabled = true;
-  Map<String, dynamic> superProperties = {};
+  Map<String, Object> superProperties = {};
 
   @override
   Future<void> track(AnalyticsEvent event) async => lastEvent = event;
 
   @override
   Future<void> identify(String userId,
-      {Map<String, dynamic>? properties}) async {
+      {Map<String, Object>? properties}) async {
     this.userId = userId;
     userProperties = properties;
   }
 
   @override
-  Future<void> setSuperProperties(Map<String, dynamic> properties) async =>
+  Future<void> setSuperProperties(Map<String, Object> properties) async =>
       superProperties.addAll(properties);
 
   @override
@@ -61,11 +61,11 @@ class ThrowingAnalyticsTree extends AnalyticsTree {
 
   @override
   Future<void> identify(String userId,
-          {Map<String, dynamic>? properties}) async =>
+          {Map<String, Object>? properties}) async =>
       throw Exception('identify failed');
 
   @override
-  Future<void> setSuperProperties(Map<String, dynamic> properties) async =>
+  Future<void> setSuperProperties(Map<String, Object> properties) async =>
       throw Exception('setSuperProperties failed');
 
   @override

@@ -12,13 +12,13 @@ class ButtonClickedEvent extends AnalyticsEvent {
   String get eventName => 'button_clicked';
 
   @override
-  Map<String, dynamic>? get properties => {'label': label};
+  Map<String, Object>? get properties => {'label': label};
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  const posthogApiKey = 'phc_wUcHVCWWoPHC5dMj8hdTg4pV49Y6Kmc5DD3dXr5DZRyH';
+  const posthogApiKey = 'YOUR_POSTHOG_API_KEY';
   final config = PostHogConfig(posthogApiKey);
   await Posthog().setup(config);
 
