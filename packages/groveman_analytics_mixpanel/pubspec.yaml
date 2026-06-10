@@ -1,0 +1,26 @@
+name: groveman_analytics_mixpanel
+description: Groveman analytics tree that sends events to Mixpanel.
+version: 0.1.0
+homepage: https://github.com/kmartins/groveman
+repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics_mixpanel
+issue_tracker: https://github.com/kmartins/groveman/issues
+documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics_mixpanel
+topics:
+  - analytics
+  - mixpanel
+  - tracking
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  groveman_analytics:
+    path: ../groveman_analytics
+  mixpanel_flutter: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^2.8.0

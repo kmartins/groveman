@@ -30,3 +30,4 @@ jobs:
             groveman_sentry
             groveman_crashlytics
             groveman_analytics
+            groveman_analytics_mixpanel
