@@ -1,0 +1,29 @@
+name: groveman_analytics_firebase
+description: Groveman analytics tree that sends events to Firebase Analytics.
+version: 0.1.0
+homepage: https://github.com/kmartins/groveman
+repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics_firebase
+issue_tracker: https://github.com/kmartins/groveman/issues
+documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics_firebase
+topics:
+  - analytics
+  - firebase
+  - tracking
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_analytics: ^12.0.0
+  groveman_analytics:
+    path: ../groveman_analytics
+
+dev_dependencies:
+  firebase_analytics_platform_interface: ^6.0.2
+  firebase_core: ^4.10.0
+  firebase_core_platform_interface: ^7.0.1
+  flutter_test:
+    sdk: flutter
+  lint: ^2.8.0
