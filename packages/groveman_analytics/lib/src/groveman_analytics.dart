@@ -19,14 +19,14 @@ final class _GrovemanAnalytics {
       Future.wait(_trees.values.map((tree) => tree.track(event)));
 
   /// Identifies the current user across all planted trees.
-  Future<void> identify(String userId, {Map<String, dynamic>? properties}) =>
+  Future<void> identify(String userId, {Map<String, Object>? properties}) =>
       Future.wait(
         _trees.values
             .map((tree) => tree.identify(userId, properties: properties)),
       );
 
   /// Sets super properties across all planted trees.
-  Future<void> setSuperProperties(Map<String, dynamic> properties) =>
+  Future<void> setSuperProperties(Map<String, Object> properties) =>
       Future.wait(
         _trees.values.map((tree) => tree.setSuperProperties(properties)),
       );

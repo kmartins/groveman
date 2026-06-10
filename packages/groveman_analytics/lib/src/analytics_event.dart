@@ -4,5 +4,5 @@ abstract class AnalyticsEvent {
   String get eventName;
 
   /// The properties associated with the event.
-  Map<String, dynamic>? get properties => null;
+  Map<String, Object>? get properties => null;
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groveman_analytics/groveman_analytics.dart';
-import 'package:groveman_analytics_mixpanel/groveman_analytics_mixpanel.dart';
-import 'package:mixpanel_flutter/mixpanel_flutter.dart';
-
-const mixpanelToken = String.fromEnvironment('MIXPANEL_TOKEN');
+import 'package:groveman_analytics_posthog/groveman_analytics_posthog.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 
 class ButtonClickedEvent extends AnalyticsEvent {
   ButtonClickedEvent(this.label);
@@ -20,13 +18,12 @@ class ButtonClickedEvent extends AnalyticsEvent {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final mixpanel = await Mixpanel.init(
-    mixpanelToken,
-    trackAutomaticEvents: true,
-  );
+  const posthogApiKey = 'YOUR_POSTHOG_API_KEY';
+  final config = PostHogConfig(posthogApiKey);
+  await Posthog().setup(config);
 
   GrovemanAnalytics
-    ..plantTree(MixpanelTree(mixpanel))
+    ..plantTree(PostHogTree(Posthog()))
     ..setSuperProperties({'app_version': '1.0.0'});
 
   runApp(const MyApp());
@@ -37,10 +34,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Groveman Analytics Mixpanel Example',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MyHomePage(),
+    return const MaterialApp(
+      title: 'Groveman Analytics PostHog Example',
+      home: MyHomePage(),
     );
   }
 }
@@ -51,7 +47,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mixpanel')),
+      appBar: AppBar(title: const Text('PostHog')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

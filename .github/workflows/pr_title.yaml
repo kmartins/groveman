@@ -31,3 +31,4 @@ jobs:
             groveman_crashlytics
             groveman_analytics
             groveman_analytics_mixpanel
+            groveman_analytics_posthog

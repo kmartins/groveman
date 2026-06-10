@@ -6,10 +6,10 @@ abstract class AnalyticsTree {
   Future<void> track(AnalyticsEvent event);
 
   /// Identifies the current user.
-  Future<void> identify(String userId, {Map<String, dynamic>? properties});
+  Future<void> identify(String userId, {Map<String, Object>? properties});
 
   /// Sets properties that are automatically attached to every event.
-  Future<void> setSuperProperties(Map<String, dynamic> properties);
+  Future<void> setSuperProperties(Map<String, Object> properties);
 
   /// Clears all super properties.
   Future<void> clearSuperProperties();

@@ -12,7 +12,7 @@ class ButtonClickedEvent extends AnalyticsEvent {
   String get eventName => 'button_clicked';
 
   @override
-  Map<String, dynamic>? get properties => {'label': label};
+  Map<String, Object>? get properties => {'label': label};
 }
 
 void main() {
