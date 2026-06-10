@@ -1,0 +1,26 @@
+name: groveman_analytics_posthog
+description: Groveman analytics tree that sends events to PostHog.
+version: 0.1.0
+homepage: https://github.com/kmartins/groveman
+repository: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics_posthog
+issue_tracker: https://github.com/kmartins/groveman/issues
+documentation: https://github.com/kmartins/groveman/tree/main/packages/groveman_analytics_posthog
+topics:
+  - analytics
+  - posthog
+  - tracking
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  groveman_analytics:
+    path: ../groveman_analytics
+  posthog_flutter: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^2.8.0
