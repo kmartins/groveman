@@ -21,6 +21,7 @@ const _firebaseOptions = FirebaseOptions(
   appId: String.fromEnvironment('FIREBASE_APP_ID'),
   messagingSenderId: String.fromEnvironment('FIREBASE_MESSAGING_SENDER_ID'),
   projectId: String.fromEnvironment('FIREBASE_PROJECT_ID'),
+  measurementId: String.fromEnvironment('FIREBASE_MEASUREMENT_ID'),
 );
 
 Future<void> main() async {

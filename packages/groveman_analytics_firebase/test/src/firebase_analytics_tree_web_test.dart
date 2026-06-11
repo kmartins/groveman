@@ -73,6 +73,16 @@ void main() {
     });
 
     test(
+        'when identify is called with properties, '
+        'the userId and user properties are set in Firebase Analytics',
+        () async {
+      await tree.identify('user_123', properties: {'plan': 'premium'});
+
+      expect(fakeApi.lastUserId, 'user_123');
+      expect(fakeApi.userProperties, {'plan': 'premium'});
+    });
+
+    test(
         'when enable is called, '
         'analytics collection is enabled in Firebase', () async {
       await tree.enable();
