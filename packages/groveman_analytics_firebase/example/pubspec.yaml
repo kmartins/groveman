@@ -1,0 +1,25 @@
+name: groveman_analytics_firebase_example
+description: Example app for groveman_analytics_firebase.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  firebase_analytics: ^12.0.0
+  firebase_core: ^4.10.0
+  flutter:
+    sdk: flutter
+  groveman_analytics:
+    path: ../../groveman_analytics
+  groveman_analytics_firebase:
+    path: ../
+
+dev_dependencies:
+  lint: ^2.8.0
+
+flutter:
+  uses-material-design: true

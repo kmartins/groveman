@@ -32,3 +32,4 @@ jobs:
             groveman_analytics
             groveman_analytics_mixpanel
             groveman_analytics_posthog
+            groveman_analytics_firebase
