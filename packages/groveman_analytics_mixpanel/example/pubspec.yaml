@@ -11,8 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  groveman_analytics:
-    path: ../../groveman_analytics
+  groveman_analytics: ^0.1.0
   groveman_analytics_mixpanel:
     path: ../
   mixpanel_flutter: ^2.0.0

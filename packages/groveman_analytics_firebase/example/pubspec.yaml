@@ -13,8 +13,7 @@ dependencies:
   firebase_core: ^4.10.0
   flutter:
     sdk: flutter
-  groveman_analytics:
-    path: ../../groveman_analytics
+  groveman_analytics: ^0.1.0
   groveman_analytics_firebase:
     path: ../
 
