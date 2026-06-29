@@ -14,11 +14,10 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  firebase_analytics: ^12.0.0
   flutter:
     sdk: flutter
-  firebase_analytics: ^12.0.0
-  groveman_analytics:
-    path: ../groveman_analytics
+  groveman_analytics: ^0.1.0
 
 dev_dependencies:
   firebase_analytics_platform_interface: ^6.0.2
