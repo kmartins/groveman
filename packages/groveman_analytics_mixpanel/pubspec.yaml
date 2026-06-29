@@ -17,7 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
   groveman_analytics: ^0.1.0
-  mixpanel_flutter: ^2.0.0
+  mixpanel_flutter: ^2.10.0
 
 dev_dependencies:
   flutter_test:
